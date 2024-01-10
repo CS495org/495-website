@@ -1,0 +1,34 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Test Docker Compose
+      run: |
+        docker compose up --build -d
+        sleep 20
+        
+        export VAL=$(curl localhost:443)
+        
+        if [ "$VAL" = "<h1>Hello, World!</h1>" ]; then
+          echo "Assertion passed: \$VAL is 'hello world'"
+          exit 0
+        else
+          echo "Assertion failed: \$VAL is not 'hello world'"
+          docker compose down
+          exit 1
+        fi
+
+        docker compose down
+        
