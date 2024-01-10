@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Compose CI
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
         # ^^ probably an excessively cautious startup time
 
         export PASS=0
-        export TEST_VAL=<h1>CS 495 Website</h1>
+        export TEST_VAL="<h1>CS 495 Website</h1>"
         
         export VAL=$(curl localhost:443)
         
