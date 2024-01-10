@@ -1,7 +1,3 @@
-cd cs495_website
+sudo docker compose up --build
 
-sudo docker build -t website .
-
-sudo docker run -p 8000:8000 website
-
-http://localhost:8000/
+http://localhost:443/
