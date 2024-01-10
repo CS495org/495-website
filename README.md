@@ -13,6 +13,10 @@ http://localhost:443/
 **Not** HTTPS
 
 
+To test JSONReponse/Database:
+
+```curl localhost:443/db_test_endpt/```
+
 
 Tech stack:
 
@@ -23,3 +27,5 @@ Server: Gunicorn
 Reverse proxy: NGINX
 
 Containerization: Docker/Docker compose
+
+Database: Postgres
