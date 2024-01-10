@@ -17,14 +17,14 @@ jobs:
     - name: Test Docker Compose
       run: |
         docker compose up --build -d
-        sleep 20
+        sleep 10
         # ^^ probably an excessively cautious startup time
-        
+
+        export TEST_VAL="<h1>Hello, World!</h1> <h1>CS 495 Website</h1>"
         export VAL=$(curl localhost:443)
         
-        if [ "$VAL" = "<h1>Hello, World!</h1>" ]; then
+        if [ "$VAL" = "$TEST_VAL" ]; then
           echo "Assertion passed: \$VAL is 'hello world'"
-          exit 0
         else
           echo "Assertion failed: \$VAL is not 'hello world'"
           echo "val: "
@@ -34,4 +34,5 @@ jobs:
         fi
 
         docker compose down
+        exit 0
         
