@@ -20,19 +20,20 @@ jobs:
         sleep 10
         # ^^ probably an excessively cautious startup time
 
-        export TEST_VAL="<h1>Hello, World!</h1> <h1>CS 495 Website</h1>"
+        export PASS=0
+        export TEST_VAL=<h1>CS 495 Website</h1>
+        
         export VAL=$(curl localhost:443)
         
-        if [ "$VAL" = "$TEST_VAL" ]; then
-          echo "Assertion passed: \$VAL is 'hello world'"
+        if [[ "$VAL" = "$TEST_VAL" ]]; then
+          echo "Assertion passed"
         else
-          echo "Assertion failed: \$VAL is not 'hello world'"
+          echo "Assertion failed"
           echo "val: "
-          echo $VAL
-          docker compose down
-          exit 1
+          echo "$VAL"
+          PASS=1
         fi
 
         docker compose down
-        exit 0
+        exit $PASS
         
