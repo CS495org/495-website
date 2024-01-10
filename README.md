@@ -10,12 +10,11 @@ don't forget ```sudo docker compose down``` after you're done
 
 http://localhost:443/
 
-**Not** HTTPS
-
+Not HTTPS, no point in configuring SSL/TLS until first deployment
 
 To test JSONReponse/Database:
 
-```curl localhost:443/db_test_endpt/```
+```curl localhost:443/db-test-endpt/```
 
 
 Tech stack:
