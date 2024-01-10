@@ -1,3 +1,5 @@
+[![Docker Image CI](https://github.com/HFxLhT8JqeU5BnUG/495-website/actions/workflows/docker-compose-test.yml/badge.svg)](https://github.com/HFxLhT8JqeU5BnUG/495-website/actions/workflows/docker-compose-test.yml)
+
 ```git clone https://github.com/HFxLhT8JqeU5BnUG/495-website.git```
 
 ```cd 495-website```
