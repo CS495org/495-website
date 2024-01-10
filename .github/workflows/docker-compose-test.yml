@@ -18,6 +18,7 @@ jobs:
       run: |
         docker compose up --build -d
         sleep 20
+        # ^^ probably an excessively cautious startup time
         
         export VAL=$(curl localhost:443)
         
@@ -26,6 +27,8 @@ jobs:
           exit 0
         else
           echo "Assertion failed: \$VAL is not 'hello world'"
+          echo "val: "
+          echo $VAL
           docker compose down
           exit 1
         fi
