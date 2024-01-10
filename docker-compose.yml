@@ -5,7 +5,6 @@ services:
     build:
       context: ./cs495_website
     container_name: 495_webapp
-      # dockerfile: Dockerfile
     # ports:
       # - "8000:8000" #enable for faster responses thru localhost
     networks:
@@ -14,7 +13,6 @@ services:
   nginx:
     build:
       context: ./proxy
-      # dockerfile: Dockerfile
     container_name: reverse_proxy
     ports:
       - "443:443"
