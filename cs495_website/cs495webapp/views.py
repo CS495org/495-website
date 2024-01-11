@@ -10,7 +10,9 @@ env_interface = Env()
 DB_PARAMS = env_interface.get_db_auth()
 db_interface = Db(RDBMS='postgres', AUTH = DB_PARAMS)
 
-red = Redis(host='redis', port=6379)
+REDIS_PARAMS = env_interface.get(["RHOST", "RPORT"])
+
+red = Redis(host=REDIS_PARAMS["RHOST"], port=int(REDIS_PARAMS["RPORT"]))
 
 
 def hello_world(request: request) -> HttpResponse:
