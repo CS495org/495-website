@@ -17,6 +17,7 @@ services:
       - PORT=${PORT}
     depends_on:
       - db
+      - redis
 
   nginx:
     build:
@@ -26,15 +27,14 @@ services:
       - "443:443"
     depends_on:
       - webapp
-      - db
     networks:
       - 495_network
 
   db:
     image: postgres:16
     container_name: 495-db
-    ports:
-      - "4567:${PORT}" #enable for accessing postgres from host machine at port 4567 (see ./database/README for more info)
+    # ports:
+    #   - "4567:${PORT}" #enable for accessing postgres from host machine at port 4567 (see ./database/README for more info)
     networks:
       - 495_network
     volumes:
@@ -45,8 +45,19 @@ services:
       POSTGRES_USER: ${USER}
       POSTGRES_PASSWORD: ${PASSWORD}
 
+  redis:
+    image: redis:7
+    container_name: 495-redis
+    # ports: "6379:6379" #again, enable to access redis CLI from host machine
+    networks:
+      - 495_network
+    # volumes:
+    #   - redis-data:/data
+
 networks:
   495_network:
 volumes:
   postgres-data:
     driver: local
+  # redis-data:
+  #   driver: local #to make redis persist
