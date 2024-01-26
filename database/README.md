@@ -2,7 +2,7 @@ Not sure if we'll need a database for this, but here it is just in case.
 
 Uncomment port binding in docker compose file to access database from host machine
 
-Using host port 4567 to avoid collisions with any locally hosted postgres database
+Using host port 4567 to avoid collisions with any existing locally hosted postgres database
 
 Docker allocates the virtual network automatically, so to get the IP address of the database host:
 
@@ -10,7 +10,7 @@ Docker allocates the virtual network automatically, so to get the IP address of 
 
 To look at the results of the test-db-endpt view, run (from host machine):
 
-```curl http://localhost:443/db-test-endpt/```
+```curl -k https://localhost/db-test-endpt/```
 
 
 To delete the Docker volume that holds the postgres data:

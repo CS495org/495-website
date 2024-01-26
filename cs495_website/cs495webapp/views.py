@@ -25,7 +25,7 @@ def db_test_endpt(request: request) -> JsonResponse:
         return JsonResponse(data = {"response" : rows})
     
     except Exception as e:
-        return JsonResponse(data = {"error" : e})
+        return JsonResponse(data = {"error" : str(e)})
     
 
 def redis_test_endpt(request: request) -> JsonResponse:
@@ -34,4 +34,4 @@ def redis_test_endpt(request: request) -> JsonResponse:
         return JsonResponse(data = {"response" : f"Page hits: {page_hits}"})
     
     except Exception as e:
-        return JsonResponse(data = {"error" : e})
+        return JsonResponse(data = {"error" : str(e)})

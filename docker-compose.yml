@@ -1,25 +1,35 @@
-version: '3.7'
+version: '3.8'
 
 services:
   webapp:
     build:
       context: ./cs495_website
+      args:
+        USER: ${USER}
+        PASSWORD: ${PASSWORD}
+        DATABASE: ${DATABASE}
+        HOST: ${HOST}
+        PORT: ${PORT}
+        DJANGO_SECURE_KEY: ${DJANGO_SECURE_KEY}
+        DJANGO_USER: ${DJANGO_USER}
     container_name: 495_webapp
     # ports:
       # - "8000:8000" #enable for faster responses thru localhost
     networks:
       - 495_network
     environment:
-      - USER=${USER}
-      - PASSWORD=${PASSWORD}
-      - DATABASE=${DATABASE}
-      - HOST=${HOST}
-      - PORT=${PORT}
-      - RHOST=${RHOST}
-      - RPORT=${RPORT}
+      USER: ${USER}
+      PASSWORD: ${PASSWORD}
+      DATABASE: ${DATABASE}
+      HOST: ${HOST}
+      PORT: ${PORT}
+      RHOST: ${RHOST}
+      RPORT: ${RPORT}
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
   nginx:
     build:
@@ -46,6 +56,11 @@ services:
       POSTGRES_DB: ${DATABASE}
       POSTGRES_USER: ${USER}
       POSTGRES_PASSWORD: ${PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
 
   redis:
     image: redis:7
@@ -63,3 +78,6 @@ volumes:
     driver: local
   # redis-data:
   #   driver: local #to make redis persist
+
+
+# docker compose down && docker volume rm 495-website_postgres-data && docker volume rm 495-website_redis-data

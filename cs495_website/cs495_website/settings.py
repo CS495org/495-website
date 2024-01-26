@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from etb_env.ENV import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env_interface = Env('/app/.env')
+PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE", "DJANGO_SECURE_KEY"]
+CONFIG = env_interface.get(PARAMS)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zo@8^r+h)av8g&077$+z4kdodw(=p42v@dh1nt)gklrn!z=e%q'
+SECRET_KEY = CONFIG.get("DJANGO_SECURE_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,8 +81,12 @@ WSGI_APPLICATION = 'cs495_website.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': CONFIG.get("DATABASE"),
+        'USER': CONFIG.get("USER"),
+        'PASSWORD': CONFIG.get("PASSWORD"),
+        'HOST': CONFIG.get("HOST"),
+        'PORT': CONFIG.get("PORT"),
     }
 }
 

@@ -1,33 +1,48 @@
 [![Docker Image CI](https://github.com/HFxLhT8JqeU5BnUG/495-website/actions/workflows/docker-compose-test.yml/badge.svg)](https://github.com/HFxLhT8JqeU5BnUG/495-website/actions/workflows/docker-compose-test.yml)
 
-```git clone https://github.com/HFxLhT8JqeU5BnUG/495-website.git```
+# CS 495 Website
+Hi this is the website
 
-```cd 495-website```
+If you're a collaborator on this, please scroll to the bottom for repo stuff
 
-```sudo docker compose up --build```
+## Spin it up
 
-don't forget ```sudo docker compose down``` after you're done
+First, make a .env file. Copy the format from .env.example. Use single quotes if any env vars have $ or @ or other characters that can mess with a shell
+
+```docker compose up --build```
+
+Give it a minute to build, Django app waits for redis start and DB healthcheck, then has to make/migrate, then reverse proxy starts
+
+don't forget ```docker compose down``` after you're done
 
 To remove Docker volumes (postgres volume enabled by default, redis volume disabled by default)
 
-```sudo docker volume rm 495-website_postgres-data```
+```docker volume rm 495-website_postgres-data```
 
-```sudo docker volume rm 495-website_redis-data```
+```docker volume rm 495-website_redis-data```
 
-http://localhost:443/
+## Test it
 
-Not HTTPS, no point in configuring SSL/TLS until first deployment
+https://localhost/
 
-To test JSONReponse/Database:
+It'll warn you that the certificate isn't verified, right now it's being generated on the fly at runtime, don't worry about it
 
-```curl localhost:443/db-test-endpt/```
+Still need to bump docs on https stuff, but the gist is that the NGINX container is generating certs on the fly, fine for development, obviously not gonna work for production, I'll generate real certs registered with CA and mount those in the container, along with DH param
+
+To test Database:
+
+```curl -k https://localhost/db-test-endpt/```
 
 To test Redis:
 
-```curl localhost:443/redis-test-endpt/```
+```curl -k https://localhost/redis-test-endpt/```
+
+You have to add the -k flag for now to make cURL bypass certificate validation
+
+If you make requests with python, add verify=False to the API call
 
 
-Tech stack:
+## Tech stack
 
 Web app backend: Django
 
@@ -35,8 +50,23 @@ Server: Gunicorn
 
 Reverse proxy: NGINX
 
-Containerization: Docker/Docker compose
+Containerization: Docker/compose
 
 Database: Postgres
 
-Key-Value Store/Message Broker: Redis
+Cache/Message Broker: Redis
+
+
+## Repo stuff
+
+I'm just making everyone their own branch for now. We'll probably end up with dev-stable and dev-latest branches as well, but for now this is fine. When you push commits, please don't just ```git push```
+
+Instead: ```git push origin <YOUR_NAME>```
+
+Same goes for pull, unless you're trying to pull a different branch
+
+If you clone the wrong branch: ```git checkout <BRANCH_NAME>```
+
+I'm trying to figure out branch protection rules without signing up for an enterprise account, maybe I'll figure it out, we'll see
+
+Please please please don't force push. If you *have* to force to your own branch, sure, but if you force push to main then we'd all better hope that someone has it backed up somewhere, which I'm not planning on doing
