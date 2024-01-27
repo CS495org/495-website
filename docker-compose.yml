@@ -61,6 +61,8 @@ services:
       interval: 10s
       timeout: 10s
       retries: 10
+    depends_on:
+      - ab
 
   redis:
     image: redis:7
@@ -70,6 +72,16 @@ services:
       - 495_network
     # volumes:
     #   - redis-data:/data
+
+  ab:
+    build:
+      context: ./airbyte
+    networks:
+      - 495_network
+    # volumes:
+    #   - /var/run/docker.sock:/var/run/docker.sock 
+    ports:
+      - "8000:8000"
 
 networks:
   495_network:
