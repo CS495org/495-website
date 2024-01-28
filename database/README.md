@@ -6,7 +6,7 @@ Using host port 4567 to avoid collisions with any existing locally hosted postgr
 
 Docker allocates the virtual network automatically, so to get the IP address of the database host:
 
-```sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 495-db```
+```docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' 495-db```
 
 To look at the results of the test-db-endpt view, run (from host machine):
 
@@ -15,4 +15,4 @@ To look at the results of the test-db-endpt view, run (from host machine):
 
 To delete the Docker volume that holds the postgres data:
 
-```sudo docker volume rm 495-website_postgres-data```
+```docker volume rm 495-website_postgres-data```

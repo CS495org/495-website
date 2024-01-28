@@ -5,22 +5,22 @@ services:
     build:
       context: ./cs495_website
       args:
-        USER: ${USER}
-        PASSWORD: ${PASSWORD}
-        DATABASE: ${DATABASE}
+        USER: ${POSTGRES_USER}
+        PASSWORD: ${POSTGRES_PASSWORD}
+        DATABASE: ${POSTGRES_DB}
         HOST: ${HOST}
         PORT: ${PORT}
         DJANGO_SECURE_KEY: ${DJANGO_SECURE_KEY}
         DJANGO_USER: ${DJANGO_USER}
     container_name: 495_webapp
     # ports:
-      # - "7999:8000" #enable for faster responses thru localhost:7999
+    #   - "7999:8000" #enable to bypass nginx thru http://localhost:7999/
     networks:
       - 495_network
     environment:
-      USER: ${USER}
-      PASSWORD: ${PASSWORD}
-      DATABASE: ${DATABASE}
+      USER: ${POSTGRES_USER}
+      PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE: ${POSTGRES_DB}
       HOST: ${HOST}
       PORT: ${PORT}
       RHOST: ${RHOST}
@@ -51,11 +51,9 @@ services:
       - 495_network
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      # - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-    environment:
-      POSTGRES_DB: ${DATABASE}
-      POSTGRES_USER: ${USER}
-      POSTGRES_PASSWORD: ${PASSWORD}
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - .env
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       interval: 10s
