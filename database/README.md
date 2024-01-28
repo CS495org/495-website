@@ -15,4 +15,4 @@ To look at the results of the test-db-endpt view, run (from host machine):
 
 To delete the Docker volume that holds the postgres data:
 
-```docker volume rm 495-website_postgres-data```
+```docker volume rm 495-website_pg-data```

@@ -15,7 +15,7 @@ don't forget ```docker compose down``` after you're done
 
 To remove Docker volumes (postgres volume enabled by default, redis volume disabled by default)
 
-```docker volume rm 495-website_postgres-data```
+```docker volume rm 495-website_pg-data```
 
 ```docker volume rm 495-website_redis-data```
 
