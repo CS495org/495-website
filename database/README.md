@@ -1,4 +1,4 @@
-Not sure if we'll need a database for this, but here it is just in case.
+Leaving init.sql here for testing for now.
 
 Uncomment port binding in docker compose file to access database from host machine
 

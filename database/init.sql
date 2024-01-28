@@ -40,7 +40,3 @@ VALUES
     (54.56, 850, 'Sample 18', false, '2023-01-18 07:45:00', '{"key18": "value18"}', 'Other 18-1', 'Other 18-2', 'Other 18-3', 'Other 18-4', 'Other 18-5', 'Other 18-6', 'Other 18-7', 'Other 18-8'),
     (57.89, 900, 'Sample 19', true, '2023-01-19 16:15:00', '{"key19": "value19"}', 'Other 19-1', 'Other 19-2', 'Other 19-3', 'Other 19-4', 'Other 19-5', 'Other 19-6', 'Other 19-7', 'Other 19-8'),
     (61.23, 950, 'Sample 20', false, '2023-01-20 12:00:00', '{"key20": "value20"}', 'Other 20-1', 'Other 20-2', 'Other 20-3', 'Other 20-4', 'Other 20-5', 'Other 20-6', 'Other 20-7', 'Other 20-8');
-
-
--- CREATE USER cs_495 WITH PASSWORD 'cs_495';
--- GRANT ALL PRIVILEGES ON DATABASE cs_495 TO cs_495;

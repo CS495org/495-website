@@ -14,7 +14,7 @@ services:
         DJANGO_USER: ${DJANGO_USER}
     container_name: 495_webapp
     # ports:
-      # - "8000:8000" #enable for faster responses thru localhost
+      # - "7999:8000" #enable for faster responses thru localhost:7999
     networks:
       - 495_network
     environment:
@@ -51,7 +51,7 @@ services:
       - 495_network
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_DB: ${DATABASE}
       POSTGRES_USER: ${USER}
@@ -61,8 +61,6 @@ services:
       interval: 10s
       timeout: 10s
       retries: 10
-    depends_on:
-      - ab
 
   redis:
     image: redis:7
@@ -72,16 +70,6 @@ services:
       - 495_network
     # volumes:
     #   - redis-data:/data
-
-  ab:
-    build:
-      context: ./airbyte
-    networks:
-      - 495_network
-    # volumes:
-    #   - /var/run/docker.sock:/var/run/docker.sock 
-    ports:
-      - "8000:8000"
 
 networks:
   495_network:
