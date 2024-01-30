@@ -13,6 +13,7 @@ keepalive = 2
 accesslog = '-'  # Log to stdout
 errorlog = '-'   # Log to stderr
 loglevel = 'info'
+# options (increasing verbosity): critical, error, warning, info, debug
 
 # Security
 limit_request_line = 4094
