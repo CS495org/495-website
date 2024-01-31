@@ -15,13 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from cs495webapp.views import hello_world, RedisView, DatabaseView, RenderAnyTemplate
+from django.urls import path, include
+# from cs495webapp.views import hello_world, RedisView, DatabaseView, RenderAnyTemplate, RipOff
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', hello_world, name='hello_world'),
-    path('db-test-endpt/', DatabaseView.as_view(), name='db-cbv'),
-    path('redis-test-endpt/', RedisView.as_view(), name='redis-cbv'),
-    path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view')
+    path('', include('cs495webapp.urls')),
+    path("admin/", admin.site.urls),
+    path("", include('admin_argon.urls'))
+    # path('admin/', admin.site.urls),
+    # path('<str:template>', RipOff.as_view(), name='ripoff')
+    # # path('', hello_world, name='hello_world'),
+    # # path('db-test-endpt/', DatabaseView.as_view(), name='db-cbv'),
+    # # path('redis-test-endpt/', RedisView.as_view(), name='redis-cbv'),
+    # # path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view'),
+    # # path('ripoff/<str:template>', RipOff.as_view(), name='ripoff')   
 ]

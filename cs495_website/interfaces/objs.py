@@ -4,7 +4,7 @@ from etb_db.DB import Db
 from etb_env.ENV import Env
 
 
-env_interface = Env('/app.env')
+env_interface = Env('/.env')
 
 
 DB_PARAMS = env_interface.get_db_auth()
