@@ -3,8 +3,15 @@ from django.http import request, JsonResponse, HttpResponse, HttpRequest
 from django.views import View
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.csrf import csrf_exempt
+from django.template.exceptions import TemplateDoesNotExist
 
 from interfaces.objs import db_interface, red
+
+def index(request):
+
+    # Page from the theme 
+    return render(request, 'pages/dashboard.html')
+
 
 class RenderAnyTemplate(View):
     '''class for quickly developing frontend features\n
