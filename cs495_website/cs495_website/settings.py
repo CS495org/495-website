@@ -11,13 +11,13 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from etb_env.ENV import Env
+from interfaces.objs import env_interface
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env_interface = Env('/app/.env')
-PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE", "DJANGO_SECURE_KEY"]
+
+PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE", "DJANGO_SECURE_KEY", "DJANGO_PG_SCHEMA"]
 CONFIG = env_interface.get(PARAMS)
 
 
@@ -87,6 +87,9 @@ DATABASES = {
         'PASSWORD': CONFIG.get("PASSWORD"),
         'HOST': CONFIG.get("HOST"),
         'PORT': CONFIG.get("PORT"),
+        'OPTIONS': {
+            'options': f'-c search_path={CONFIG.get("DJANGO_PG_SCHEMA")}'
+        }
     }
 }
 

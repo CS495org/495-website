@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from cs495webapp.views import hello_world, db_test_endpt, redis_test_endpt
+from cs495webapp.views import hello_world, RedisView, DatabaseView, RenderAnyTemplate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hello_world, name='hello_world'),
-    path('db-test-endpt/', db_test_endpt, name='db-test-endpt'),
-    path('redis-test-endpt/', redis_test_endpt, name='redis-test-endpt')
+    path('db-test-endpt/', DatabaseView.as_view(), name='db-cbv'),
+    path('redis-test-endpt/', RedisView.as_view(), name='redis-cbv'),
+    path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view')
 ]

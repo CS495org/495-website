@@ -1,11 +1,9 @@
-[![Docker Image CI](https://github.com/HFxLhT8JqeU5BnUG/495-website/actions/workflows/docker-compose-test.yml/badge.svg)](https://github.com/HFxLhT8JqeU5BnUG/495-website/actions/workflows/docker-compose-test.yml)
-
 # CS 495 Website
 Hi this is the website
 
 If you're a collaborator on this, please scroll to the bottom for repo stuff
 
-## Spin it up
+## Run the Website
 
 First, make a .env file. Copy the format from .env.example. Use single quotes if any env vars have $ or @ or other characters that can mess with a shell
 
@@ -17,7 +15,7 @@ don't forget ```docker compose down``` after you're done
 
 To remove Docker volumes (postgres volume enabled by default, redis volume disabled by default)
 
-```docker volume rm 495-website_postgres-data```
+```docker volume rm 495-website_pg-data```
 
 ```docker volume rm 495-website_redis-data```
 
@@ -42,6 +40,19 @@ You have to add the -k flag for now to make cURL bypass certificate validation
 If you make requests with python, add verify=False to the API call
 
 
+## Run the whole thing
+
+We're using Airbyte for ELT. If you want to run Airbyte on your machine along with the web app:
+
+(from this directory, because it's using relative paths): ```./dothestuff.sh```
+
+This will create a sibling directory with our fork of Airbyte and start it up. I'm suppressing output because watching my CLI start up Airbyte and this project at the same time nearly gave me a seizure. If you want to see the output, I'd recommend adding the -d flag to the compose command in the script and commenting the redirect to /dev/null on "./run-ab-platform.sh".
+
+Airbyte will take a minute to get going, then will be accessible at http://localhost:8000/. Especially if it's the first time you run it and it has to clone the repo, I'd say give it at least a few minutes before worrying that it's not working. Default user: Airbyte. Default password: password. You can change those in the .env in the airbyte directory.
+
+To stop Airbyte, just docker compose down from ../airbyte.
+
+
 ## Tech stack
 
 Web app backend: Django
@@ -55,6 +66,8 @@ Containerization: Docker/compose
 Database: Postgres
 
 Cache/Message Broker: Redis
+
+ELT: Airbyte
 
 
 ## Repo stuff
