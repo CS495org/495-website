@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build:
-      context: ./cs495_website
+      context: ./website
       args:
         USER: ${POSTGRES_USER}
         PASSWORD: ${POSTGRES_PASSWORD}

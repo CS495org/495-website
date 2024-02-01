@@ -25,9 +25,16 @@ else
     cd "airbyte"
 fi
 
+# call with --debug-ab to watch airbyte logs, rather than our logs
+# highly recommended if you haven't pulled airbyte images already
+if [[ "$1" == "--debug-ab" ]]; then
+    ./run-ab-platform.sh > /dev/null 2>&1 &
+    cd "../495-website"
+    docker compose up --build --detach
 
-./run-ab-platform.sh > /dev/null 2>&1 &
-# If you're having problems with airbyte, put a # before the ">"
+else
+    ./run-ab-platform.sh > /dev/null 2>&1 &
+    cd "../495-website"
+    docker compose up --build
 
-cd "../495-website"
-docker compose up --build #--detach
+fi

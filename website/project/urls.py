@@ -1,5 +1,5 @@
 """
-URL configuration for cs495_website project.
+URL configuration for project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from cs495webapp.views import hello_world, RedisView, DatabaseView, RenderAnyTemplate, RipOff
+# from our_app.views import hello_world, RedisView, DatabaseView, RenderAnyTemplate, RipOff
 
 urlpatterns = [
-    path('', include('cs495webapp.urls')),
+    path('', include('our_app.urls')),
     path("admin/", admin.site.urls),
     path("", include('admin_argon.urls'))
     # path('admin/', admin.site.urls),
