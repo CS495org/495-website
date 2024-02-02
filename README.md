@@ -46,7 +46,7 @@ We're using Airbyte for ELT. If you want to run Airbyte on your machine along wi
 
 (from this directory, because it's using relative paths): ```./dothestuff.sh```
 
-If this is your first time running the dothestuff script, I would highly recommend calling it with the --debug-ab flag. This will launch our web app detached, and let you see the logs for Airbyte. If you have an older computer and/or a slower network connection, it could take a while for Airbyte to start up.
+If you have an older computer and/or a slower network connection, it could take a while for Airbyte to start up. Go to the dothestuff script to run the containers detached and allow Airbyte to attach STDOUT.
 
 This will create a sibling directory with our fork of Airbyte and start it up. I'm suppressing output by default because watching my CLI start up Airbyte and this project at the same time nearly gave me a seizure. 
 
