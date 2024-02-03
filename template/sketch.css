@@ -5,6 +5,23 @@ body {
     color: #ffffff;
 }
 
+.login-button {
+    position: absolute;
+    margin-left: 1300px;
+    margin-top: 5px;
+    background: #0f3460;
+    padding: 20px 30px;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
+
+.login-button:hover {
+    background-color: #16213e;
+}
+
 .sidebar {
     position: fixed;
     left: 0;
@@ -58,7 +75,6 @@ body {
     padding: 10px 20px;
     margin-left: 275px;
     margin-top: 20px;
-    margin-bottom: 0px;
 }
 
 .search-bar input[type="text"] {
@@ -93,7 +109,9 @@ body {
 .scrollable-row {
     display: flex;
     overflow-x: auto;
+    white-space: nowrap;
     padding: 10px 0;
+    width: 1105px;
 }
 
 .scrollable-row::-webkit-scrollbar {
