@@ -4,6 +4,8 @@ from django.views import View
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.csrf import csrf_exempt
 from django.template.exceptions import TemplateDoesNotExist
+from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView
+from django.contrib.auth import logout
 
 from interfaces.objs import db_interface, red
 
@@ -11,6 +13,8 @@ def index(request):
 
     # Page from the theme 
     return render(request, 'pages/dashboard.html')
+
+
 
 
 class RenderAnyTemplate(View):
