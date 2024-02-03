@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #1a1a2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.logo-placeholder {
+    width: 100px;
+    height: 100px;
+    background-color: #0f3460;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.sidebar button {
+    width: 80%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #0f3460;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    background-color: #16213e;
+}
+
+.content {
+    margin-bottom: 100px;
+    margin-left: 250px;
+    padding: 20px;
+    padding-top: 50px;
+}
+
+/*edit search bar*/
+.search-bar {
+    width: 100%;
+    max-width: 500px;
+    background: #0f3460;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    padding: 10px 20px;
+    margin-left: 275px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.search-bar input[type="text"] {
+    background: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    color: white;
+}
+
+/*chang placeholder text color*/
+::placeholder{
+    color: #cac7ff
+}
+
+/*change size of the button image*/
+.search-bar button img {
+    width: 20px; 
+    height: auto; 
+}
+
+.search-bar button {
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+/* New CSS for scrollable rows */
+.scrollable-row {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.scrollable-row::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.scrollable-row h2 {
+    color: #ffffff;
+    padding: 0 20px;
+}
+
+.show-placeholder {
+    flex: 0 0 auto;
+    width: 140px;
+    height: 200px;
+    margin-right: 20px;
+    background-color: #0f3460;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+}
