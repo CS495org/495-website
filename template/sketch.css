@@ -1,7 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #121212;
+    background-color: black;
     color: #ffffff;
 }
 
@@ -22,44 +27,68 @@ body {
     background-color: #16213e;
 }
 
-.sidebar {
+.wrapper .sidebar {
     position: fixed;
-    left: 0;
     top: 0;
+    left: -255px;
     width: 250px;
     height: 100%;
     background-color: #1a1a2e;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
+    padding: 20px 0;
+    transition: all 0.5s ease;
 }
 
-.logo-placeholder {
-    width: 100px;
-    height: 100px;
-    background-color: #0f3460;
-    border-radius: 50%;
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-.sidebar button {
-    width: 80%;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #0f3460;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
+.logo-placeholder {
+    width: 100px; 
+    height: 100px; 
+    background-color: #0f3460; 
+    border-radius: 50%; 
 }
 
-.sidebar button:hover {
-    background-color: #16213e;
+
+.wrapper .sidebar ul li a {
+    display: block;
+    padding: 20px;
+    border-bottom: 1px solid #0f3460;
+    color: white;
+    font-size: 16px 30px;
+    text-decoration: none;
+    transition: background-color 0.5s;
+}
+
+.wrapper .sidebar ul li a:hover {
+    background-color: #1c59a4;
+}
+
+.wrapper .menu-button {
+    width: calc(100% - 255px);
+    margin-left: 255px;
+    transition: all 0.5s ease;
+    font-size: 40px;
+    position: absolute;
+    top: 20px;
+}
+
+.wrapper .menu-button a{
+   font-size: 40px;
+   color: white;
+}
+
+body.active .wrapper .sidebar {
+    left: 0px;
 }
 
 .content {
     margin-bottom: 100px;
-    margin-left: 250px;
+    margin-left: 100px;
     padding: 20px;
     padding-top: 50px;
 }
@@ -73,7 +102,7 @@ body {
     align-items: center;
     border-radius: 50px;
     padding: 10px 20px;
-    margin-left: 275px;
+    margin-left: 325px;
     margin-top: 20px;
 }
 
@@ -135,3 +164,5 @@ body {
     color: #ffffff;
     cursor: pointer;
 }
+
+
