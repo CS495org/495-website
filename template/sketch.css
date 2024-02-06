@@ -87,10 +87,15 @@ body.active .wrapper .sidebar {
 }
 
 .content {
-    margin-bottom: 100px;
-    margin-left: 100px;
-    padding: 20px;
-    padding-top: 50px;
+    display: flex;
+    flex-direction: column; /* Stack the rows vertically */
+    align-items: center; /* Center the content horizontally */
+    margin-top: 40px;
+}
+
+h2 {
+    align-self: flex-start;
+    margin-left: 210px;
 }
 
 /*edit search bar*/
@@ -141,6 +146,7 @@ body.active .wrapper .sidebar {
     white-space: nowrap;
     padding: 10px 0;
     width: 1105px;
+    
 }
 
 .scrollable-row::-webkit-scrollbar {
@@ -165,4 +171,22 @@ body.active .wrapper .sidebar {
     cursor: pointer;
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for the desired level of transparency */
+    backdrop-filter: blur(1px); /* Adjust the blur radius */
+    z-index: 1; /* Place the overlay behind other elements */
+    display: none; /* Initially hide the overlay */
+}
 
+body.active .overlay {
+    display: block; /* Display the overlay when the sidebar is active*/
+}
+
+.sidebar, .menu-button {
+    z-index: 11; /* ensure the sidebar and sidebar menu button stay over top the overlay*/
+}
