@@ -145,6 +145,7 @@ h2 {
     overflow-x: auto;
     white-space: nowrap;
     padding: 10px 0;
+    margin-bottom: 40px;
     width: 1105px;
     
 }
@@ -191,4 +192,6 @@ body.active .overlay {
     z-index: 11; /* ensure the sidebar and sidebar menu button stay over top the overlay*/
 }
 
-
+.sidebar .active {
+    background-color: rgba(128, 0, 128, 0.2); /* Change to your desired background color */
+}

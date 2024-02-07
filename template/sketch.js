@@ -18,8 +18,25 @@ document.onclick = function(e) {
         document.querySelector("body").classList.remove("active");
         overlay.style.display = "none"; // Hide overlay when sidebar is closed
     }
-
 } 
+
+//function to highlight the current page the user is on
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the full URL from the address bar
+    var url = window.location.href;
+
+    // Get all <a> tags within the sidebar
+    var sidebarLinks = document.querySelectorAll('.sidebar a');
+
+    // Iterate over each <a> tag
+    sidebarLinks.forEach(function(link) {
+        // Check if the href attribute matches the URL from the address bar
+        if (url === link.href) {
+            // Add the 'active' class to the closest parent <li> element
+            link.closest("li").classList.add("active");
+        }
+    });
+});
 
 
 
