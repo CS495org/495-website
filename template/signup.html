@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
-  <link rel="stylesheet" href="login.css">
+  <title>Sign Up Page</title>
+  <link rel="stylesheet" href="signup.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
   <!-- Additional meta tags, link to stylesheets, or scripts can go here -->
@@ -14,7 +14,15 @@
   <!-- Creation of the login form -->
   <div class="wrapper">
     <form action="">
-        <h1>Login</h1>
+        <h1>Sign Up</h1>
+        <div class="input-box">
+            <input type="text" placeholder="Name" required>
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+            <input type="text" placeholder="Email" required>
+            <i class='bx bxs-envelope'></i>
+        </div>
         <div class="input-box">
             <input type="text" placeholder="Username" required>
             <i class='bx bxs-user'></i>
@@ -23,14 +31,14 @@
             <input type="password" placeholder="Password" required>
             <i class='bx bxs-lock-alt' ></i>
         </div>
-
-        <div class="remember-forgot">
-            <label><input type="checkbox">Remember Me</label>
-            <a href="#">Forgot Password</a>
+        <div class="input-box">
+            <input type="password" placeholder="Re-type Password" required>
+            <i class='bx bxs-lock-alt' ></i>
         </div>
-        <button type="submit" class="login-button">Login</button>
+
+        <button type="submit" class="login-button">Register</button>
         <div class="signup-link">
-            <p>Don't have an account? <a href="signup.html">Sign Up Here</a></p>
+            <p>Already have an account? <a href="login.html">Login Here</a></p>
         </div>
     </form>
   </div>
