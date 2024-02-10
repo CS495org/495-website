@@ -25,7 +25,7 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('<str:template>', RipOff.as_view(), name='ripoff')
     # # path('', hello_world, name='hello_world'),
-    # # path('db-test-endpt/', DatabaseView.as_view(), name='db-cbv'),
+    # path('db-test-endpt/', DatabaseView.as_view(), name='db-cbv'),
     # # path('redis-test-endpt/', RedisView.as_view(), name='redis-cbv'),
     # # path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view'),
     # # path('ripoff/<str:template>', RipOff.as_view(), name='ripoff')   
