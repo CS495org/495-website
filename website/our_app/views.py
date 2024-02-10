@@ -25,7 +25,7 @@ class RenderAnyTemplate(View):
     don't include the .html file extension'''
     
     def get(self, request: HttpRequest, to_render: str) -> HttpResponse:
-            file_path = 'dev_templates/' + to_render + '.html'
+            file_path = 'render_any/' + to_render + '.html'
             
             return render(request, file_path)
 

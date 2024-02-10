@@ -1,10 +1,7 @@
-Django==5.0.1
+django==5.0.1
 gunicorn==21.2.0
 etb-db==0.1.9
 etb-env==0.2.0
 redis==5.0.1
 
-# thanks tim
-django-admin-argon-dashboard==1.0.16
-# argon-fork==0.1.0
 whitenoise==6.6.0

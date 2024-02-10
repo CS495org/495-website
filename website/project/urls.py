@@ -16,17 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from our_app.views import hello_world, RedisView, DatabaseView, RenderAnyTemplate, RipOff
+from django.views.generic.base import TemplateView
+from our_app.views import RenderAnyTemplate
+
 
 urlpatterns = [
-    path('', include('our_app.urls')),
+    path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("admin/", admin.site.urls),
-    path("", include('admin_argon.urls'))
-    # path('admin/', admin.site.urls),
-    # path('<str:template>', RipOff.as_view(), name='ripoff')
-    # # path('', hello_world, name='hello_world'),
-    # # path('db-test-endpt/', DatabaseView.as_view(), name='db-cbv'),
-    # # path('redis-test-endpt/', RedisView.as_view(), name='redis-cbv'),
-    # # path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view'),
-    # # path('ripoff/<str:template>', RipOff.as_view(), name='ripoff')   
+    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("tv-manager/", include("our_app.urls")),
+    path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view')
 ]

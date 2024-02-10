@@ -42,10 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'our_app',
-    'admin_argon.apps.AdminArgonConfig',
+    'accounts',
 ]
 
 ROOT_URLCONF = 'project.urls'
+
+AUTH_USER_MODEL = "accounts.CustomUser"
+
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
 
 UI_TEMPLATES = os.path.join(BASE_DIR, 'templates')
 
@@ -116,7 +121,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-# # thanks tim
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -158,4 +162,4 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
