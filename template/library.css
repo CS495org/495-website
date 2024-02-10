@@ -82,6 +82,10 @@ body {
    color: white;
 }
 
+.wrapper {
+    position: relative; /* or ensure it's positioned appropriately */
+}
+
 body.active .wrapper .sidebar {
     left: 0px;
 }
@@ -98,8 +102,45 @@ h2 {
     margin-left: 210px;
 }
 
+.search-and-calendar-container {
+    position: absolute;
+    top: 20px; /* Adjust based on header height or desired top spacing */
+    right: 20px; /* Adjust for right-aligned placement or change to 'left' for left-aligned */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between calendar icon and search bar */
+}
+
+.calendar-icon-container {
+    cursor: pointer;
+    /* If the icon needs to be resized or adjusted */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure the calendar icon is visible and clickable */
+.calendar-icon-container img {
+    width: 24px; /* Adjust based on your icon size */
+    height: 24px; /* Adjust based on your icon size */
+    cursor: pointer; /* Ensure it's clickable */
+}
+
+.calendar-window {
+    display: none; /* Hide by default */
+    position: absolute;
+    z-index: 100; /* Ensure it's above other content */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    /* Adjust positioning as necessary */
+}
+
+
 /*edit search bar*/
 .search-bar {
+    flex-grow: 1;
     width: 100%;
     max-width: 500px;
     background: #0f3460;
@@ -107,8 +148,7 @@ h2 {
     align-items: center;
     border-radius: 50px;
     padding: 10px 20px;
-    margin-left: 325px;
-    margin-top: 20px;
+    /* Removed the margin-left here since the container already positions it */
 }
 
 .search-bar input[type="text"] {

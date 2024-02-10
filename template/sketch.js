@@ -38,6 +38,37 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// Function for handling the calendar logic
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarIcon = document.getElementById('calendarIcon');
+    const calendarWindow = document.getElementById('calendarWindow');
+
+    if (!calendarIcon || !calendarWindow) {
+        console.error('Calendar elements not found!');
+        return; // Stop the function if elements are not found
+    }
+
+    // Function to toggle the display of the calendar window
+    function toggleCalendar() {
+        calendarWindow.style.display = (calendarWindow.style.display === "none") ? "block" : "none";
+        if (calendarWindow.style.display === "block") {
+            generateCalendar(); // Call function to generate calendar content
+        }
+    }
+
+    // Function to generate the calendar content dynamically
+    function generateCalendar() {
+        // Check if the calendar was already generated to avoid regenerating it every click
+        if (!calendarWindow.querySelector('.simple-calendar')) {
+            calendarWindow.innerHTML = '<div class="simple-calendar">Simple Calendar Placeholder</div>';
+            // Future expansion: generate current month's calendar dynamically
+        }
+    }
+
+    calendarIcon.addEventListener('click', toggleCalendar);
+});
+
+
 
 
 
