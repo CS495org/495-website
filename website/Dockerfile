@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.12-alpine
 
 
 ARG USER
@@ -30,7 +30,7 @@ COPY . .
 
 EXPOSE 8000
 
-RUN chmod ugo+rwx ./startup.sh
+# RUN chmod ugo+rwx ./startup.sh
 
 # need to make/migrate
 ENTRYPOINT [ "./startup.sh" ]

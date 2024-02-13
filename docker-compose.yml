@@ -44,7 +44,7 @@ services:
       - web
 
   db:
-    image: postgres:16
+    image: postgres:16-alpine
     env_file:
       - .env
     volumes:
