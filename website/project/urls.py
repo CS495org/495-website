@@ -23,8 +23,19 @@ from our_app.views import RenderAnyTemplate
 urlpatterns = [
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("admin/", admin.site.urls),
+<<<<<<< HEAD
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("tv-manager/", include("our_app.urls")),
     path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view')
+=======
+    path("", include('admin_argon.urls'))
+    # path('admin/', admin.site.urls),
+    # path('<str:template>', RipOff.as_view(), name='ripoff')
+    # # path('', hello_world, name='hello_world'),
+    # path('db-test-endpt/', DatabaseView.as_view(), name='db-cbv'),
+    # # path('redis-test-endpt/', RedisView.as_view(), name='redis-cbv'),
+    # # path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view'),
+    # # path('ripoff/<str:template>', RipOff.as_view(), name='ripoff')   
+>>>>>>> tate-prod
 ]
