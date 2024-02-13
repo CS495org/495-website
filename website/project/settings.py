@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'our_app',
-    'admin_argon.apps.AdminArgonConfig',
 ]
 
 ROOT_URLCONF = 'project.urls'
