@@ -15,48 +15,46 @@ pipeline {
         DJANGO_SECURE_KEY=credentials('DJANGO_SECURE_KEY')
         DJANGO_USER=credentials('DJANGO_USER')
     }
-    
+
     stages {
 
         stage('Fill .env') {
             steps {
                 script {
-                    writeFile file: '.env', text: """
-                        POSTGRES_USER=
-                        POSTGRES_PASSWORD=
-                        POSTGRES_DB=
-                        HOST=${HOST}
-                        PORT=${PORT}
+                    writeFile file: '.env', text: """POSTGRES_USER=${POSTGRES_USER}
+POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+POSTGRES_DB=${POSTGRES_DB}
+HOST=${HOST}
+PORT=${PORT}
 
-                        # django
-                        DJANGO_SECURE_KEY=
-                        DJANGO_USER=
-                        DJANGO_PG_SCHEMA=${DJANGO_PG_SCHEMA}
+# django
+DJANGO_SECURE_KEY=${}
+DJANGO_USER=${}
+DJANGO_PG_SCHEMA=${DJANGO_PG_SCHEMA}
 
-                        # redis
-                        RHOST=${RHOST}
-                        RPORT=${RPORT}
+# redis
+RHOST=${RHOST}
+RPORT=${RPORT}
 
-                        OUR_AIRBYTE=${OUR_AIRBYTE}
-                    """
+OUR_AIRBYTE=${OUR_AIRBYTE}"""
                 }
             }
         }
 
-        // stage('Compose Down && Up'){
-        //     steps {
-        //         script {
+        stage('Compose Down && Up'){
+            steps {
+                script {
 
-        //             try {
-        //                 sh 'docker compose down'
-        //                 sh 'docker compose up --build --detach'
-        //             } catch (Exception e) {
-        //                 // wasn't running in the first place
-        //                 sh 'docker compose up --build --detach'
-        //             }
+                    try {
+                        sh 'docker compose down'
+                        sh 'docker compose up --build --detach'
+                    } catch (Exception e) {
+                        // wasn't running in the first place
+                        sh 'docker compose up --build --detach'
+                    }
 
-        //         }
-        //     }
-        // }
+                }
+            }
+        }
     }
 }
