@@ -22,8 +22,8 @@ services:
       PORT: ${PORT}
       RHOST: ${RHOST}
       RPORT: ${RPORT}
-    ports:
-      - "7999:8000" #enable to bypass nginx thru http://localhost:7999/
+    # ports:
+    #   - "7999:8000" #enable to bypass nginx thru http://localhost:7999/
     networks:
       - frontend
       - backend

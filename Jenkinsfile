@@ -8,7 +8,7 @@ pipeline {
         RPORT='6379'
         HOST='db'
         PORT='5432'
-        
+
         POSTGRES_USER=credentials('POSTGRES_USER')
         POSTGRES_PASSWORD=credentials('POSTGRES_PASSWORD')
         POSTGRES_DB=credentials('POSTGRES_DB')
