@@ -68,7 +68,7 @@ body.active .wrapper .sidebar {
     left: 0px;
 }
 
-.settings-content {
+.group-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,7 +80,7 @@ body.active .wrapper .sidebar {
     box-sizing: border-box;
 }
 
-.settings-button {
+.group-button {
     padding: 20px 40px;
     font-size: 18px;
     color: white;
@@ -94,7 +94,7 @@ body.active .wrapper .sidebar {
     text-align: center;
 }
 
-.settings-button:hover {
+.group-button:hover {
     background-color: #16213e;
 }
 
