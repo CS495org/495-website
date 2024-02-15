@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="library.css">
+    <script src="sketch.js" defer></script>
+</head>
+<body>
+
+  <!-- Button to go to login page -->
+  <a href="login.html">
+      <button class = "login-button">Login</button>
+  </a>
+  
+<div class="overlay"></div>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <!-- profile image -->
+        <div class = "profile">
+            <div class="logo-placeholder"></div>
+        </div>
+
+        <!-- Button for side menu -->
+        <div class="menu-button">
+            <a href="#"><i class='bx bx-menu'></i></a>
+        </div>
+
+        <!-- list of buttons -->
+        <ul>
+             <!-- home -->
+            <li id="home"><a href="home.html"> 
+                <span class="icon"><i class='bx bxs-home'></i></span>
+                <span class="item">Home</span>
+            </a></li>
+            <!-- profile -->
+            <li><a href="profile.html"> 
+                <span class="icon"><i class='bx bxs-user'></i></span>
+                <span class="item">Profile</span>
+            </a></li>
+            <!-- library -->
+            <li><a href="library.html"> 
+                <span class="icon"><i class='bx bx-library'></i></span>
+                <span class="item">Library</span>
+            </a></li>
+            <!-- Disover -->
+            <li><a href="discover.html"> 
+                <span class="icon"><i class='bx bx-search-alt'></i></span>
+                <span class="item">Discover</span>
+            </a></li>
+            <!-- Settings -->
+            <li><a href="#"> 
+                <span class="icon"><i class='bx bxs-cog'></i></span>
+                <span class="item">Settings</span>
+            </a></li>
+            <!-- Group-->
+            <li id="group"><a href="group.html">
+                <span class="icon"><i class='bx bxs-cog'></i></span>
+                <span class="item">Group</span>
+            </a></li>
+        </ul>
+
+
+    </div>
+</div>
+
+<div class="search-and-calendar-container">
+    <!-- Calendar Icon -->
+    <div class="calendar-icon-container">
+        <img src="images/calendar-icon.png" alt="Calendar" id="calendarIcon">
+    </div>
+
+    <!-- Calendar Window Placeholder -->
+    <div id="calendarWindow" class="calendar-window" style="display: none;">
+        <!-- Calendar content will be dynamically filled or could be statically placed here -->
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search" name="q">
+        <a href="https://giphy.com/gifs/spongebob-cartoon-nickelodeon-thumbs-3o7abKhOpu0NwenH3O">
+            <button type="submit"><img src="images/search.png"></button>   
+        </a>
+    </div>
+</div>
+
+
+<div class="content">
+    <!-- First header -->
+    <h2>Favorites</h2>
+  
+    <!-- Row 1 -->
+    <div class="scrollable-row">
+        
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <!-- Add more placeholders as needed -->
+    </div>
+
+    <!-- Second header -->
+    <h2>In Progress</h2>
+  
+    <!-- Row 2 -->
+    <div class="scrollable-row">
+        
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <!-- Add more placeholders as needed -->
+    </div>
+
+     <!-- Third header -->
+     <h2>Completed</h2>
+
+    <!-- Row 3 -->
+    <div class="scrollable-row">
+        
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <!-- Add more placeholders as needed -->
+    </div>
+
+     <!-- Fourth header -->
+     <h2>Watchlist</h2>
+
+    <!-- Row 4 -->
+    <div class="scrollable-row">
+        
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <!-- Add more placeholders as needed -->
+    </div>
+
+</div>
+
+</body>
+</html>
