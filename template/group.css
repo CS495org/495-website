@@ -1,0 +1,128 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #3d07a8;
+    color: #ffffff;
+}
+
+.wrapper .sidebar {
+    position: fixed;
+    top: 0;
+    left: -255px;
+    width: 250px;
+    height: 100%;
+    background-color: #1a1a2e;
+    padding: 20px 0;
+    transition: all 0.5s ease;
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-placeholder {
+    width: 100px; 
+    height: 100px; 
+    background-color: #0f3460; 
+    border-radius: 50%; 
+}
+
+
+.wrapper .sidebar ul li a {
+    display: block;
+    padding: 20px;
+    border-bottom: 1px solid #0f3460;
+    color: white;
+    font-size: 16px 30px;
+    text-decoration: none;
+    transition: background-color 0.5s;
+}
+
+.wrapper .sidebar ul li a:hover {
+    background-color: #1c59a4;
+}
+
+.wrapper .menu-button {
+    width: calc(100% - 255px);
+    margin-left: 255px;
+    transition: all 0.5s ease;
+    font-size: 40px;
+    position: absolute;
+    top: 20px;
+}
+
+.wrapper .menu-button a{
+   font-size: 40px;
+   color: white;
+}
+
+body.active .wrapper .sidebar {
+    left: 0px;
+}
+
+.group-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 60px); /* Adjust based on your header/footer */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.group-button {
+    padding: 20px 40px;
+    font-size: 18px;
+    color: white;
+    background-color: #093782; /* Reusing the button color from the login button */
+    border: 2px solid #445677; /* A border that fits within the theme */
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px auto; /* Space between the two buttons */
+    transition: background-color 0.3s;
+    display: block;
+    text-align: center;
+}
+
+.group-button:hover {
+    background-color: #16213e;
+}
+
+/*change placeholder text color*/
+::placeholder{
+    color: #cac7ff
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for the desired level of transparency */
+    backdrop-filter: blur(1px); /* Adjust the blur radius */
+    z-index: 1; /* Place the overlay behind other elements */
+    display: none; /* Initially hide the overlay */
+}
+
+body.active .overlay {
+    display: block; /* Display the overlay when the sidebar is active*/
+}
+
+.sidebar, .menu-button {
+    z-index: 11; /* ensure the sidebar and sidebar menu button stay over top the overlay*/
+}
+
+.sidebar .active {
+    background-color: rgba(128, 0, 128, 0.2); /* Change to your desired background color */
+}
