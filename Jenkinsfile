@@ -5,7 +5,15 @@ pipeline {
 
   stages {
     stage ('Backup') {
-      steps {}
+      
+      steps {
+        
+        script {
+          echo 'Backup complete'
+        }
+        
+      }
+      
     }
   }
 }
