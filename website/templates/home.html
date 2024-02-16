@@ -1,23 +1,155 @@
-{% block title %}Home{% endblock %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
 
-{% block content %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream Viewr</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+  <script src="{% static 'sketch.js'%}" defer></script>
+</head>
 
-{% if user.is_authenticated %}
-<p>Hi {{ user.username }}!</p>
+<body>
 
-<p><a href="{% url 'password_change' %}">Password Change</a></p>
-<form action="{% url 'logout' %}" method="post">
-  {% csrf_token %}
-  <button type="submit">Log Out</button>
-</form>
+  <!-- Button to go to login page -->
+  <a href="{% url 'login' %}">
+    <button class="login-button">Login</button>
+  </a>
 
-{% else %}
-<p>You are not logged in</p>
+  <div class="overlay"></div>
 
-<p><a href="{% url 'login' %}">Log In</a></p>
-<p><a href="{% url 'signup' %}">Sign up</a></p>
-<p><a href="{% url 'password_reset' %}">Password Reset</a></p>
+  <div class="wrapper">
+    <div class="sidebar">
+      <!-- profile image -->
+      <div class="profile">
+        <div class="logo-placeholder"></div>
+      </div>
+
+      <!-- Button for side menu -->
+      <div class="menu-button">
+        <a href="#"><i class='bx bx-menu'></i></a>
+      </div>
+
+      <!-- list of buttons -->
+      <ul>
+        <!-- home -->
+        <li id="home"><a href="{% url 'home' %}">
+            <span class="icon"><i class='bx bxs-home'></i></span>
+            <span class="item">Home</span>
+          </a></li>
+        <!-- profile -->
+        <li id="profile"><a href="{% url 'profile' %}">
+            <span class="icon"><i class='bx bxs-user'></i></span>
+            <span class="item">Profile</span>
+          </a></li>
+        <!-- library -->
+        <li id="library"><a href="{% url 'home' %}">
+            <span class="icon"><i class='bx bx-library'></i></span>
+            <span class="item">Library</span>
+          </a></li>
+        <!-- Disover -->
+        <li id="discover"><a href="{% url 'discover' %}">
+            <span class="icon"><i class='bx bx-search-alt'></i></span>
+            <span class="item">Discover</span>
+          </a></li>
+        <!-- Settings -->
+        <li id="settings"><a href="#">
+            <span class="icon"><i class='bx bxs-cog'></i></span>
+            <span class="item">Settings</span>
+          </a></li>
+        <!-- Group-->
+        <li id="group"><a href="{% url 'home' %}">
+            <span class="icon"><i class='bx bxs-cog'></i></span>
+            <span class="item">Group</span>
+          </a></li>
+      </ul>
 
 
-{% endif %}
-{% endblock %}
+    </div>
+  </div>
+
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search" name="q">
+    <!-- Just a test to see if search button is interative -->
+    <a href="https://giphy.com/gifs/spongebob-cartoon-nickelodeon-thumbs-3o7abKhOpu0NwenH3O">
+      <button type="submit"><img src="{% static 'images/search.png' %}"></button>
+    </a>
+  </div>
+
+  <div class="content">
+    <!-- First header -->
+    <h2>Trending</h2>
+
+    <!-- Row 1 -->
+    <div class="scrollable-row">
+
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <!-- Add more placeholders as needed -->
+    </div>
+
+    <!-- Second header -->
+    <h2>Top 10 Series</h2>
+
+    <!-- Row 2 -->
+    <div class="scrollable-row">
+
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <!-- Add more placeholders as needed -->
+    </div>
+
+    <!-- Third header -->
+    <h2>Award Nominated</h2>
+
+    <!-- Row 3 -->
+    <div class="scrollable-row">
+
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <!-- Add more placeholders as needed -->
+    </div>
+
+    <!-- Fourth header -->
+    <h2>Coming Soon</h2>
+
+    <!-- Row 4 -->
+    <div class="scrollable-row">
+
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <div class="show-placeholder">Placeholder</div>
+      <!-- Add more placeholders as needed -->
+    </div>
+
+  </div>
+
+</body>
+
+</html>
