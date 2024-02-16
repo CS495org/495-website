@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -17,9 +18,12 @@
       {% csrf_token %} 
         <h1>Login</h1>
         <div class="input-box">
-            <input type="text" placeholder="Username" required>
             {{ form.username }}
         </div>
+
+        <div class="input-box">
+          {{ form.password }}
+      </div>
 
         <div class="remember-forgot">
             <label><input type="checkbox">Remember Me</label>

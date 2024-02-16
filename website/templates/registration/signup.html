@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,27 +15,24 @@
   <!-- Creation of the login form -->
   <div class="wrapper">
     <form action="" method="post">
+        {% csrf_token %}
         <h1>Sign Up</h1>
+
         <div class="input-box">
-            <input type="text" placeholder="Name" required>
-            <i class='bx bxs-user'></i>
-        </div>
-        <div class="input-box">
-            <input type="text" placeholder="Email" required>
             {{ form.email }}
         </div>
+
         <div class="input-box">
-            <input type="text" placeholder="Username" required>
             {{ form.username }}
         </div>
-        <!-- <div class="input-box">
-            <input type="password" placeholder="Password" required>
-            <i class='bx bxs-lock-alt' ></i>
+
+        <div class="input-box" aria-placeholder="Enter Password">
+            {{ form.password1 }}
         </div>
-        <div class="input-box">
-            <input type="password" placeholder="Re-type Password" required>
-            <i class='bx bxs-lock-alt' ></i>
-        </div> -->
+
+        <div class="input-box" aria-placeholder="Confirm Password">
+            {{ form.password2 }}
+        </div>
 
         <button type="submit" class="login-button">Register</button>
         <div class="signup-link">
