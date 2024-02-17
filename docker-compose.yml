@@ -32,6 +32,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
+    restart: always
 
   nginx:
     build:
@@ -42,6 +43,7 @@ services:
       - frontend
     depends_on:
       - web
+    restart: always
 
   db:
     image: postgres:16-alpine
@@ -59,6 +61,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+    restart: always
 
   redis:
     image: redis:7-alpine
@@ -67,6 +70,7 @@ services:
     # ports: "6379:6379" #again, enable to access redis CLI from host machine
     networks:
       - backend
+    restart: always
 
 
 networks:
