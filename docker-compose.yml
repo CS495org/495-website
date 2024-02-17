@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build:
-      context: ./cs495_website
+      context: ./website
       args:
         USER: ${POSTGRES_USER}
         PASSWORD: ${POSTGRES_PASSWORD}
@@ -32,6 +32,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
+    restart: always
 
   nginx:
     build:
@@ -42,9 +43,10 @@ services:
       - frontend
     depends_on:
       - web
+    restart: always
 
   db:
-    image: postgres:16
+    image: postgres:16-alpine
     env_file:
       - .env
     volumes:
@@ -59,14 +61,16 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+    restart: always
 
   redis:
-    image: redis:7
+    image: redis:7-alpine
     # volumes:
     #   - redis-data:/data
     # ports: "6379:6379" #again, enable to access redis CLI from host machine
     networks:
       - backend
+    restart: always
 
 
 networks:
