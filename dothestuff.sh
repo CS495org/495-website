@@ -25,25 +25,9 @@ else
     cd "airbyte"
 fi
 
-# # call with --debug-ab to watch airbyte logs, rather than our logs
-# # highly recommended if you haven't pulled airbyte images already
-# if [[ "$1" == "--debug-ab" ]]; then
-#     ./run-ab-platform.sh > /dev/null 2>&1 &
-#     cd "../495-website"
-#     docker compose up --build --detach
-
-# else
-#     ./run-ab-platform.sh > /dev/null 2>&1 &
-#     cd "../495-website"
-#     docker compose up --build
-
-# fi
-
-# ^^ I'm trying to make it easy for first timers to watch Airbyte pull
-# its images. Idk man, I'm not a shell scripter, maybe I'll figure
-# out, maybe not. For now, we're all adults, you can comment
-# the pipe to /dev/null and add the detach flag to the compose command
 
 ./run-ab-platform.sh > /dev/null 2>&1 &
+# If you're having problems with airbyte, put a # before the ">"
+
 cd "../495-website"
-docker compose up --build
+docker compose up --build #--detach
