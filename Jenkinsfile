@@ -21,22 +21,23 @@ pipeline {
         stage('Fill .env') {
             steps {
                 script {
-                    writeFile file: '.env', text: """POSTGRES_USER=${POSTGRES_USER}
-POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-POSTGRES_DB=${POSTGRES_DB}
-HOST=${HOST}
-PORT=${PORT}
+                    writeFile file: '.env', text: """
+POSTGRES_USER='${POSTGRES_USER}'
+POSTGRES_PASSWORD='${POSTGRES_PASSWORD}'
+POSTGRES_DB='${POSTGRES_DB}'
+HOST='${HOST}'
+PORT='${PORT}'
 
 # django
-DJANGO_SECURE_KEY=${DJANGO_SECURE_KEY}
-DJANGO_USER=${DJANGO_USER}
-DJANGO_PG_SCHEMA=${DJANGO_PG_SCHEMA}
+DJANGO_SECURE_KEY='${DJANGO_SECURE_KEY}'
+DJANGO_USER='${DJANGO_USER}'
+DJANGO_PG_SCHEMA='${DJANGO_PG_SCHEMA}'
 
 # redis
-RHOST=${RHOST}
-RPORT=${RPORT}
+RHOST='${RHOST}'
+RPORT='${RPORT}'
 
-OUR_AIRBYTE=${OUR_AIRBYTE}"""
+OUR_AIRBYTE='${OUR_AIRBYTE}'"""
                 }
             }
         }
