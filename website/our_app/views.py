@@ -15,8 +15,6 @@ def index(request):
     return render(request, 'pages/dashboard.html')
 
 
-
-
 class RenderAnyTemplate(View):
     '''class for quickly developing frontend features\n
     will attempt to render html template found at dev_templates/<file_name>.html\n
@@ -56,7 +54,24 @@ class DatabaseView(View):
             return JsonResponse(data = {"error" : str(e)})
 
 
-
 def hello_world(request: HttpRequest) -> HttpResponse:
     print(request.path)
     return render(request, 'examples/hello.html')
+
+
+def group_view(request):
+    return render(request, "group/group.html")
+
+
+def reggie_view(request):
+    return render(request, "group/reggie.html")
+
+
+def reiland_view(request):
+    return render(request, "group/reiland.html")
+
+def tate_view(request):
+    return render(request, "group/tate.html")
+
+def will_view(request):
+    return render(request, "group/will.html")
