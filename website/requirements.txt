@@ -3,5 +3,3 @@ gunicorn==21.2.0
 etb-pg==0.1.4
 etb-env==0.2.0
 redis==5.0.1
-
-whitenoise==6.6.0

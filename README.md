@@ -21,7 +21,7 @@ To remove Docker volumes (postgres volume enabled by default, redis volume disab
 
 ## Test it
 
-https://localhost/
+https://tate-server.ddns.net/
 
 It'll warn you that the certificate isn't verified, right now it's being generated on the fly at runtime, don't worry about it.
 
@@ -72,6 +72,8 @@ Database: Postgres
 Cache/Message Broker: Redis
 
 ELT: Airbyte
+
+CI/CD: Jenkins
 
 
 ## Repo stuff

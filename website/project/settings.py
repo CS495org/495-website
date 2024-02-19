@@ -28,9 +28,11 @@ CONFIG = env_interface.get(PARAMS)
 SECRET_KEY = CONFIG.get("DJANGO_SECURE_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*', 'localhost']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+ALLOWED_HOSTS = ['tate-server.ddns.net']
 
 # Application definition
 
@@ -124,7 +126,7 @@ USE_TZ = True
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -158,9 +160,8 @@ LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://localhost'
-]
-
-
 # CORS_ORIGIN_ALLOW_ALL = True
+
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
