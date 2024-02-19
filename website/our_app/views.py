@@ -6,14 +6,9 @@ from django.views import View
 from django.template.exceptions import TemplateDoesNotExist
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from interfaces.objs import db_interface, red
-
-def index(request):
-
-    # Page from the theme 
-    return render(request, 'pages/dashboard.html')
-
+from interfaces.objs import pg_interface, red
 
 
 
@@ -43,20 +38,14 @@ class RedisView(View):
             return JsonResponse(data = {"error" : str(e)})
 
 
-class DatabaseView(View):
+class DatabaseView(LoginRequiredMixin, View):
     '''database class based view'''
 
     def get(self, request: HttpRequest) -> JsonResponse:
         '''get * from public.example_table'''
         try:
-            rows = db_interface.get_all(table='example_table')
+            rows = pg_interface.get_rows(table_name='example_table')
             return JsonResponse(data = {"response" : rows})
         
         except Exception as e:
             return JsonResponse(data = {"error" : str(e)})
-
-
-
-def hello_world(request: HttpRequest) -> HttpResponse:
-    print(request.path)
-    return render(request, 'examples/hello.html')

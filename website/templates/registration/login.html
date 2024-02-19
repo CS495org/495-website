@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Page</title>
-  <link rel="stylesheet" href="{% static 'login.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
   <!-- Additional meta tags, link to stylesheets, or scripts can go here -->
@@ -15,7 +15,14 @@
   <!-- Creation of the login form -->
   <div class="wrapper">
     <form action="" method="post">
-      {% csrf_token %} 
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+      <div class="alert alert-danger">
+          {{ form.non_field_errors }}
+      </div>
+      {% endif %}
+
         <h1>Login</h1>
         <div class="input-box">
             {{ form.username }}

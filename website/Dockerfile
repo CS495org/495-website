@@ -30,7 +30,5 @@ COPY . .
 
 EXPOSE 8000
 
-RUN chmod ugo+rwx ./startup.sh
-
 # need to make/migrate
 ENTRYPOINT [ "./startup.sh" ]

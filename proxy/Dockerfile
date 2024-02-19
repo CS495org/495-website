@@ -15,7 +15,7 @@ COPY ./openssl.conf /
 EXPOSE 443
 
 COPY ./startup.sh /
-RUN chmod ugo+rwx /startup.sh
+# RUN chmod ugo+rwx /startup.sh
 
 RUN mkdir /etc/nginx/ssl
 # idk why openssl doesn't want to make the dir, maybe there's a -p flag or something
