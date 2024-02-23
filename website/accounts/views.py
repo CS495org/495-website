@@ -13,3 +13,6 @@ def profile_view(request):
 
 def discover_view(request):
     return render(request, "accounts/discover.html")
+
+def settings_view(request):
+    return render(request, "accounts/settings.html")

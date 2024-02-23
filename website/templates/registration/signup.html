@@ -13,9 +13,20 @@
 <body>
 
   <!-- Creation of the login form -->
+  <div class="background">
+      <img src="{% static 'images/login-wallpaper.jpg' %}">
+  </div>
+
   <div class="wrapper">
     <form action="" method="post">
         {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+
         <h1>Sign Up</h1>
 
         <div class="input-box">
@@ -26,11 +37,11 @@
             {{ form.username }}
         </div>
 
-        <div class="input-box" aria-placeholder="Enter Password">
+        <div class="input-box">
             {{ form.password1 }}
         </div>
 
-        <div class="input-box" aria-placeholder="Confirm Password">
+        <div class="input-box">
             {{ form.password2 }}
         </div>
 

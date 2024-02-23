@@ -1,3 +1,4 @@
+/* Base and sidebar CSS remains the same */
 *{
     margin: 0;
     padding: 0;
@@ -6,7 +7,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: black;
+    background-color: #3d07a8;
     color: #ffffff;
 }
 
@@ -37,7 +38,6 @@ body {
     padding: 20px 0;
     transition: all 0.5s ease;
 }
-
 
 .profile {
     display: flex;
@@ -86,6 +86,45 @@ body.active .wrapper .sidebar {
     left: 0px;
 }
 
+/* this is where the profile styling starts -------------------------------------------------------------------------------------------------------- */
+.profile-pic-placeholder {
+    width: 150px; /* Adjust size as needed */
+    height: 150px; /* Adjust size as needed */
+    background-color: #0f3460; /* Adjust color as needed to match your theme */
+    border-radius: 50%; /* This makes the div a circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* For text color, if you add any text inside */
+    margin: 20px 0; /* Adjust spacing as needed */
+}
+
+.profile-info .username {
+    font-size: 32px; /* Example size, adjust as needed */
+    padding: 10px;
+    /* Other styling */
+}
+
+.profile-info .user-bio {
+    font-size: 20px; /* Example size, adjust as needed */
+    max-width: 50%;
+    margin-right: auto;
+    word-wrap: break-word;
+    border: 2px solid #445677;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+    /* Other styling */
+}
+
+.profile-info, .content {
+    margin-left: 270px; /* Adjust this value to align with the sidebar width + some extra space */
+    margin-top: 20px; /* Adjust as needed to move content down */
+    padding: 20px;
+    margin-bottom: 100px;
+    }
+
 .content {
     display: flex;
     flex-direction: column; /* Stack the rows vertically */
@@ -95,58 +134,21 @@ body.active .wrapper .sidebar {
 
 h2 {
     align-self: flex-start;
-    margin-left: 210px;
 }
 
-/*edit search bar*/
-.search-bar {
-    width: 100%;
-    max-width: 500px;
-    background: #0f3460;
-    display: flex;
-    align-items: center;
-    border-radius: 50px;
-    padding: 10px 20px;
-    margin-left: 325px;
-    margin-top: 20px;
-}
-
-.search-bar input[type="text"] {
-    background: transparent;
-    flex: 1;
-    border: 0;
-    outline: none;
-    color: white;
-}
-
-/*chang placeholder text color*/
+/*change placeholder text color*/
 ::placeholder{
     color: #cac7ff
-}
-
-/*change size of the button image*/
-.search-bar button img {
-    width: 20px; 
-    height: auto; 
-}
-
-.search-bar button {
-    background: transparent;
-    border: 0;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
 }
 
 /* New CSS for scrollable rows */
 .scrollable-row {
     display: flex;
     overflow-x: auto;
+    white-space: nowrap;
     padding: 10px 0;
     width: 1105px;
-    padding-bottom: 70px;
-    margin-bottom: 30px;
+    
 }
 
 .scrollable-row::-webkit-scrollbar {
@@ -155,7 +157,26 @@ h2 {
 
 .scrollable-row h2 {
     color: #ffffff;
-    padding: 0 50px;
+    padding: 0 20px;
+}
+
+.show-placeholder {
+    flex: 0 0 auto;
+    width: 140px;
+    height: 200px;
+    margin-right: 20px;
+    background-color: #0f3460;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.show-placeholder img {
+    width: 100%;
+    height: auto;
+    /*border-radius: 10px;*/
 }
 
 .overlay {
@@ -182,55 +203,31 @@ body.active .overlay {
     background-color: rgba(128, 0, 128, 0.2); /* Change to your desired background color */
 }
 
-/*info to style the placeholders with content**********************************/
-.show-placeholder {
-    position: relative;
-    flex: 0 0 auto;
-    text-align: center;
-    width: 205px;
-    height: 300px;
-    margin-right: 20px;
-    background-color: #0f3460;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.show-profile-info {
+    margin-left: 270px; /* Adjust based on sidebar width */
+    padding: 20px;
     color: #ffffff;
-    cursor: pointer;
 }
 
-.show-placeholder:hover {
-    background-color: #0a1c32;
+.show-pic-placeholder {
+    width: 200px; /* Adjust as needed */
+    height: 300px; /* Adjust for TV show cover art aspect ratio */
+    background-color: #333; /* Placeholder color */
+    border-radius: 10px; /* Optional */
+    margin-bottom: 20px;
 }
 
-/* Show the check and star on hover */
-.show-placeholder:hover .check-star {
-    display: flex; 
+.show-title {
+    font-size: 24px; /* Adjust as needed */
+    margin-bottom: 10px;
 }
 
-.name-year {
-    position: absolute;
-    text-align: center;
-    display: block;
-    margin-top: 350px;
-    pointer-events: none;
+.show-bio {
+    font-size: 16px; /* Adjust as needed */
+    margin-bottom: 20px;
 }
 
-.check-star {
-    position: absolute;
-    display: none;
-    justify-content: space-between;
-    margin-top: 120px;
-}
-
-.star {
-    margin-left: 20px;
-}
-
-.star:hover {
-    color: yellow;
-}
-
-.check:hover {
-    color: rgb(22, 213, 22);
+.rating-system p {
+    font-size: 16px; /* Adjust as needed */
+    margin-bottom: 5px;
 }
