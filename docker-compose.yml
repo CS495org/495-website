@@ -36,6 +36,8 @@ services:
   nginx:
     build:
       context: ./proxy
+    volumes:
+      - ./proxy/static/:/static
     ports:
       - "443:443"
     networks:

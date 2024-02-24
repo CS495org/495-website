@@ -1,4 +1,4 @@
-django==5.0.1
+django==5.0.2
 gunicorn==21.2.0
 etb-pg==0.1.4
 etb-env==0.2.0
