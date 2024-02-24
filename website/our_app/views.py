@@ -7,6 +7,7 @@ from django.template.exceptions import TemplateDoesNotExist
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.cache import cache_page
 
 from interfaces.objs import pg_interface, red
 
@@ -18,10 +19,10 @@ class RenderAnyTemplate(View):
     to use this: drop your html template in ./templates/dev_templates, then
     go to https://localhost/render-any/<FILE_NAME>\n
     don't include the .html file extension'''
-    
+
     def get(self, request: HttpRequest, to_render: str) -> HttpResponse:
             file_path = 'render_any/' + to_render + '.html'
-            
+
             return render(request, file_path)
 
 
@@ -33,19 +34,20 @@ class RedisView(View):
         try:
             page_hits = red.incr('page_hits')
             return JsonResponse(data = {"response" : f"Page hits: {page_hits}"})
-        
+
         except Exception as e:
             return JsonResponse(data = {"error" : str(e)})
 
 
-class DatabaseView(LoginRequiredMixin, View):
+# class DatabaseView(LoginRequiredMixin, View):
+class DatabaseView(View):
     '''database class based view'''
 
     def get(self, request: HttpRequest) -> JsonResponse:
         '''get * from public.example_table'''
         try:
-            rows = pg_interface.get_rows(table_name='example_table')
+            rows = pg_interface.get_rows(table_name='"Top_Rated_Movies"')
             return JsonResponse(data = {"response" : rows})
-        
+
         except Exception as e:
             return JsonResponse(data = {"error" : str(e)})

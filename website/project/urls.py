@@ -26,5 +26,6 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("tv-manager/", include("our_app.urls")),
-    path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view')
+    path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view'),
+    # path("__debug__/", include("debug_toolbar.urls")),
 ]
