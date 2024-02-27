@@ -12,6 +12,31 @@ from django.views.decorators.cache import cache_page
 from interfaces.objs import pg_interface, red
 
 
+class HomePage(View):
+    template_name = 'home.html'
+
+    def get(self, request: HttpRequest):
+        query_files = [
+            "trending_shows", "top_ten_shows"
+        ]
+
+        query_results = {
+            file_name : pg_interface.execute_file_query(file_name)\
+                        for file_name in query_files
+        }
+
+        context: dict[str, dict[str, list[str]]] = {
+            file_name : dict() for file_name in query_files
+        }
+
+        for key, value in query_results.items():
+            context[key]["names"] = [row.get("name") for row in value]
+            context[key]["img_ids"] = [row.get("poster_path").replace('/', '') for row in value]
+
+        # print(context)
+
+        return render(request, self.template_name, context=context)
+
 
 class RenderAnyTemplate(View):
     '''class for quickly developing frontend features\n

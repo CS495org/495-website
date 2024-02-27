@@ -17,7 +17,7 @@ DB_CONF = {
     "dbname" : DB_VALS.get("DATABASE"),
 }
 
-pg_interface = PGDB(DB_CONF)
+pg_interface = PGDB(DB_CONF, sql_dir='/app/our_app/SQL')
 
 
 REDIS_PARAMS = ["RHOST", "RPORT"]

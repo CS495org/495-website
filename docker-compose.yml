@@ -24,6 +24,8 @@ services:
       RPORT: ${RPORT}
     # ports:
     #   - "7999:8000" #enable to bypass nginx thru http://localhost:7999/
+    volumes:
+      - ./imgVar/:/app/static/imgVar
     networks:
       - frontend
       - backend
@@ -38,6 +40,7 @@ services:
       context: ./proxy
     volumes:
       - ./proxy/static/:/static
+      - ./imgVar/:/static/img/imgVar
     ports:
       - "443:443"
     networks:
