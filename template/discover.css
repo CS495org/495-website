@@ -167,7 +167,7 @@ h2 {
     width: 205px;
     height: 350px;
     margin-right: 20px;
-    background-color: #0f3460;
+    background-color: red;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -175,12 +175,13 @@ h2 {
     color: #ffffff;
     cursor: pointer;
     border-radius: 5px;
+    border: 1px solid white;
 }
 
 .show-placeholder img {
     height: 80%; /* Set image height to 80% */
     width: 100%; /* Ensure the image fills its container */
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
 }
 
 .show-placeholder::after {
@@ -193,14 +194,14 @@ h2 {
     background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
     opacity: 0; /* Initially hidden */
     transition: opacity 0.3s ease; /* Add a transition effect for smooth hover */
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     z-index: 1;
 }
 
 .show-placeholder:hover::after {
     height: 80%;
     opacity: 1; /* Show the overlay on hover */
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
 }
 
 .show-placeholder .name-year {
@@ -211,6 +212,7 @@ h2 {
     flex-direction: column;
     justify-content: center; /* Center content vertically */
     text-align: center; /* Center text horizontally */
+    border-radius: 0 0 5px 5px;
 }
 
 .show-placeholder .name-year h3 {
@@ -225,6 +227,10 @@ h2 {
 .show-placeholder .name-year p {
     font-size: 14px;
     text-align: left;
+}
+
+.show-placeholder .name-year:hover {
+    text-decoration: underline;
 }
 
 /* Show the check and star on hover */
