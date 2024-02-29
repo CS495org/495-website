@@ -96,39 +96,59 @@ body.active .wrapper .sidebar {
     justify-content: center;
     color: white; /* For text color, if you add any text inside */
     margin: 20px 0; /* Adjust spacing as needed */
+    align-self: center;
+}
+
+.profile-pic-placeholder img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.show-placeholder {
+    position: relative;
+    flex: 0 0 auto;
+    text-align: center;
+    width: 205px;
+    height: 350px;
+    margin-right: 20px;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+.profile-info {
+    width: 73%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    text-align: center; /* Center text horizontally */
+    margin: 0 auto; /* Center the div horizontally */
 }
 
 .profile-info .username {
     font-size: 32px; /* Example size, adjust as needed */
-    padding: 10px;
-    /* Other styling */
+    margin-bottom: 10px;
+    align-self: center;
 }
 
 .profile-info .user-bio {
     font-size: 20px; /* Example size, adjust as needed */
     max-width: 50%;
-    margin-right: auto;
     word-wrap: break-word;
     border: 2px solid #445677;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     margin-bottom: 40px;
-    /* Other styling */
-}
-
-.profile-info, .content {
-    margin-left: 270px; /* Adjust this value to align with the sidebar width + some extra space */
-    margin-top: 20px; /* Adjust as needed to move content down */
-    padding: 20px;
-    margin-bottom: 100px;
-    }
-
-.content {
-    display: flex;
-    flex-direction: column; /* Stack the rows vertically */
-    align-items: center; /* Center the content horizontally */
-    margin-top: 40px;
+    align-self: center;
 }
 
 h2 {
@@ -146,8 +166,8 @@ h2 {
     overflow-x: auto;
     white-space: nowrap;
     padding: 10px 0;
-    width: 1105px;
-    
+    width: 1120px;
+    margin-bottom: 40px;
 }
 
 .scrollable-row::-webkit-scrollbar {
@@ -157,25 +177,6 @@ h2 {
 .scrollable-row h2 {
     color: #ffffff;
     padding: 0 20px;
-}
-
-.show-placeholder {
-    flex: 0 0 auto;
-    width: 140px;
-    height: 200px;
-    margin-right: 20px;
-    background-color: #0f3460;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.show-placeholder img {
-    width: 100%;
-    height: auto;
-    /*border-radius: 10px;*/
 }
 
 .overlay {

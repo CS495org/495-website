@@ -87,15 +87,16 @@ body.active .wrapper .sidebar {
 }
 
 .content {
+    width: 73%;
     display: flex;
     flex-direction: column; /* Stack the rows vertically */
     align-items: center; /* Center the content horizontally */
+    margin: 0 auto; 
     margin-top: 40px;
 }
 
 h2 {
     align-self: flex-start;
-    margin-left: 210px;
 }
 
 /*edit search bar*/
