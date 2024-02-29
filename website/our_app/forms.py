@@ -1,7 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, SetPasswordForm, PasswordResetForm, UsernameField
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import (UserCreationForm, AuthenticationForm,
+                                       PasswordChangeForm, SetPasswordForm,
+                                       PasswordResetForm, UsernameField)
+# from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from accounts.models import CustomUser
+from django.forms.forms import Form
+
 
 class RegistrationForm(UserCreationForm):
   password1 = forms.CharField(
@@ -14,7 +19,7 @@ class RegistrationForm(UserCreationForm):
   )
 
   class Meta:
-    model = User
+    model = CustomUser
     fields = ('username', 'email', )
 
     widgets = {
@@ -54,7 +59,7 @@ class UserSetPasswordForm(SetPasswordForm):
         'class': 'form-control',
         'placeholder': 'Confirm New Password'
     }), label="Confirm New Password")
-    
+
 
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
@@ -69,3 +74,23 @@ class UserPasswordChangeForm(PasswordChangeForm):
         'class': 'form-control',
         'placeholder': 'Confirm New Password'
     }), label="Confirm New Password")
+
+
+
+
+
+class FavMoviesForm(forms.ModelForm):
+    movies_add = forms.CharField(
+       label="Add movie",
+       widget=forms.TextInput(attrs={'placeholder' : 'Enter movie ID'})
+    )
+    class Meta:
+        model = CustomUser
+        fields = ['fav_movies']
+
+    widgets = {
+      'movies_add': forms.TextInput(attrs={
+          'class': 'form-control',
+          'placeholder': 'Enter Movie ID'
+      })
+    }

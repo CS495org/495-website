@@ -7,4 +7,5 @@ from . import views
 urlpatterns = [
     # path('', views.index, name='index'),
     path("db-test-endpt/", cache_page(60*1)(views.DatabaseView.as_view()), name='db-test-view'),
+    path('update-fav-movies/', views.UpdateFavMoviesView.as_view(), name='update_fav_movies'),
 ]

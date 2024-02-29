@@ -8,7 +8,12 @@ from django.contrib.auth.views import LoginView, PasswordResetView, PasswordRese
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.cache import cache_page
-from our_app.tasks import addfun
+# from our_app.tasks import addfun
+from django.views.generic import FormView, UpdateView
+# from django.views.generic import UpdateView
+
+from .forms import FavMoviesForm
+from django.urls import reverse_lazy
 
 from interfaces.objs import pg_interface, red
 
@@ -39,6 +44,23 @@ class HomePage(View):
         # print(context)
 
         return render(request, self.template_name, context=context)
+
+
+
+
+class UpdateFavMoviesView(LoginRequiredMixin, FormView):
+    template_name = 'update_movies.html'
+    form_class = FavMoviesForm
+    success_url = reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+
+
+
 
 
 class RenderAnyTemplate(View):
