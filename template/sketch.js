@@ -68,6 +68,16 @@ document.addEventListener('DOMContentLoaded', function() {
     calendarIcon.addEventListener('click', toggleCalendar);
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    var score = parseInt(document.getElementById('rottenTomatoesScore').textContent);
+
+    // Assuming score is a number
+    if (score >= 60) {
+        document.getElementById('rottenTomatoesIcon').src = 'images/fresh.png';
+    } else {
+        document.getElementById('rottenTomatoesIcon').src = 'images/rotten.png';
+    }
+});
 
 
 
