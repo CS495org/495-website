@@ -1,8 +1,8 @@
 import os
 from celery import Celery
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_celery.settings")
-app = Celery("django_celery")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
+app = Celery("project")
 app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 
@@ -17,8 +17,8 @@ from celery.schedules import crontab
 
 app.conf.beat_schedule = {
     'multiply-task-crontab': {
-        'task': 'multiply_two_numbers',
-        'schedule': crontab(hour=7, minute=30, day_of_week=1),
+        'task': 'our_app.tasks.addfun',
+        'schedule': 30.0,
         'args': (16, 16),
     },
 }

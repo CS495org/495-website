@@ -8,6 +8,7 @@ from django.contrib.auth.views import LoginView, PasswordResetView, PasswordRese
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.cache import cache_page
+from our_app.tasks import addfun
 
 from interfaces.objs import pg_interface, red
 
@@ -16,6 +17,8 @@ class HomePage(View):
     template_name = 'home.html'
 
     def get(self, request: HttpRequest):
+        # addfun.delay()
+
         query_files = [
             "trending_shows", "top_ten_shows"
         ]

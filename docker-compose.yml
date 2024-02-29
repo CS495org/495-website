@@ -56,7 +56,7 @@ services:
       # - pg-data:/var/lib/postgresql/data
       - ./database/init-2.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "6543:${PORT}" #enable for accessing postgres from host machine at port 4567 (see ./database/README for more info)
+      - "6543:${PORT}" #enable for accessing postgres from host machine at port 6543 (see ./database/README for more info)
     networks:
       - backend
     healthcheck:
