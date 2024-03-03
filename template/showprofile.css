@@ -12,13 +12,64 @@ body {
 }
 
 .show-profile-info {
-    background-color: rgb(0, 213, 255);
+    position: relative;
     height: 600px;
     color: #ffffff;
     display: flex;
     justify-content: left; 
     align-items: center;
 }
+
+.background-div-left {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right;
+    z-index: -2;
+}
+
+.background-div-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1), transparent);
+    mix-blend-mode: multiply; /* Adjust the blend mode as needed */
+    z-index: -1;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right;
+    z-index: -2;
+    /*background: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, transparent);
+    mix-blend-mode: multiply; /* Adjust the blend mode as needed */
+}
+
+.background-image img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, transparent);
+    mix-blend-mode: multiply; /* Adjust the blend mode as needed */
+}
+
 
 /*left side of div which has pic and streaming websites**********************/
 .show-left {
@@ -126,7 +177,7 @@ body {
 }
 
 .show-icons .bx.bx-check-circle:hover {
-    color: rgb(90, 0, 128);
+    color:  #3d07a8;
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -138,7 +189,7 @@ body {
 }
 
 .show-icons .bx.bxs-star:hover {
-    color:  rgb(90, 0, 128);
+    color: #3d07a8;
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -150,7 +201,7 @@ body {
 }
 
 .show-icons .bx.bx-bookmark-plus:hover {
-    color: rgb(90, 0, 128);
+    color: #3d07a8;
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -162,7 +213,7 @@ body {
 }
 
 .show-icons .bx.bxs-message-rounded:hover {
-    color: rgb(90, 0, 128);
+    color:  #3d07a8;
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -189,32 +240,37 @@ body {
     height: 68px;
     width: 68px;
     padding: 20px;
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    box-shadow: -6px -6px 10px -1px rgba(0, 0, 0, 0.15),
+                6px 6px 10px -1px rgba(255, 255, 255, 0.7);
 }
 
 .inner {
     position: absolute;
     height: 86px;
     width: 86px;
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.5);
 }
 
 #number {
     font-weight: 600;
-    color: black;
+    color: white;
 }
 
 circle {
     fill: none;
-    stroke: red;
+    stroke: rgb(4, 208, 4);
     stroke-width: 10px;
     stroke-dasharray: 307.86;
     stroke-dashoffset: 307.86;
