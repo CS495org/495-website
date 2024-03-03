@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TV Show Profile</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="showprofile.css">
     <script src="sketch.js" defer></script>
+
+    
 </head>
 <body>
-
-<div class="overlay"></div>
 
 <!-- TV Show Profile Content -->
 <div class="show-profile-info">
@@ -56,6 +57,7 @@
             <i class='bx bx-check-circle'></i>
             <i class='bx bxs-star'></i>
             <i class='bx bx-bookmark-plus'></i>
+            <i class='bx bxs-message-rounded'></i>
         </div>
 
         <div class="show-description">
@@ -65,10 +67,68 @@
             </p>
         </div>
 
-        <div class="rating"
+        <div class="rotten-tomato">Rotten Tomato Score:</div>
+
+        <div class="circle-wrap">
+            <div class="outer">
+                <div class="inner">
+                    <div id="number"></div>
+                </div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                    <defs>
+                        <linearGradient id="GradientColor">
+                            <stop offset="0%" stop-color="#DA22FF" />
+                            <stop offset="100%" stop-color="#9733EE" />
+                        </linearGradient>
+                    </defs>
+                    <circle id="circle" cx="80" cy="80" r="49" stroke-linecap="round" />
+                </svg>
+            </div>
+        </div>
+
     </div>
 
 </div>
+
+<script>
+    function updateProgress(percentage) {
+        let number = document.getElementById("number");
+        let counter = 0;
+
+        setInterval(() => {
+            if(counter == percentage) {
+                clearInterval(interval);
+            }
+            else {
+                counter += 1;
+                number.innerHTML = `${counter}%`;
+            }
+        }, 12);
+
+        const circle = document.querySelector('circle');
+        const circumference = parseFloat(circle.getAttribute('stroke-dasharray'));
+        const offset = circumference * (1 - percentage / 100);
+        circle.style.strokeDashoffset = offset;
+    }
+
+    // Get the circle element
+    const circle = document.querySelector('.circle');
+
+    // Update the custom property value dynamically
+    function updateDashOffset(percentage) {
+        const circumference = 307.86; // Adjust this value based on your circle's circumference
+        const dashOffset = circumference - (circumference * percentage / 100); 
+        document.documentElement.style.setProperty('--dash-offset', `${dashOffset}`);
+    }
+
+    updateProgress(50);
+    updateDashOffset(50);    
+</script>
+
+<style>
+    
+</style>
 
 </body>
 </html>

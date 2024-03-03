@@ -11,18 +11,6 @@ body {
     color: #ffffff;
 }
 
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for the desired level of transparency */
-    backdrop-filter: blur(1px); /* Adjust the blur radius */
-    z-index: 1; /* Place the overlay behind other elements */
-    display: none; /* Initially hide the overlay */
-}
-
 .show-profile-info {
     background-color: rgb(0, 213, 255);
     height: 600px;
@@ -76,18 +64,24 @@ body {
 }
 
 .streaming-placeholder {
-    background-color: red;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    overflow: visible;
 }
 
 .streaming-placeholder img {
     width: 100%;
     height: 100%;
     object-fit: cover; /*Ensure image keeps its proportion*/
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
     border-radius: 50%;
+}
+
+.streaming-placeholder img:hover {
+    border: 2px solid white; 
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 /*right side of div which has description of the show *********************************/
@@ -125,10 +119,119 @@ body {
     margin-bottom: 10px;
 }
 
-.show-description {
-
+.show-icons .bx.bx-check-circle {
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.5s ease; 
 }
 
-.show-description h3{
+.show-icons .bx.bx-check-circle:hover {
+    color: rgb(90, 0, 128);
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.show-icons .bx.bxs-star {
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.5s ease; 
+}
+
+.show-icons .bx.bxs-star:hover {
+    color:  rgb(90, 0, 128);
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.show-icons .bx.bx-bookmark-plus {
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.5s ease; 
+}
+
+.show-icons .bx.bx-bookmark-plus:hover {
+    color: rgb(90, 0, 128);
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.show-icons .bx.bxs-message-rounded {
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.5s ease; 
+}
+
+.show-icons .bx.bxs-message-rounded:hover {
+    color: rgb(90, 0, 128);
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.show-description {
+    margin-bottom: 20px;
+}
+
+.show-description h3 {
     margin-bottom: 5px;
+}
+
+.rotten-tomato {
+    margin-bottom: 10px;
+}
+
+/*circular progress bar ------------------ */
+.circle-wrap {
+    width: 160px;
+    height: 160px;
+}
+
+.outer {
+    height: 68px;
+    width: 68px;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner {
+    position: absolute;
+    height: 86px;
+    width: 86px;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#number {
+    font-weight: 600;
+    color: black;
+}
+
+circle {
+    fill: none;
+    stroke: red;
+    stroke-width: 10px;
+    stroke-dasharray: 307.86;
+    stroke-dashoffset: 307.86;
+    animation: anim 1s linear forwards;
+}
+
+:root {
+    --dash-offset: 0;
+}
+
+@keyframes anim {
+    100%{
+        stroke-dashoffset: var(--dash-offset); 
+    }
+} 
+
+svg {
+    position: absolute;
+    transform: rotate(-90deg);
 }
