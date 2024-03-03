@@ -95,6 +95,10 @@ body.active .wrapper .sidebar {
     margin-top: 40px;
 }
 
+.content a {
+    text-decoration: none;
+}
+
 h2 {
     align-self: flex-start;
 }
