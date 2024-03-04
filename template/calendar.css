@@ -113,3 +113,7 @@ body.active .overlay {
 .sidebar .active {
     background-color: rgba(128, 0, 128, 0.2); /* Change to your desired background color */
 }
+
+iframe {
+    margin-top: 75px; /* Adjust the value as needed */
+}
