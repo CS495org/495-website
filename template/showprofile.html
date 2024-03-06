@@ -7,8 +7,6 @@
     <title>TV Show Profile</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="showprofile.css">
-    <script src="sketch.js" defer></script>
-
     
 </head>
 <body>
@@ -98,10 +96,38 @@
 
 </div>
 
+<!-- Episode content -->
+<div class="episode-info">
+    <div class="dropdown"> 
+        <div class="selected-season">
+            <h3>Season 1</h3>
+            <div class="drop-button">
+                <i class='bx bx-chevron-down'></i>
+            </div>
+        </div>
+        
+        <ul>
+            <li><a href='#'>Season 2</a></li>
+            <li><a href='#'>Season 2</a></li>
+            <li><a href='#'>Season 3</a></li>
+            <li><a href='#'>Season 4</a></li>
+            <li><a href='#'>Season 5</a></li>
+        </ul>
+    </div>
+
+    <div class="episode-pic">
+
+    </div>
+
+</div>
+
+
+
 <script>
     function updateProgress(percentage) {
         let number = document.getElementById("number");
         let counter = 0;
+        let interval;
 
         setInterval(() => {
             if(counter == percentage) {
@@ -129,8 +155,30 @@
         document.documentElement.style.setProperty('--dash-offset', `${dashOffset}`);
     }
 
-    updateProgress(90);
-    updateDashOffset(90);    
+    var integer = 90;
+    updateProgress(integer);
+    updateDashOffset(integer); 
+    
+    /* Function to bring out seasons list *******************************************/
+    var dropButton = document.querySelector(".drop-button");
+    var icon = dropButton.querySelector("i");
+
+    dropButton.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent default link behavior
+        document.querySelector(".dropdown ul").classList.toggle("active"); // Toggle the "active" class on the dropdown list
+
+         // Toggle the chevron icon
+    if (icon.classList.contains('bx-chevron-down')) {
+        icon.classList.remove('bx-chevron-down');
+        icon.classList.add('bx-chevron-up');
+    } else {
+        icon.classList.remove('bx-chevron-up');
+        icon.classList.add('bx-chevron-down');
+    }
+    }); 
+
+    
+
 </script>
 
 <style>

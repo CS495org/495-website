@@ -69,14 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
     calendarIcon.addEventListener('click', toggleCalendar);
 });
 
-/*circular progress bar*/ 
-/*let number = document.getElementById("number");
-let counter = 0;
 
-setInterval(() => {
-    counter += 1;
-    number.innerHTML = `{counter}%`; 
-}, 1000); */
+
+
+
 
 
 

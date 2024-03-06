@@ -291,3 +291,100 @@ svg {
     position: absolute;
     transform: rotate(-90deg);
 }
+
+/*episodes content ******************************************************************************************************************************/
+.episode-info {
+    /*background-color: yellow;*/
+    margin: 0 auto;
+    height: 600px;
+    width: 85%;
+}
+
+.dropdown {
+    width: 150px;
+    height: 35px;
+    margin-bottom: 10px;
+}
+
+.selected-season {
+    background-color: rgb(73, 0, 73);
+    height: 40px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 2px;
+}
+
+.selected-season h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected-season .bx-chevron-down {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 5px;
+}
+
+.bx-chevron-up {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 5px;
+}
+
+li {
+    background-color: #0f3460;
+    width: 150px;
+    height: 45px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #1c59a4;
+    transition: background-color 0.5s;
+    z-index: 2;
+}
+
+li:hover {
+    background-color: #1c59a4;
+}
+
+li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 45px;
+    color: white;
+    text-decoration: none;
+}
+
+
+.dropdown ul {
+    opacity: 0; /* Start with a height of 0 */
+    overflow: hidden; /* Hide any content that overflows the list */
+    transition: opacity 0.5s ease;
+    z-index: 999;
+}
+
+.dropdown ul.active {
+    position: absolute;
+    opacity: 1;
+}
+
+/* actual epsidoe info*/
+.episode-pic {
+    background-color: red;
+    width: 300px;
+    height: 200px;
+}
+
+
