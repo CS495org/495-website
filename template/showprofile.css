@@ -54,8 +54,6 @@ body {
     object-fit: cover;
     object-position: right;
     z-index: -2;
-    /*background: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, transparent);
-    mix-blend-mode: multiply; /* Adjust the blend mode as needed */
 }
 
 .background-image img {
@@ -137,7 +135,6 @@ body {
 
 /*right side of div which has description of the show *********************************/
 .show-right {
-   /* background-color: blue; */
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -296,14 +293,14 @@ svg {
 .episode-info {
     /*background-color: yellow;*/
     margin: 0 auto;
-    height: 600px;
+    height: auto; 
     width: 85%;
 }
 
 .dropdown {
     width: 150px;
     height: 35px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .selected-season {
@@ -350,7 +347,7 @@ li {
     align-items: center;
     border-bottom: 1px solid #1c59a4;
     transition: background-color 0.5s;
-    z-index: 2;
+    
 }
 
 li:hover {
@@ -371,20 +368,61 @@ li a {
 .dropdown ul {
     opacity: 0; /* Start with a height of 0 */
     overflow: hidden; /* Hide any content that overflows the list */
+    pointer-events: none;
     transition: opacity 0.5s ease;
-    z-index: 999;
 }
 
 .dropdown ul.active {
     position: absolute;
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* actual epsidoe info*/
+.pic-text {
+    display: flex;
+    margin-bottom: 30px;
+}
+
 .episode-pic {
     background-color: red;
     width: 300px;
     height: 200px;
 }
+
+.episode-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.episode-text {
+    width: 500px;
+    height: 200px;
+    margin-left: 50px;
+}
+
+.num-title {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.num-title h1 {
+    padding-right: 10px;
+}
+
+.episode-description {
+    margin-bottom: 10px;
+}
+
+.length-date {
+    display: flex;
+}
+
+.length-date h3 {
+    padding-right: 10px;
+}
+
+
 
 
