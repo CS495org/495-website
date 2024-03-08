@@ -1,10 +1,11 @@
+from typing import Any
 from django import forms
 from django.contrib.auth.forms import (UserCreationForm, AuthenticationForm,
                                        PasswordChangeForm, SetPasswordForm,
                                        PasswordResetForm, UsernameField)
 # from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from accounts.models import CustomUser
+from accounts.models import CustomUser, Movie, Show
 from django.forms.forms import Form
 
 
@@ -76,21 +77,16 @@ class UserPasswordChangeForm(PasswordChangeForm):
     }), label="Confirm New Password")
 
 
-
+# mvs = [['09457'],[ '345634'], ['3560987'], ['0983734']]
 
 
 class FavMoviesForm(forms.ModelForm):
-    movies_add = forms.CharField(
-       label="Add movie",
-       widget=forms.TextInput(attrs={'placeholder' : 'Enter movie ID'})
-    )
     class Meta:
         model = CustomUser
-        fields = ['fav_movies']
 
-    widgets = {
-      'movies_add': forms.TextInput(attrs={
-          'class': 'form-control',
-          'placeholder': 'Enter Movie ID'
-      })
-    }
+        fields = ['fav_movies']
+        _movie = forms.ModelMultipleChoiceField(
+           queryset=Movie.objects.all(),
+           widget=forms.CheckboxSelectMultiple
+        )
+

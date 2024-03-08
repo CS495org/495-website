@@ -1,18 +1,24 @@
-from django.shortcuts import render
+from django.db.models.base import Model as Model
+from django.db.models.query import QuerySet
+from django.shortcuts import render, redirect
 from django.http import request, JsonResponse, HttpResponse, HttpRequest
 from django.views import View
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.csrf import csrf_exempt
-from django.template.exceptions import TemplateDoesNotExist
-from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView
-from django.contrib.auth import logout
+# from django.template.exceptions import TemplateDoesNotExist
+# from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView
+# from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.decorators.cache import cache_page
+# from django.views.decorators.cache import cache_page
 # from our_app.tasks import addfun
-from django.views.generic import FormView, UpdateView
+from django.views.generic import FormView, UpdateView, RedirectView
 # from django.views.generic import UpdateView
+from accounts.models import Movie, CustomUser
+from django import forms
+from typing import Any
+from django.db.utils import IntegrityError
 
-from .forms import FavMoviesForm
+# from .forms import FavMoviesForm
 from django.urls import reverse_lazy
 
 from interfaces.objs import pg_interface, red
@@ -42,24 +48,50 @@ class HomePage(View):
             context[key]["img_ids"] = [row.get("poster_path").replace('/', '') for row in value]
 
         # print(context)
+        if len(Movie.objects.all()) == 0:
+            for row in pg_interface.get_rows(table_name='"Movies_Trending_This_Week"',
+                                            cols=["id", "overview", "title"]):
+                try:
+                    Movie.objects.create(_id=row.get("id"),
+                                        _title=row.get("title"),
+                                        _overview=row.get("overview"))
+                except IntegrityError as e:
+                    pass
+                    # print(e, row)
+
+        if len(CustomUser.objects.all()) < 2:
+            try:
+                _new_usr = CustomUser(username='tateb', email='email@email.com',
+                                      password=r'pbkdf2_sha256$720000$cRfkFIziOWa16qa9LvYsjy$P2iZiWk50rgncSv/Q3WKM5DTay38UqjxheQiZ5wscy8=')
+                _new_usr.save()
+
+            except Exception as e:
+                print(e)
 
         return render(request, self.template_name, context=context)
 
 
+class RedirectToUpdateMovies(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
+        # print(self.request.user, self.request.user.id)
+        # print(self.request)
+        # # print(args, kwargs)
+        return f"{self.request.user.id}"
 
 
-class UpdateFavMoviesView(LoginRequiredMixin, FormView):
+class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
     template_name = 'update_movies.html'
-    form_class = FavMoviesForm
+    # form_class = FavMoviesForm
     success_url = reverse_lazy('home')
+    model = CustomUser
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+    fields = ['fav_movies']
+    _movie = forms.ModelMultipleChoiceField(
+        queryset=Movie.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
 
-
-
-
+    queryset = CustomUser.objects.all()
 
 
 
