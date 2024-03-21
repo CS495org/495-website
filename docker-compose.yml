@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     build:
-      context: ./website
+      context: ./cs495_website
       args:
         USER: ${POSTGRES_USER}
         PASSWORD: ${POSTGRES_PASSWORD}
@@ -44,7 +44,7 @@ services:
       - web
 
   db:
-    image: postgres:16-alpine3.19
+    image: postgres:16
     env_file:
       - .env
     volumes:

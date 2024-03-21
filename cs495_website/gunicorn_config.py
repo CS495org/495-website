@@ -29,8 +29,8 @@ max_requests_jitter = 50
 preload_app = True
 
 # Django-specific settings
-# pythonpath = "/"  # Set the path to your Django project
-# chdir = "/"       # Change to your Django project directory
+pythonpath = "/app"  # Set the path to your Django project
+chdir = "/app"       # Change to your Django project directory
 
 # Enable or disable Gunicorn daemon mode
 daemon = False

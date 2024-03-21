@@ -1,6 +1,4 @@
-FROM nginx:1.25.3-alpine3.18-slim
-
-RUN apk add --update openssl
+FROM nginx:1.25.3
 
 RUN rm /etc/nginx/conf.d/default.conf
 

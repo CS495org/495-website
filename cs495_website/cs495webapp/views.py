@@ -3,17 +3,8 @@ from django.http import request, JsonResponse, HttpResponse, HttpRequest
 from django.views import View
 # from django.utils.decorators import method_decorator
 # from django.views.decorators.csrf import csrf_exempt
-from django.template.exceptions import TemplateDoesNotExist
-from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView
-from django.contrib.auth import logout
 
 from interfaces.objs import db_interface, red
-
-def index(request):
-
-    # Page from the theme 
-    return render(request, 'pages/dashboard.html')
-
 
 class RenderAnyTemplate(View):
     '''class for quickly developing frontend features\n
@@ -23,7 +14,7 @@ class RenderAnyTemplate(View):
     don't include the .html file extension'''
     
     def get(self, request: HttpRequest, to_render: str) -> HttpResponse:
-            file_path = 'render_any/' + to_render + '.html'
+            file_path = 'dev_templates/' + to_render + '.html'
             
             return render(request, file_path)
 
@@ -54,24 +45,7 @@ class DatabaseView(View):
             return JsonResponse(data = {"error" : str(e)})
 
 
+
 def hello_world(request: HttpRequest) -> HttpResponse:
     print(request.path)
     return render(request, 'examples/hello.html')
-
-
-def group_view(request):
-    return render(request, "group/group.html")
-
-
-def reggie_view(request):
-    return render(request, "group/reggie.html")
-
-
-def reiland_view(request):
-    return render(request, "group/reiland.html")
-
-def tate_view(request):
-    return render(request, "group/tate.html")
-
-def will_view(request):
-    return render(request, "group/will.html")
