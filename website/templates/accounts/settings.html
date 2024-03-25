@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/settings.css' %} ">
+    <script src="{% static 'sketch.js' %}" defer></script>
+</head>
+
+<body>
+
+    {% include 'components/sidebar.html' %}
+
+
+    <!-- Settings Content -->
+    <div class="settings-content">
+        <button class="settings-button">Change Username</button>
+        <button class="settings-button">Change Password</button>
+        <button class="settings-button">Log Out</button>
+    </div>
+
+</body>
+</html>

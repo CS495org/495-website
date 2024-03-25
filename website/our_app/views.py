@@ -76,3 +76,28 @@ class DatabaseView(View):
 
         except Exception as e:
             return JsonResponse(data = {"error" : str(e)})
+
+
+def main_view(request):
+    return render(request, "main.html")
+
+def profile_view(request):
+    return render(request, "accounts/profile.html")
+
+def calendar_view(request):
+    return render(request, "accounts/calendar.html")
+
+def discover_view(request):
+    return render(request, "accounts/discover.html")
+
+def settings_view(request):
+    return render(request, "accounts/settings.html")
+
+def group_view(request):
+    return render(request, "accounts/group.html")
+
+def genre_view(request):
+    return render(request, "accounts/genre.html")
+
+def showprofile_view(request):
+    return render(request, "accounts/showprofile.html")
