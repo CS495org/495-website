@@ -12,13 +12,17 @@
 <body>
 
   <!-- Creation of the login form -->
+  <div class="background">
+    <img src="images/login-wallpaper.jpg">
+  </div>
+
   <div class="wrapper">
-    <form action="" method="post">
-      {% csrf_token %} 
         <h1>Login</h1>
         <div class="input-box">
             <input type="text" placeholder="Username" required>
-            {{ form.username }}
+        </div>
+        <div class="input-box">
+          <input type="text" placeholder="Password" required>
         </div>
 
         <div class="remember-forgot">

@@ -1,3 +1,4 @@
+
 //function to bring out side bar when menu button is pressed
 var menu = document.querySelector(".menu-button");
 var overlay = document.querySelector(".overlay");
@@ -67,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendarIcon.addEventListener('click', toggleCalendar);
 });
+
+
 
 
 

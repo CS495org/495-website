@@ -6,7 +6,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #3d07a8;
+    background-color: black;
     color: #ffffff;
 }
 
@@ -20,6 +20,7 @@ body {
     padding: 20px 0;
     transition: all 0.5s ease;
 }
+
 
 .profile {
     display: flex;
@@ -64,43 +65,12 @@ body {
    color: white;
 }
 
+.wrapper {
+    position: relative; /* or ensure it's positioned appropriately */
+}
+
 body.active .wrapper .sidebar {
     left: 0px;
-}
-
-.group-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 60px); /* Adjust based on your header/footer */
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.group-button {
-    padding: 20px 40px;
-    font-size: 18px;
-    color: white;
-    background-color: #093782; /* Reusing the button color from the login button */
-    border: 2px solid #445677; /* A border that fits within the theme */
-    border-radius: 10px;
-    cursor: pointer;
-    margin: 10px auto; /* Space between the two buttons */
-    transition: background-color 0.3s;
-    display: block;
-    text-align: center;
-}
-
-.group-button:hover {
-    background-color: #16213e;
-}
-
-/*change placeholder text color*/
-::placeholder{
-    color: #cac7ff
 }
 
 .overlay {
