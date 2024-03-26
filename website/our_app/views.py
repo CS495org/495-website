@@ -107,3 +107,6 @@ def genre_view(request):
 
 def showprofile_view(request):
     return render(request, "accounts/showprofile.html")
+
+def will_view(request):
+    return render(request, "group/will.html")

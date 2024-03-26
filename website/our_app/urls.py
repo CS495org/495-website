@@ -13,5 +13,6 @@ urlpatterns = [
     path("settings/", views.settings_view, name='settings'),
     path("group/", views.group_view, name='group'),
     path("genre/", views.genre_view, name='genre'),
-    path("showprofile/", views.showprofile_view, name='showprofile')
+    path("showprofile/", views.showprofile_view, name='showprofile'),
+    path("will/", views.will_view, name='will'),
 ]
