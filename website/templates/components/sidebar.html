@@ -23,11 +23,13 @@
       </div>
 
       <!-- test if user is logged in and display message -->
-      {% if user.is_authenticated %}
-          <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
-      {% else %}
-          <p>Welcome, new user. Please log in.</p>
-      {% endif %}
+      {% block userSection %}
+          {% if request.user.is_authenticated %}
+              <p>Welcome, {{ request.user.username }}. Thanks for logging in.</p>
+          {% else %}
+              <p>Welcome, new user. Please log in.</p>
+          {% endif %}
+      {% endblock %}
 
       <!-- Button for side menu -->
       <div class="menu-button">
