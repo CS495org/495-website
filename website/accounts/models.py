@@ -9,6 +9,7 @@ class Movie(models.Model):
                            primary_key=True)
     _title = models.TextField()
     _overview = models.TextField()
+    _poster_path = models.TextField()
     # _popularity = models.
 
     def __str__(self):
@@ -19,6 +20,9 @@ class Movie(models.Model):
 class Show(models.Model):
     _id = models.CharField(max_length=38+9,
                            primary_key=True)
+    _title = models.TextField()
+    _overview = models.TextField()
+    _poster_path = models.TextField()
 
     def __str__(self):
         return self._id

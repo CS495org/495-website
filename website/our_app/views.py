@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # from our_app.tasks import addfun
 from django.views.generic import FormView, UpdateView, RedirectView
 # from django.views.generic import UpdateView
-from accounts.models import Movie, CustomUser
+from accounts.models import Movie, CustomUser, Show
 from django import forms
 from typing import Any
 from django.db.utils import IntegrityError
@@ -30,31 +30,45 @@ class HomePage(View):
     def get(self, request: HttpRequest):
         # addfun.delay()
 
-        query_files = [
-            "trending_shows", "top_ten_shows"
-        ]
+        # query_files = [
+        #     "trending_shows", "top_ten_shows"
+        # ]
 
-        query_results = {
-            file_name : pg_interface.execute_file_query(file_name)\
-                        for file_name in query_files
-        }
+        # query_results = {
+        #     file_name : pg_interface.execute_file_query(file_name)\
+        #                 for file_name in query_files
+        # }
 
-        context: dict[str, dict[str, list[str]]] = {
-            file_name : dict() for file_name in query_files
-        }
+        # context: dict[str, dict[str, list[str]]] = {
+        #     file_name : dict() for file_name in query_files
+        # }
 
-        for key, value in query_results.items():
-            context[key]["names"] = [row.get("name") for row in value]
-            context[key]["img_ids"] = [row.get("poster_path").replace('/', '') for row in value]
+        # for key, value in query_results.items():
+        #     context[key]["names"] = [row.get("name") for row in value]
+        #     context[key]["img_ids"] = [row.get("poster_path").replace('/', '') for row in value]
 
         # print(context)
         if len(Movie.objects.all()) == 0:
             for row in pg_interface.get_rows(table_name='"Movies_Trending_This_Week"',
-                                            cols=["id", "overview", "title"]):
+                                            cols=["id", "overview",
+                                                  "name", "poster_path"]):
                 try:
                     Movie.objects.create(_id=row.get("id"),
-                                        _title=row.get("title"),
-                                        _overview=row.get("overview"))
+                                        _title=row.get("name"),
+                                        _overview=row.get("overview"),
+                                        _poster_path=row.get("poster_path"))
+                except IntegrityError as e:
+                    pass
+
+        if len(Show.objects.all()) == 0:
+            for row in pg_interface.get_rows(table_name='"Shows_Trending_This_Week"',
+                                            cols=["id", "overview",
+                                                  "name", "poster_path"]):
+                try:
+                    Movie.objects.create(_id=row.get("id"),
+                                        _title=row.get("name"),
+                                        _overview=row.get("overview"),
+                                        _poster_path=row.get("poster_path"))
                 except IntegrityError as e:
                     pass
                     # print(e, row)
@@ -68,7 +82,7 @@ class HomePage(View):
             except Exception as e:
                 print(e)
 
-        return render(request, self.template_name, context=context)
+        return render(request, self.template_name)#, context=context)
 
 
 class RedirectToUpdateMovies(LoginRequiredMixin, RedirectView):
@@ -93,6 +107,20 @@ class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
 
     queryset = CustomUser.objects.all()
 
+
+# class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
+#     template_name = 'update_shows.html'
+#     # form_class = FavMoviesForm
+#     success_url = reverse_lazy('home')
+#     model = CustomUser
+
+#     fields = ['fav_shows']
+#     _movie = forms.ModelMultipleChoiceField(
+#         queryset=Movie.objects.all(),
+#         widget=forms.CheckboxSelectMultiple
+#     )
+
+#     queryset = CustomUser.objects.all()
 
 
 class RenderAnyTemplate(View):
