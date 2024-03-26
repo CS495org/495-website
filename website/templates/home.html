@@ -63,18 +63,11 @@
     <!-- Row 1 -->
     <div class="scrollable-row">
 
-      {% for _ in "123456789" %}
-          {% include 'components/show-card.html' %}
-      {% endfor %}
+        {% for image_file in image_files|slice:":10" %}
+            {% include 'components/show-card.html' %}
+        {% endfor %}
     
 
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
       <div class="show-placeholder">Placeholder</div>
       <!-- Add more placeholders as needed -->
     </div>
@@ -85,8 +78,8 @@
     <!-- Row 2 -->
     <div class="scrollable-row">
 
-      {% for _ in "123456789" %}
-        {% include 'components/show-card.html' %}
+      {% for image_file in image_files|slice:"10:20" %}
+          {% include 'components/show-card.html' %}
       {% endfor %}
 
     </div>
@@ -97,15 +90,10 @@
     <!-- Row 3 -->
     <div class="scrollable-row">
 
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <!-- Add more placeholders as needed -->
+      {% for image_file in image_files|slice:"20:30" %}
+        {% include 'components/show-card.html' %}
+      {% endfor %}
+
     </div>
 
     <!-- Fourth header -->
@@ -114,15 +102,10 @@
     <!-- Row 4 -->
     <div class="scrollable-row">
 
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <div class="show-placeholder">Placeholder</div>
-      <!-- Add more placeholders as needed -->
+      {% for image_file in image_files|slice:"30:40" %}
+          {% include 'components/show-card.html' %}
+      {% endfor %}
+      
     </div>
 
   </div>

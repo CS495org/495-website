@@ -35,6 +35,11 @@ class HomePage(View):
 
         # print(context)
 
+        # testing something #########################################################
+        #image_files = ['0.jpg', '1.jpg', '2.jpg']
+        image_files = [f"{i}.jpg" for i in range(51)]
+        context['image_files'] = image_files
+
         return render(request, self.template_name, context=context)
 
 
@@ -97,7 +102,8 @@ def group_view(request):
     return render(request, "accounts/group.html")
 
 def genre_view(request):
-    return render(request, "accounts/genre.html")
+    image_files = [f"{i}.jpg" for i in range(51)]
+    return render(request, "accounts/genre.html", {'image_files': image_files})
 
 def showprofile_view(request):
     return render(request, "accounts/showprofile.html")
