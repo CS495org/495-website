@@ -22,6 +22,13 @@
         <div class="logo-placeholder"></div>
       </div>
 
+      <!-- test if user is logged in and display message -->
+      {% if user.is_authenticated %}
+          <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+      {% else %}
+          <p>Welcome, new user. Please log in.</p>
+      {% endif %}
+
       <!-- Button for side menu -->
       <div class="menu-button">
         <a href="#"><i class='bx bx-menu'></i></a>
