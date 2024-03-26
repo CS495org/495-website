@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream Viewr</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href=" {% static '/css/sidebars.css' %} ">
+  <script src="{% static 'js/sketch.js'%}" defer></script>
+</head>
+
+<body>
+
+  <div class="overlay"></div>
+
+  <div class="wrapper">
+    <div class="sidebar">
+      <!-- profile image -->
+      <div class="profile">
+        <div class="logo-placeholder"></div>
+      </div>
+
+      <!-- test if user is logged in and display message -->
+      {% block userSection %}
+          {% if request.user.is_authenticated %}
+              <p>Welcome, {{ request.user.username }}. Thanks for logging in.</p>
+          {% else %}
+              <p>Welcome, new user. Please log in.</p>
+          {% endif %}
+      {% endblock %}
+
+      <!-- Button for side menu -->
+      <div class="menu-button">
+        <a href="#"><i class='bx bx-menu'></i></a>
+      </div>
+
+      <!-- list of buttons -->
+      <ul>
+        <!-- home -->
+        <li id="home"><a href="{% url 'home' %}">
+            <span class="icon"><i class='bx bxs-home'></i></span>
+            <span class="item">Home</span>
+          </a></li>
+        <!-- profile -->
+        <li id="profile"><a href="{% url 'profile' %}">
+            <span class="icon"><i class='bx bxs-user'></i></span>
+            <span class="item">Profile</span>
+          </a></li>
+        <!-- library -->
+        <li id="calendar"><a href="{% url 'calendar' %}">
+            <span class="icon"><i class='bx bx-calendar' ></i></span>
+            <span class="item">Calendar</span>
+          </a></li>
+        <!-- Disover -->
+        <li id="discover"><a href="{% url 'discover' %}">
+            <span class="icon"><i class='bx bx-search-alt'></i></span>
+            <span class="item">Discover</span>
+          </a></li>
+        <!-- Settings -->
+        <li id="settings"><a href="{% url 'settings' %}">
+            <span class="icon"><i class='bx bxs-cog'></i></span>
+            <span class="item">Settings</span>
+          </a></li>
+        <!-- Group-->
+        <li id="group"><a href="{% url 'group' %}">
+            <span class="icon"><i class='bx bxs-group' ></i></span>
+            <span class="item">Group</span>
+          </a></li>
+      </ul>
+
+
+    </div>
+  </div>
+
+
+</body>
+
+</html>

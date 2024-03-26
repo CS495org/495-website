@@ -1,0 +1,111 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none; /* Removes the underline */
+    color: inherit; /* Ensures the text color remains the same */
+}
+
+.show-placeholder {
+    position: relative;
+    flex: 0 0 auto;
+    text-align: center;
+    width: 205px;
+    height: 350px;
+    margin-right: 20px;
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+.show-placeholder img {
+    height: 80%; /* Set image height to 80% */
+    width: 100%; /* Ensure the image fills its container */
+    border-radius: 5px 5px 0 0;
+}
+
+.show-placeholder::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Add a transition effect for smooth hover */
+    border-radius: 5px 5px 0 0;
+    z-index: 1;
+}
+
+.show-placeholder:hover::after {
+    height: 80%;
+    opacity: 1; /* Show the overlay on hover */
+    border-radius: 5px 5px 0 0;
+}
+
+.show-placeholder .name-year {
+    background-color: black;
+    height: 20%; /* Set name-year div height to 20% */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    text-align: center; /* Center text horizontally */
+    border-radius: 0 0 5px 5px;
+}
+
+.show-placeholder .name-year h3 {
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+  /*  white-space: normal;  Prevent header text from wrapping */
+    text-align: left;
+    text-decoration: none;
+}
+
+.show-placeholder .name-year p {
+    font-size: 14px;
+    text-align: left;
+    text-decoration: none;
+}
+
+.show-placeholder .name-year:hover {
+    text-decoration: underline;
+}
+
+
+/* Show the check and star on hover */
+.show-placeholder:hover .check-star {
+    display: flex; 
+    z-index: 2;
+}
+
+.check-star {
+    font-size: 30px;
+    position: absolute;
+    display: none;
+    justify-content: space-between;
+    margin-top: 120px;
+}
+
+.star {
+    margin-left: 20px;
+}
+
+.star:hover {
+    color: yellow;
+}
+
+.check:hover {
+    color: rgb(22, 213, 22);
+}

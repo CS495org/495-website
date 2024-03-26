@@ -1,0 +1,477 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #3d07a8;
+    color: #ffffff;
+}
+
+.show-profile-info {
+    position: relative;
+    height: 600px;
+    color: #ffffff;
+    display: flex;
+    justify-content: left; 
+    align-items: center;
+}
+
+.background-div-left {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right;
+    z-index: -2;
+}
+
+.background-div-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1), transparent);
+    mix-blend-mode: multiply; /* Adjust the blend mode as needed */
+    z-index: -1;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right;
+    z-index: -2;
+}
+
+.background-image img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+    background: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, transparent);
+    mix-blend-mode: multiply; /* Adjust the blend mode as needed */
+}
+
+
+/*left side of div which has pic and streaming websites**********************/
+.show-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   /* background-color: purple; */
+    width: 500px;
+    height: 100%;
+    margin-left: 50px;
+}
+
+.show-pic {
+    width: 350px;
+    height: 450px;
+    background-color: #333; 
+    border-radius: 10px; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.show-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /*Ensure image keeps its proportion*/
+    border-radius: 10px; 
+}
+
+.streaming-on {
+   /* background-color: purple; */
+    font-size: 24px;
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+.streaming-sites {
+    display: flex;
+    justify-content: space-between; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    width: 250px;
+    height: 50px;
+  /*  background-color: green; */
+}
+
+.streaming-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: visible;
+}
+
+.streaming-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /*Ensure image keeps its proportion*/
+    transition: transform 0.2s ease;
+    border-radius: 50%;
+}
+
+.streaming-placeholder img:hover {
+    border: 2px solid white; 
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/*right side of div which has description of the show *********************************/
+.show-right {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 700px;
+    height: 100%;
+    margin-left: 50px;
+}
+
+.title-year {
+    display: flex;
+    margin-top: 70px;
+}
+
+.title-year h1 {
+    font-size: 50px;
+}
+
+.tvpg-genre {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.tvpg-rating p{
+    border: 1px solid white; 
+    margin-right: 10px;
+}
+
+.show-icons {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.show-icons .bx.bx-check-circle {
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.5s ease; 
+}
+
+.show-icons .bx.bx-check-circle:hover {
+    color:  #3d07a8;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.show-icons .bx.bxs-star {
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.5s ease; 
+}
+
+.show-icons .bx.bxs-star:hover {
+    color: #3d07a8;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.show-icons .bx.bx-bookmark-plus {
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.5s ease; 
+}
+
+.show-icons .bx.bx-bookmark-plus:hover {
+    color: #3d07a8;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.show-icons .bx.bxs-message-rounded {
+    font-size: 30px;
+    margin-bottom: 10px;
+    transition: transform 0.5s ease; 
+}
+
+.show-icons .bx.bxs-message-rounded:hover {
+    color:  #3d07a8;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.show-description {
+    margin-bottom: 20px;
+}
+
+.show-description h3 {
+    margin-bottom: 5px;
+}
+
+.rotten-tomato {
+    margin-bottom: 10px;
+}
+
+/*circular progress bar ------------------ */
+.circle-wrap {
+    width: 160px;
+    height: 160px;
+}
+
+.outer {
+    height: 68px;
+    width: 68px;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: -6px -6px 10px -1px rgba(0, 0, 0, 0.15),
+                6px 6px 10px -1px rgba(255, 255, 255, 0.7);
+}
+
+.inner {
+    position: absolute;
+    height: 86px;
+    width: 86px;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: inset 4px 4px 6px rgba(255, 255, 255, 0.5);
+}
+
+#number {
+    font-weight: 600;
+    color: white;
+}
+
+circle {
+    fill: none;
+    stroke: rgb(4, 208, 4);
+    stroke-width: 10px;
+    stroke-dasharray: 307.86;
+    stroke-dashoffset: 307.86;
+    animation: anim 1s linear forwards;
+}
+
+:root {
+    --dash-offset: 0;
+}
+
+@keyframes anim {
+    100%{
+        stroke-dashoffset: var(--dash-offset); 
+    }
+} 
+
+svg {
+    position: absolute;
+    transform: rotate(-90deg);
+}
+
+/*episodes content ******************************************************************************************************************************/
+.episode-info {
+    /*background-color: yellow;*/
+    margin: 0 auto;
+    height: auto; 
+    width: 85%;
+}
+
+.dropdown {
+    width: 150px;
+    height: 35px;
+    margin-bottom: 30px;
+}
+
+.selected-season {
+    background-color: rgb(73, 0, 73);
+    height: 40px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 2px;
+}
+
+.selected-season h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selected-season .bx-chevron-down {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 5px;
+}
+
+.bx-chevron-up {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 5px;
+}
+
+li {
+    background-color: #0f3460;
+    width: 150px;
+    height: 45px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #1c59a4;
+    transition: background-color 0.5s;
+    
+}
+
+li:hover {
+    background-color: #1c59a4;
+}
+
+li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 45px;
+    color: white;
+    text-decoration: none;
+}
+
+
+.dropdown ul {
+    opacity: 0; /* Start with a height of 0 */
+    overflow: hidden; /* Hide any content that overflows the list */
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.dropdown ul.active {
+    position: absolute;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* actual epsidoe info*/
+.pic-text {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.episode-pic {
+    background-color: red;
+    width: 300px;
+    height: 200px;
+}
+
+.episode-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.episode-text {
+    width: 500px;
+    height: 200px;
+    margin-left: 50px;
+}
+
+.num-title {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.num-title h1 {
+    padding-right: 10px;
+}
+
+.episode-description {
+    margin-bottom: 10px;
+}
+
+.length-date {
+    display: flex;
+}
+
+.length-date h3 {
+    padding-right: 10px;
+}
+
+/*cast information ****************************************************************/
+.black-div {
+    background-color: black;
+    margin: 0 auto;
+    height: auto; 
+    width: 100%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.cast-info {
+    margin: 0 auto;
+    height: 350px;
+    width: 85%;
+}
+
+.cast-info h1 {
+    margin-bottom: 10px;
+}
+
+.scrollable-row {
+    display: flex;
+    overflow-x: auto;
+    max-width: 1290px;
+}
+
+.scrollable-row::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.cast-pic {
+    background-color: blue;
+    width: 200px;
+    height: 250px;
+}
+
+.cast-pic img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+}
+
+.cast-members {
+    margin-right: 20px;
+}
+
+.cast-members p {
+    font-size: 20px;
+    max-width: 200px;
+    margin-top: 10px;
+}
+
+

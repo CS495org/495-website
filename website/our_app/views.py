@@ -60,6 +60,7 @@ class HomePage(View):
                 except IntegrityError as e:
                     pass
 
+<<<<<<< HEAD
         if len(Show.objects.all()) == 0:
             for row in pg_interface.get_rows(table_name='"Shows_Trending_This_Week"',
                                             cols=["id", "overview",
@@ -121,6 +122,14 @@ class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
 #     )
 
 #     queryset = CustomUser.objects.all()
+=======
+        # testing something #########################################################
+        #image_files = ['0.jpg', '1.jpg', '2.jpg']
+        image_files = [f"{i}.jpg" for i in range(51)]
+        context['image_files'] = image_files
+
+        return render(request, self.template_name, context=context)
+>>>>>>> reggie
 
 
 class RenderAnyTemplate(View):
@@ -161,3 +170,32 @@ class DatabaseView(View):
 
         except Exception as e:
             return JsonResponse(data = {"error" : str(e)})
+
+
+def main_view(request):
+    return render(request, "main.html")
+
+def profile_view(request):
+    return render(request, "accounts/profile.html")
+
+def calendar_view(request):
+    return render(request, "accounts/calendar.html")
+
+def discover_view(request):
+    return render(request, "accounts/discover.html")
+
+def settings_view(request):
+    return render(request, "accounts/settings.html")
+
+def group_view(request):
+    return render(request, "accounts/group.html")
+
+def genre_view(request):
+    image_files = [f"{i}.jpg" for i in range(51)]
+    return render(request, "accounts/genre.html", {'image_files': image_files})
+
+def showprofile_view(request):
+    return render(request, "accounts/showprofile.html")
+
+def will_view(request):
+    return render(request, "group/will.html")

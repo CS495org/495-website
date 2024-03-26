@@ -6,7 +6,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: black;
+    background-color: #3d07a8;
     color: #ffffff;
 }
 
@@ -37,7 +37,6 @@ body {
     padding: 20px 0;
     transition: all 0.5s ease;
 }
-
 
 .profile {
     display: flex;
@@ -82,13 +81,61 @@ body {
    color: white;
 }
 
-.wrapper {
-    position: relative; /* or ensure it's positioned appropriately */
-}
-
 body.active .wrapper .sidebar {
     left: 0px;
 }
+
+/* this is where the profile styling starts -------------------------------------------------------------------------------------------------------- */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('path/to/your-background.jpg'); /* Update this path */
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Keep it behind all other content */
+}
+
+.profile-pic-placeholder {
+    width: 150px; /* Adjust size as needed */
+    height: 150px; /* Adjust size as needed */
+    background-color: #0f3460; /* Adjust color as needed to match your theme */
+    border-radius: 50%; /* This makes the div a circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* For text color, if you add any text inside */
+    margin: 20px 0; /* Adjust spacing as needed */
+}
+
+.profile-info .username {
+    font-size: 32px; /* Example size, adjust as needed */
+    padding: 10px;
+    /* Other styling */
+}
+
+.profile-info .user-bio {
+    font-size: 20px; /* Example size, adjust as needed */
+    max-width: 50%;
+    margin-right: auto;
+    word-wrap: break-word;
+    border: 2px solid #445677;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+    /* Other styling */
+}
+
+.profile-info, .content {
+    background-color: rgba(107, 3, 252, 0.8);
+    margin-left: 270px; /* Adjust this value to align with the sidebar width + some extra space */
+    margin-top: 20px; /* Adjust as needed to move content down */
+    padding: 20px;
+    margin-bottom: 100px;
+    }
 
 .content {
     display: flex;
@@ -99,84 +146,11 @@ body.active .wrapper .sidebar {
 
 h2 {
     align-self: flex-start;
-    margin-left: 210px;
 }
 
-.search-and-calendar-container {
-    position: absolute;
-    top: 20px; /* Adjust based on header height or desired top spacing */
-    right: 20px; /* Adjust for right-aligned placement or change to 'left' for left-aligned */
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between calendar icon and search bar */
-}
-
-.calendar-icon-container {
-    cursor: pointer;
-    /* If the icon needs to be resized or adjusted */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Ensure the calendar icon is visible and clickable */
-.calendar-icon-container img {
-    width: 24px; /* Adjust based on your icon size */
-    height: 24px; /* Adjust based on your icon size */
-    cursor: pointer; /* Ensure it's clickable */
-}
-
-.calendar-window {
-    display: none; /* Hide by default */
-    position: absolute;
-    z-index: 100; /* Ensure it's above other content */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    /* Adjust positioning as necessary */
-}
-
-
-/*edit search bar*/
-.search-bar {
-    flex-grow: 1;
-    width: 100%;
-    max-width: 500px;
-    background: #0f3460;
-    display: flex;
-    align-items: center;
-    border-radius: 50px;
-    padding: 10px 20px;
-    /* Removed the margin-left here since the container already positions it */
-}
-
-.search-bar input[type="text"] {
-    background: transparent;
-    flex: 1;
-    border: 0;
-    outline: none;
-    color: white;
-}
-
-/*chang placeholder text color*/
+/*change placeholder text color*/
 ::placeholder{
     color: #cac7ff
-}
-
-/*change size of the button image*/
-.search-bar button img {
-    width: 20px; 
-    height: auto; 
-}
-
-.search-bar button {
-    background: transparent;
-    border: 0;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
 }
 
 /* New CSS for scrollable rows */
@@ -185,7 +159,6 @@ h2 {
     overflow-x: auto;
     white-space: nowrap;
     padding: 10px 0;
-    margin-bottom: 40px;
     width: 1105px;
     
 }
@@ -210,6 +183,12 @@ h2 {
     justify-content: center;
     color: #ffffff;
     cursor: pointer;
+}
+
+.show-placeholder img {
+    width: 100%;
+    height: auto;
+    /*border-radius: 10px;*/
 }
 
 .overlay {

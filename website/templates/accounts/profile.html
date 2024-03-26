@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/profile.css' %} ">
+    <script src="{% static 'sketch.js' %}" defer></script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Include the sidebar -->
+        {% include 'components/sidebar.html' %}
+    </div>
+
+    <!-- Profile Content -->
+    <div class="profile-info">
+        <div class="profile-pic-placeholder">
+            <img src="{% static 'img/comedy.jpg' %}">
+        </div>
+        <div class="username">TonyS</div>
+        <div class="user-bio">Just a guy trying to make it in the waste management business. 
+            Loves ducks, good Italian food, and a quiet day on the boat.</div>
+        
+        <!-- Favorites -->
+        <h2>Favorites</h2>
+        <div class="scrollable-row">
+
+
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+        </div>
+        
+        <!-- Recents -->
+        <h2>Recents</h2>
+        <div class="scrollable-row">
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+            <div class="show-placeholder">Placeholder</div>
+        </div>
+    </div>
+
+</body>
+</html>
