@@ -36,10 +36,23 @@ body {
     border-radius: 50%; 
 }
 
+/*Message to check if user is logged in*/
+.login-check {
+    width: 100%; 
+    height: auto; 
+    margin-bottom: 30px;
+    z-index: 3;
+}
+
+.login-check p {
+    text-align: center;
+}
+
 
 .wrapper .sidebar ul li a {
     display: block;
     padding: 20px;
+    border-top: 1px solid #0f3460; 
     border-bottom: 1px solid #0f3460;
     color: white;
     font-size: 16px 30px;
