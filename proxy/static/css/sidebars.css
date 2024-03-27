@@ -80,7 +80,7 @@ body.active .wrapper .sidebar {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value for the desired level of transparency */
     backdrop-filter: blur(1px); /* Adjust the blur radius */
-    z-index: 1; /* Place the overlay behind other elements */
+    z-index: 3; /* Place the overlay behind other elements */
     display: none; /* Initially hide the overlay */
 }
 
