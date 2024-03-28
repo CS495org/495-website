@@ -13,7 +13,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # from our_app.tasks import addfun
 from django.views.generic import FormView, UpdateView, RedirectView
 # from django.views.generic import UpdateView
-from accounts.models import Movie, CustomUser, Show
+from accounts.models import Movie, CustomUser, Show#,# Favorite
 from django import forms
 from typing import Any
 from django.db.utils import IntegrityError
@@ -33,10 +33,10 @@ class HomePage(View):
                                             cols=["id", "overview",
                                                   "title", "poster_path"])[:20]:
                 try:
-                    Movie.objects.create(_id=row.get("id"),
-                                        _title=row.get("title"),
-                                        _overview=row.get("overview"),
-                                        _poster_path=str(row.get("poster_path")).replace("/",''))
+                    Movie.objects.create(id=row.get("id"),
+                                        title=row.get("title"),
+                                        overview=row.get("overview"),
+                                        poster_path=str(row.get("poster_path")).replace("/",''))
                 except IntegrityError as e:
                     pass
 
@@ -45,10 +45,10 @@ class HomePage(View):
                                             cols=["id", "overview",
                                                   "name", "poster_path"])[:20]:
                 try:
-                    Movie.objects.create(_id=row.get("id"),
-                                        _title=row.get("name"),
-                                        _overview=row.get("overview"),
-                                        _poster_path=str(row.get("poster_path")).replace("/",''))
+                    Show.objects.create(id=row.get("id"),
+                                        title=row.get("name"),
+                                        overview=row.get("overview"),
+                                        poster_path=str(row.get("poster_path")).replace("/",''))
                 except IntegrityError as e:
                     pass
                     # print(e, row)
@@ -73,6 +73,57 @@ class RedirectToUpdateMovies(LoginRequiredMixin, RedirectView):
 class RedirectToUpdateShows(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
         return f"{self.request.user.id}"
+
+
+# class
+
+# from django.shortcuts import render, redirect
+# from .models import Show, Movie, Favorite
+
+# from django.shortcuts import render
+# # from .models import Show, Favorite
+
+def show_list(request):
+    shows = Show.objects.all()
+    # user = request.user
+    # favorites = Favorite.objects.filter(user=user, show__in=shows)
+    # favorites_dict = {fav.show_id: fav for fav in favorites}
+    return render(request, 'show_list.html', {'shows': shows})
+
+
+# # Add similar views for movies
+
+# def add_favorite(request, pk):
+#     user = request.user
+#     show = Show.objects.get(pk=pk)
+#     Favorite.objects.create(user=user, show=show)
+#     return redirect('show_list')
+
+# # Add similar views for adding favorites for movies
+
+# def update_favorite(request, pk):
+#     user = request.user
+#     show = Show.objects.get(pk=pk)
+#     favorite = Favorite.objects.get(user=user, show=show)
+
+#     if request.method == 'POST':
+#         # Handle form submission to update favorite
+#         # Example: favorite.rating = request.POST['rating']
+#         favorite.save()
+#         return redirect('show_list')
+
+#     return render(request, 'update_shows.html', {'favorite': favorite})
+
+# # Add similar views for updating favorites for movies
+
+# def delete_favorite(request, pk):
+#     user = request.user
+#     show = Show.objects.get(pk=pk)
+#     favorite = Favorite.objects.get(user=user, show=show)
+#     favorite.delete()
+#     return redirect('show_list')
+
+# Add similar views for deleting favorites for movies
 
 
 class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
@@ -105,6 +156,21 @@ class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
     )
 
     queryset = CustomUser.objects.all()
+
+
+
+# from django.views.generic.detail import DetailView
+
+# class PersonDetailView(DetailView):
+#     template_name = "update_shows.html"
+#     model = CustomUser
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         person = get_object_or_404(CustomUser,pk=self.kwargs['pk'])
+#         context['meetings_today'] = person.meetings_today()
+#         context['tasks_due_today'] = person.tasks_due_today()
+#         return context
 
 
 class RenderAnyTemplate(View):

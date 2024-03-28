@@ -5,42 +5,42 @@ from django.db import models
 #     _id = models.CharField()
 
 class Movie(models.Model):
-    _id = models.CharField(max_length=38+9,
+    id = models.CharField(max_length=38+9,
                            primary_key=True)
-    _title = models.TextField()
-    _overview = models.TextField()
-    _poster_path = models.TextField()
+    title = models.TextField()
+    overview = models.TextField()
+    poster_path = models.TextField()
     # _popularity = models.
 
     def __str__(self):
-        return self._title
+        return self.title
 
     def to_dict(self):
         return {
-            "title" : self._title,
-            "overview" : self._overview,
-            "id" : self._id,
-            "poster_path" : self._poster_path,
+            "title" : self.title,
+            "overview" : self.overview,
+            "id" : self.id,
+            "poster_path" : self.poster_path,
         }
 
 # id	adult	title	video	overview	genre_ids	media_type	popularity	vote_count	poster_path	release_date	vote_average	backdrop_path	original_title	original_language	"_airbyte_raw_id"	"_airbyte_extracted_at"	"_airbyte_meta"
 
 class Show(models.Model):
-    _id = models.CharField(max_length=38+9,
+    id = models.CharField(max_length=38+9,
                            primary_key=True)
-    _title = models.TextField()
-    _overview = models.TextField()
-    _poster_path = models.TextField()
+    title = models.TextField()
+    overview = models.TextField()
+    poster_path = models.TextField()
 
     def __str__(self):
-        return self._title
+        return self.title
 
     def to_dict(self):
         return {
-            "title" : self._title,
-            "overview" : self._overview,
-            "id" : self._id,
-            "poster_path" : self._poster_path,
+            "title" : self.title,
+            "overview" : self.overview,
+            "id" : self.id,
+            "poster_path" : self.poster_path,
         }
 
 
@@ -52,11 +52,11 @@ class CustomUser(AbstractUser):
         return self.username
 
     def _add_movie(self, movie_id: str):
-        _mv = Movie(_id = movie_id)
+        _mv = Movie(_d = movie_id)
         _mv.save()
         self.fav_movies.add(_mv)
 
     def _add_show(self, show_id: str):
-        _sh = Show(_id=show_id)
+        _sh = Show(id=show_id)
         _sh.save()
         self.fav_shows.add(_sh)
