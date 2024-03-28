@@ -90,3 +90,15 @@ class FavMoviesForm(forms.ModelForm):
            widget=forms.CheckboxSelectMultiple
         )
 
+
+
+class FavShowsForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+
+        fields = ['fav_shows']
+        _movie = forms.ModelMultipleChoiceField(
+           queryset=Show.objects.all(),
+           widget=forms.CheckboxSelectMultiple
+        )
+

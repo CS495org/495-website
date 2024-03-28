@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Favorite Movies</title>
+    <title>Update Favorite Shows</title>
 </head>
 <body>
-    <h2>Update Favorite Movies</h2>
+    <h2>Update Favorite Shows</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -13,20 +13,20 @@
     </form>
 
 
-Current favorite movies:
+Current favorite shows:
 
 
 {% if request.user.is_authenticated %}
-    {% for mv in request.user.fav_movies.all %}
+    {% for mv in request.user.fav_shows.all %}
         {{ mv }}
     {% endfor %}
 {% endif %}
 
 
-All movies:
+All shows:
 
-{% for mv in Movie.all %}
-    {{ mv.to_dict }}
+{% for o in objs %}
+    {{ o }}
 {% endfor %}
 
 

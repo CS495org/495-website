@@ -1,5 +1,6 @@
-FROM python:3.12-alpine3.19
-
+# FROM python:3.12-alpine3.19
+FROM localhost:5000/website
+# if you have a personal registry set up
 
 ARG USER
 ARG PASSWORD
@@ -13,10 +14,10 @@ ARG DJANGO_PG_SCHEMA
 # env vars plugged in at runtime, not at build, so using ARGs here
 
 ENV USER $USER
-ENV PASSWORD $PASSWORD 
-ENV HOST $HOST 
-ENV PORT $PORT 
-ENV DJANGO_USER $DJANGO_USER 
+ENV PASSWORD $PASSWORD
+ENV HOST $HOST
+ENV PORT $PORT
+ENV DJANGO_USER $DJANGO_USER
 ENV DJANGO_SECURE_KEY $DJANGO_SECURE_KEY
 ENV DJANGO_PG_SCHEMA $DJANGO_PG_SCHEMA
 

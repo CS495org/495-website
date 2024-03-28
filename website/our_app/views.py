@@ -28,47 +28,27 @@ class HomePage(View):
     template_name = 'home.html'
 
     def get(self, request: HttpRequest):
-        # addfun.delay()
-
-        # query_files = [
-        #     "trending_shows", "top_ten_shows"
-        # ]
-
-        # query_results = {
-        #     file_name : pg_interface.execute_file_query(file_name)\
-        #                 for file_name in query_files
-        # }
-
-        # context: dict[str, dict[str, list[str]]] = {
-        #     file_name : dict() for file_name in query_files
-        # }
-
-        # for key, value in query_results.items():
-        #     context[key]["names"] = [row.get("name") for row in value]
-        #     context[key]["img_ids"] = [row.get("poster_path").replace('/', '') for row in value]
-
-        # print(context)
         if len(Movie.objects.all()) == 0:
             for row in pg_interface.get_rows(table_name='"Movies_Trending_This_Week"',
                                             cols=["id", "overview",
-                                                  "name", "poster_path"]):
+                                                  "title", "poster_path"])[:20]:
                 try:
                     Movie.objects.create(_id=row.get("id"),
-                                        _title=row.get("name"),
+                                        _title=row.get("title"),
                                         _overview=row.get("overview"),
-                                        _poster_path=row.get("poster_path"))
+                                        _poster_path=str(row.get("poster_path")).replace("/",''))
                 except IntegrityError as e:
                     pass
 
         if len(Show.objects.all()) == 0:
             for row in pg_interface.get_rows(table_name='"Shows_Trending_This_Week"',
                                             cols=["id", "overview",
-                                                  "name", "poster_path"]):
+                                                  "name", "poster_path"])[:20]:
                 try:
                     Movie.objects.create(_id=row.get("id"),
                                         _title=row.get("name"),
                                         _overview=row.get("overview"),
-                                        _poster_path=row.get("poster_path"))
+                                        _poster_path=str(row.get("poster_path")).replace("/",''))
                 except IntegrityError as e:
                     pass
                     # print(e, row)
@@ -87,9 +67,11 @@ class HomePage(View):
 
 class RedirectToUpdateMovies(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
-        # print(self.request.user, self.request.user.id)
-        # print(self.request)
-        # # print(args, kwargs)
+        return f"{self.request.user.id}"
+
+
+class RedirectToUpdateShows(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
         return f"{self.request.user.id}"
 
 
@@ -107,20 +89,22 @@ class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
 
     queryset = CustomUser.objects.all()
 
+# class AllMovieView(generic.ListView)
 
-# class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
-#     template_name = 'update_shows.html'
-#     # form_class = FavMoviesForm
-#     success_url = reverse_lazy('home')
-#     model = CustomUser
 
-#     fields = ['fav_shows']
-#     _movie = forms.ModelMultipleChoiceField(
-#         queryset=Movie.objects.all(),
-#         widget=forms.CheckboxSelectMultiple
-#     )
+class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
+    template_name = 'update_shows.html'
+    # form_class = FavMoviesForm
+    success_url = reverse_lazy('home')
+    model = CustomUser
 
-#     queryset = CustomUser.objects.all()
+    fields = ['fav_shows']
+    _show = forms.ModelMultipleChoiceField(
+        queryset=Show.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    queryset = CustomUser.objects.all()
 
 
 class RenderAnyTemplate(View):

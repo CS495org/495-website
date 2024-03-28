@@ -15,6 +15,14 @@ class Movie(models.Model):
     def __str__(self):
         return self._title
 
+    def to_dict(self):
+        return {
+            "title" : self._title,
+            "overview" : self._overview,
+            "id" : self._id,
+            "poster_path" : self._poster_path,
+        }
+
 # id	adult	title	video	overview	genre_ids	media_type	popularity	vote_count	poster_path	release_date	vote_average	backdrop_path	original_title	original_language	"_airbyte_raw_id"	"_airbyte_extracted_at"	"_airbyte_meta"
 
 class Show(models.Model):
@@ -25,7 +33,15 @@ class Show(models.Model):
     _poster_path = models.TextField()
 
     def __str__(self):
-        return self._id
+        return self._title
+
+    def to_dict(self):
+        return {
+            "title" : self._title,
+            "overview" : self._overview,
+            "id" : self._id,
+            "poster_path" : self._poster_path,
+        }
 
 
 class CustomUser(AbstractUser):
