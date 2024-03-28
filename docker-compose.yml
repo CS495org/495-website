@@ -53,7 +53,7 @@ services:
     env_file:
       - .env
     volumes:
-      # - pg-data:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data # COMMENT THIS TO MAKE DATABASE CHANGES NOT PERSIST
       - ./database/init-2.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "6543:${PORT}" #enable for accessing postgres from host machine at port 4567 (see ./database/README for more info)
