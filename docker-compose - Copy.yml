@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./cs495_website
+      args:
+        USER: ${POSTGRES_USER}
+        PASSWORD: ${POSTGRES_PASSWORD}
+        DATABASE: ${POSTGRES_DB}
+        HOST: ${HOST}
+        PORT: ${PORT}
+        DJANGO_SECURE_KEY: ${DJANGO_SECURE_KEY}
+        DJANGO_USER: ${DJANGO_USER}
+        DJANGO_PG_SCHEMA: ${DJANGO_PG_SCHEMA}
+        # i know it's not DRY but I want to make/migrate on the fly in development
+    environment:
+      USER: ${POSTGRES_USER}
+      PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE: ${POSTGRES_DB}
+      HOST: ${HOST}
+      PORT: ${PORT}
+      RHOST: ${RHOST}
+      RPORT: ${RPORT}
+    # ports:
+    #   - "7999:8000" #enable to bypass nginx thru http://localhost:7999/
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  nginx:
+    build:
+      context: ./proxy
+    ports:
+      - "443:443"
+    networks:
+      - frontend
+    depends_on:
+      - web
+
+  db:
+    image: postgres:16
+    env_file:
+      - .env
+    volumes:
+      # - pg-data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "6543:${PORT}" #enable for accessing postgres from host machine at port 4567 (see ./database/README for more info)
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:7
+    # volumes:
+    #   - redis-data:/data
+    # ports: "6379:6379" #again, enable to access redis CLI from host machine
+    networks:
+      - backend
+
+
+networks:
+  frontend:
+  backend:
+  # because reverse proxy doesn't need to access redis or db
+volumes:
+  pg-data:
+    driver: local
+  # redis-data:
+  #   driver: local #to make redis persist
+
+
+# docker compose down && docker volume rm 495-website_pg-data && docker volume rm 495-website_redis-data
+
+# Let's stick to this order:
+# service_name:
+#   build/image:
+#     context:
+#     args:
+#   env/file:
+#   volumes:
+#   ports:
+#   networks:
+#   depends_on:
+#   healthcheck/anything else:

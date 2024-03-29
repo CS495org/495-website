@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV Show Database</title>
+    <title>Library</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="library.css">
     <script src="sketch.js" defer></script>
 </head>
 <body>
@@ -31,34 +31,34 @@
 
         <!-- list of buttons -->
         <ul>
-            <!-- home -->
+             <!-- home -->
             <li id="home"><a href="home.html"> 
                 <span class="icon"><i class='bx bxs-home'></i></span>
                 <span class="item">Home</span>
             </a></li>
             <!-- profile -->
-            <li id="profile"><a href="profile.html"> 
+            <li><a href="profile.html"> 
                 <span class="icon"><i class='bx bxs-user'></i></span>
                 <span class="item">Profile</span>
             </a></li>
             <!-- library -->
-            <li id="calendar"><a href="calendar.html"> 
-                <span class="icon"><i class='bx bxs-calendar'></i></span>
-                <span class="item">Calendar</span>
+            <li><a href="library.html"> 
+                <span class="icon"><i class='bx bx-library'></i></span>
+                <span class="item">Library</span>
             </a></li>
             <!-- Disover -->
-            <li id="discover"><a href="discover.html"> 
+            <li><a href="discover.html"> 
                 <span class="icon"><i class='bx bx-search-alt'></i></span>
                 <span class="item">Discover</span>
             </a></li>
             <!-- Settings -->
-            <li id="settings"><a href="#"> 
+            <li><a href="#"> 
                 <span class="icon"><i class='bx bxs-cog'></i></span>
                 <span class="item">Settings</span>
             </a></li>
             <!-- Group-->
             <li id="group"><a href="group.html">
-                <span class="icon"><i class='bx bxs-group' ></i></span>
+                <span class="icon"><i class='bx bxs-cog'></i></span>
                 <span class="item">Group</span>
             </a></li>
         </ul>
@@ -66,56 +66,36 @@
 
     </div>
 </div>
- 
 
-<div class="search-bar">
+<div class="search-and-calendar-container">
+    <!-- Calendar Icon -->
+    <div class="calendar-icon-container">
+        <img src="images/calendar-icon.png" alt="Calendar" id="calendarIcon">
+    </div>
+
+    <!-- Calendar Window Placeholder -->
+    <div id="calendarWindow" class="calendar-window" style="display: none;">
+        <!-- Calendar content will be dynamically filled or could be statically placed here -->
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
         <input type="text" placeholder="Search" name="q">
-     <!-- Just a test to see if search button is interative -->
-    <a href="https://giphy.com/gifs/spongebob-cartoon-nickelodeon-thumbs-3o7abKhOpu0NwenH3O">
-        <button type="submit"><img src="images/search.png"></button>   
-    </a>
+        <a href="https://giphy.com/gifs/spongebob-cartoon-nickelodeon-thumbs-3o7abKhOpu0NwenH3O">
+            <button type="submit"><img src="images/search.png"></button>   
+        </a>
+    </div>
 </div>
+
 
 <div class="content">
     <!-- First header -->
-    <h2>Trending</h2>
+    <h2>Favorites</h2>
   
     <!-- Row 1 -->
     <div class="scrollable-row">
         
-        <a href="showprofile.html"> 
-            <div class="show-placeholder"> 
-                <img src="images/testing.jpg"> 
-                <div class="check-star">
-                    <span class="check"><i class='bx bx-check'></i></span>
-                    <span class="star" show-id="1234"><i class='bx bxs-star' ></i></span>
-                </div>
-            
-                <div class="name-year">
-                    <h3>Breaking Bad</h3>
-                    <p>2008</p>
-                </div>
-            </div>
-        </a> 
-
-
-        <a href="showprofile.html"> 
-            <div class="show-placeholder"> 
-                <img src="images/testing.jpg"> 
-                <div class="check-star">
-                    <span class="check"><i class='bx bx-check'></i></span>
-                    <span class="star" show-id="5678"><i class='bx bxs-star' ></i></span>
-                </div>
-            
-                <div class="name-year">
-                    <h3>Breaking Bad</h3>
-                    <p>2008</p>
-                </div>
-            </div>
-        </a> 
-
-        <div id="message"></div>
-
+        <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
@@ -126,9 +106,9 @@
         <!-- Add more placeholders as needed -->
     </div>
 
-     <!-- Second header -->
-     <h2>Top 10 Series</h2>
-
+    <!-- Second header -->
+    <h2>In Progress</h2>
+  
     <!-- Row 2 -->
     <div class="scrollable-row">
         
@@ -143,9 +123,9 @@
         <!-- Add more placeholders as needed -->
     </div>
 
-    <!-- Third header -->
-    <h2>Award Nominated</h2>
-  
+     <!-- Third header -->
+     <h2>Completed</h2>
+
     <!-- Row 3 -->
     <div class="scrollable-row">
         
@@ -161,7 +141,7 @@
     </div>
 
      <!-- Fourth header -->
-     <h2>Coming Soon</h2>
+     <h2>Watchlist</h2>
 
     <!-- Row 4 -->
     <div class="scrollable-row">
@@ -178,25 +158,6 @@
     </div>
 
 </div>
-
-<script>
-    document.querySelectorAll('.star').forEach(function(star) {
-        star.addEventListener('click', function() {
-            
-            event.preventDefault();
-
-            this.classList.toggle('yellow');
-
-            // Display a unique message
-            document.getElementById('message').innerText = "Added as a favorite!"; 
-
-            var messageDiv = document.getElementById('message');
-            messageDiv.style.paddingLeft = "20px"; // Adjust left padding as needed
-            messageDiv.style.paddingRight = "20px";
-
-            });
-    });
-</script>
 
 </body>
 </html>

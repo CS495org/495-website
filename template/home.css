@@ -264,6 +264,10 @@ h2 {
     color: rgb(22, 213, 22);
 }
 
+.star.yellow {
+    color: yellow;
+}
+
 
 /*****************************************/
 
@@ -338,3 +342,18 @@ body.active .overlay {
 .sidebar .active {
     background-color: rgba(128, 0, 128, 0.2); /* Change to your desired background color */
 }
+
+
+#message {
+    background-color: #8400ff;
+    position: fixed;
+    display: flex; 
+    align-items: center;
+    width: auto;
+    height: 60px;
+    font-size: 24px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+

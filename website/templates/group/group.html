@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Group</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'group.css' %}" />
+    <script src="{% static 'sketch.js'%}" defer></script>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Include the sidebar -->
+      {% include 'sidebar.html' %}
+    </div>
+
+    <!-- Settings Content -->
+    <div class="group-content">
+      <a href="{% url 'tate' %}" class="group-button">Tate Button</a>
+      <a href="{% url 'reiland' %}" class="group-button">Reiland Eubank</a>
+      <a href="{% url 'reggie' %}" class="group-button">Reggie Fisher</a>
+      <a href="{% url 'will' %}" class="group-button">Will Jefferson</a>
+    </div>
+    
+  </body>
+</html>

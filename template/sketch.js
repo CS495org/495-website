@@ -70,6 +70,58 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+/*document.addEventListener("DOMContentLoaded", function() {
+    // Select the parent element that contains all the star icons
+    var parentContainer = document.querySelector(".show-placeholder");
+
+    // Add a click event listener to the parent container
+    parentContainer.addEventListener("click", function(event) {
+        // Check if the clicked element is a star icon
+        if (event.target.classList.contains("bx") && event.target.classList.contains("bxs-star")) {
+            // Find the closest parent container of the clicked star icon
+            var card = event.target.closest(".show-placeholder");
+            // Find the corresponding message element within the card
+            var message = card.querySelector(".message");
+            // Display the corresponding message
+            message.style.display = "block";
+        }
+
+    });
+});*/
+
+/*document.addEventListener("DOMContentLoaded", function() {
+    var starIcon = document.querySelector(".star i");
+    var message = document.getElementById("message");
+
+    starIcon.addEventListener("click", function(event) {
+
+        // Prevent the default action of the click event on the star icon
+        event.preventDefault();
+
+        // Show the message after the star icon is clicked
+        message.style.display = "block";
+    });
+}); */
+
+
+
+/*document.querySelectorAll('.star').forEach(function(icon) {
+    icon.addEventListener('click', function(event) {
+        // Prevent the default action of the icon, such as navigating to a URL
+        event.preventDefault();
+
+        // Get the parent show card element of the clicked icon
+        var showCard = icon.closest('.show-placeholder');
+
+        showMessage("Added to favorites!");
+    });
+}); 
+
+function showMessage(message) {
+    
+    alert(message); 
+} */
+
 
 
 

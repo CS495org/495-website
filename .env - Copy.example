@@ -1,0 +1,22 @@
+# postgres
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+HOST=db
+PORT=5432
+
+# django
+DJANGO_SECURE_KEY=
+DJANGO_USER=
+DJANGO_PG_SCHEMA=DJANGO_PG_SCHEMA
+
+# redis
+RHOST=redis
+RPORT=6379
+
+
+OUR_AIRBYTE=https://github.com/CS495org/airbyte.git
+
+# don't change env vars that are set above. just fill in the blank ones in your .env file
+
+# after git pulls airbyte, cd airbyte and "./run-ab-platform.sh"

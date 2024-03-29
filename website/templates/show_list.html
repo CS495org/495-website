@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Show List</title>
+</head>
+<body>
+    <h1>Show List</h1>
+    <ul>
+        {% for show in shows %}
+            <li>{{ show.title }}
+                {{ show.overview }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
