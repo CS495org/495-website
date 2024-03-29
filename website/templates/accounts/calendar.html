@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/calendar.css' %} ">
+    <script src="{% static 'sketch.js' %}" defer></script>
+</head>
+
+<body>
+
+    <div class="overlay"></div>
+
+<div class="wrapper">
+    {% include 'components/sidebar.html' %}
+    
+</div>
+
+<iframe id="open-web-calendar" 
+        style="background:url('https://raw.githubusercontent.com/niccokunzmann/open-web-calendar/master/static/img/loaders/circular-loader.gif') center center no-repeat;"
+        src="https://open-web-calendar.hosted.quelltext.eu/calendar.html?url=https%3A%2F%2Fwww.calendarlabs.com%2Fical-calendar%2Fics%2F46%2FGermany_Holidays.ics&amp;title=Show%20Calendar"
+        sandbox="allow-scripts allow-same-origin allow-top-navigation"
+        allowTransparency="true" scrolling="no" 
+        frameborder="0" height="600px" width="100%">
+</iframe>
+</body>
+</html>

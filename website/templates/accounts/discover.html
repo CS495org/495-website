@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/discover.css' %}">
+    <script src="{% static 'js/sketch.js'%}" defer></script>
+</head>
+<body>
+
+  <!-- Button to go to login page -->
+<a href="{% url 'login' %}">
+    <button class="login-button">Login</button>
+</a>
+  
+
+
+<div class="wrapper">
+    <!-- Include the sidebar -->
+    {% include 'components/sidebar.html' %}
+</div>
+ 
+
+<div class="search-bar">
+        <input type="text" placeholder="Search" name="q">
+     <!-- Just a test to see if search button is interative -->
+    <a href="https://giphy.com/gifs/spongebob-cartoon-nickelodeon-thumbs-3o7abKhOpu0NwenH3O">
+        <button type="submit"><img src="{% static 'images/search.png' %}"></button>   
+    </a>
+</div>
+
+<div class="content">
+    <!-- First header -->
+    <h2>Because you watched...</h2>
+  
+    <!-- Row 1 -->
+    <div class="scrollable-row">
+        
+
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <!-- Add more placeholders as needed -->
+    </div>
+
+     <!-- Second header -->
+     <h2>TV For You</h2>
+
+    <!-- Row 2 -->
+    <div class="scrollable-row">
+        
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <!-- Add more placeholders as needed -->
+    </div>
+
+     <!-- Third header -->
+     <h2>What's New</h2>
+
+    <!-- Row 3 -->
+    <div class="scrollable-row">
+        
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <div class="show-placeholder">Placeholder</div>
+        <!-- Add more placeholders as needed -->
+    </div>
+
+    <!-- Genre header -->
+    <h2>Discover By Genre</h2>
+
+    <!-- Thumbnail grid for genres -->
+    <div class="thumbnail-grid">
+
+        <!-- Drama -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/drama.jpeg' %}">
+            <span class="genre-text">Drama</span>
+        </div>
+    </a>
+        <!-- Comedy -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/comedy.jpg' %}">
+            <span class="genre-text">Comedy</span>
+        </div>
+    </a>
+        <!-- Action -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/action.jpg' %}">
+            <span class="genre-text">Action</span>
+        </div>
+    </a>
+        <!-- Thriller -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/thriller.jpg' %}">
+            <span class="genre-text">Thriller</span>
+        </div>
+    </a>
+        <!-- Sci-Fi -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/sci-fi.jpg' %}">
+            <span class="genre-text">Sci-Fi</span>
+        </div>
+    </a>
+        <!-- Fantasy -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/fantasy.jpg' %}">
+            <span class="genre-text">Fantasy</span>
+        </div>
+    </a>
+        <!-- Horror -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/horror2.jpg' %}">
+            <span class="genre-text">Horror</span>
+        </div>
+    </a>
+        <!-- Crime -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/crime.jpg' %}">
+            <span class="genre-text">Crime</span>
+        </div>
+    </a>
+        <!-- Romance -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/romance.jpg' %}">
+            <span class="genre-text">Romance</span>
+        </div>
+    </a>
+        <!-- Documentary -->
+    <a href="{% url 'genre' %}">
+        <div class="genre-placeholder">
+            <img src="{% static 'img/documentary.jpg' %}">
+            <span class="genre-text">Documentary</span>
+        </div>
+    </a>
+    </div>
+    
+</div>
+
+</body>
+</html>

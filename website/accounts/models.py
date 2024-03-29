@@ -51,12 +51,12 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-    def _add_movie(self, movie_id: str):
+    def add_movie(self, movie_id: str):
         _mv = Movie(_d = movie_id)
         _mv.save()
         self.fav_movies.add(_mv)
 
-    def _add_show(self, show_id: str):
+    def add_show(self, show_id: str):
         _sh = Show(id=show_id)
         _sh.save()
         self.fav_shows.add(_sh)
