@@ -67,10 +67,27 @@ services:
     image: cgr.dev/chainguard/redis:latest
     # volumes:
     #   - redis-data:/data
-    # ports: "6379:6379" #again, enable to access redis CLI from host machine
+    # ports:
+    #   - "6379:6379" #again, enable to access redis CLI from host machine
     networks:
       - backend
 
+  tasker:
+    build: ./tasker
+    command: celery -A tasks worker -E --loglevel=debug
+    depends_on:
+      - redis
+    networks:
+      - backend
+
+  beat:
+    build: ./tasker
+    command: celery -A tasks beat --loglevel=debug
+    depends_on:
+      - redis
+      - tasker
+    networks:
+      - backend
 
 networks:
   frontend:
