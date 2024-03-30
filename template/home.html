@@ -180,7 +180,7 @@
 </div>
 
 <script>
-    document.querySelectorAll('.star').forEach(function(star) {
+   /* document.querySelectorAll('.star').forEach(function(star) {
         star.addEventListener('click', function() {
             
             event.preventDefault();
@@ -194,8 +194,21 @@
             messageDiv.style.paddingLeft = "20px"; // Adjust left padding as needed
             messageDiv.style.paddingRight = "20px";
 
-            });
-    });
+            // Add the 'hidden' class after a delay to trigger the fade-out animation
+            setTimeout(function() {
+                messageDiv.classList.add('hidden');
+            }, 2000);
+
+        });
+
+        // Listen for transitionend event to set z-index negative after the animation completes
+        messageDiv.addEventListener('transitionend', function(event) {
+            if (event.propertyName === 'opacity') {
+                // Animation for opacity has ended, set z-index to negative
+                messageDiv.style.zIndex = '-10';
+            }
+        }); 
+    }); */
 </script>
 
 </body>

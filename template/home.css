@@ -254,18 +254,29 @@ h2 {
 
 .star {
     margin-left: 20px;
+    transition: transform 0.3s ease; 
+}
+
+.check {
+    transition: transform 0.3s ease; 
 }
 
 .star:hover {
-    color: yellow;
+    color: rgb(250, 250, 177);
+    transform: scale(1.2);
 }
 
 .check:hover {
-    color: rgb(22, 213, 22);
+    color: rgb(134, 220, 134);
+    transform: scale(1.2);
 }
 
-.star.yellow {
+.star.clicked {
     color: yellow;
+}
+
+.check.clicked {
+    color: rgb(22, 213, 22);
 }
 
 
@@ -344,7 +355,7 @@ body.active .overlay {
 }
 
 
-#message {
+/*#message {
     background-color: #8400ff;
     position: fixed;
     display: flex; 
@@ -355,5 +366,11 @@ body.active .overlay {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
+    transition: opacity 2s ease;
 }
 
+#message.hidden {
+    opacity: 0; 
+    z-index: -10;
+}  */
+ 
