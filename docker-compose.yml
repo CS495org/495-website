@@ -72,22 +72,22 @@ services:
     networks:
       - backend
 
-  tasker:
-    build: ./tasker
-    command: celery -A tasks worker -E --loglevel=debug
-    depends_on:
-      - redis
-    networks:
-      - backend
+  # tasker:
+  #   build: ./tasker
+  #   command: celery -A tasks worker -E --loglevel=debug
+  #   depends_on:
+  #     - redis
+  #   networks:
+  #     - backend
 
-  beat:
-    build: ./tasker
-    command: celery -A tasks beat --loglevel=debug
-    depends_on:
-      - redis
-      - tasker
-    networks:
-      - backend
+  # beat:
+  #   build: ./tasker
+  #   command: celery -A tasks beat --loglevel=debug
+  #   depends_on:
+  #     - redis
+  #     - tasker
+  #   networks:
+  #     - backend
 
 networks:
   frontend:

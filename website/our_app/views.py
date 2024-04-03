@@ -29,6 +29,7 @@ def fill_objects():
                                  title=row.get("title"),
                                  overview=row.get("overview"),
                                  poster_path=str(row.get("poster_path")).replace("/",''))
+            mv_id = row.get("id")
         except IntegrityError as e:
             pass
 
@@ -52,12 +53,17 @@ def fill_objects():
         except Exception as e:
             pass
 
+    return mv_id
+
 
 class HomePage(View):
     template_name = 'home.html'
     def get(self, request: HttpRequest):
         if len(Movie.objects.all()) == 0:
-             fill_objects()
+            fill_objects()
+
+        # _movie = Movie.objects.get(mv_id)
+        # _movie.add_to_user(request.user)
 
         context = get_context()
         # context['image_files'] = [f"{i}.jpg" for i in range(51)]

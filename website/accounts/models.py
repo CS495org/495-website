@@ -12,6 +12,10 @@ class Movie(models.Model):
     poster_path = models.TextField()
     # _popularity = models.
 
+    def add_to_user(self, user):
+        _user = CustomUser.objects.get(user)
+        _user.add_movie(self.id)
+
     def __str__(self):
         return self.title
 
@@ -31,6 +35,10 @@ class Show(models.Model):
     title = models.TextField()
     overview = models.TextField()
     poster_path = models.TextField()
+
+    def add_to_user(self, user):
+        _user = CustomUser.objects.get(user)
+        _user.add_show(self.id)
 
     def __str__(self):
         return self.title
