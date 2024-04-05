@@ -1,5 +1,5 @@
-# FROM python:3.12-alpine3.19
-FROM localhost:5000/website
+FROM python:3.12-alpine3.19
+#FROM localhost:5000/website
 # if you have a personal registry set up
 
 ARG USER

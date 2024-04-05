@@ -39,15 +39,19 @@
   
     <!-- Row 1 -->
     <div class="scrollable-row">
-        
-
+        {% for show in shows|slice":7" %}
+        <div class="show-placeholder">
+            <img src="{{ show.image_url }}" alt="{{ show.title }}">
+            <h3>{{ show.title }}</h3>
+        </div>
+        <!--
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
+        -->
         <!-- Add more placeholders as needed -->
     </div>
 
