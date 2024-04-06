@@ -1,6 +1,6 @@
 from django.db.models.base import Model as Model
 from django.shortcuts import render
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView, RedirectView
@@ -20,47 +20,12 @@ def get_context():
 
     return context
 
-def fill_objects():
-    for row in pg_interface.get_rows(table_name='"Movies_Trending_This_Week"',
-                                     cols=["id", "overview",
-                                           "title", "poster_path"])[:20]:
-        try:
-            Movie.objects.create(id=row.get("id"),
-                                 title=row.get("title"),
-                                 overview=row.get("overview"),
-                                 poster_path=str(row.get("poster_path")).replace("/",''))
-            mv_id = row.get("id")
-        except IntegrityError as e:
-            pass
-
-    for row in pg_interface.get_rows(table_name='"Shows_Trending_This_Week"',
-                                     cols=["id", "overview",
-                                           "name", "poster_path"])[:20]:
-        try:
-            Show.objects.create(id=row.get("id"),
-                                title=row.get("name"),
-                                overview=row.get("overview"),
-                                poster_path=str(row.get("poster_path")).replace("/",''))
-        except IntegrityError as e:
-            pass
-
-    if len(CustomUser.objects.all()) < 2:
-        try:
-            _new_usr = CustomUser(username='tateb', email='email@email.com',
-                                  password=r'pbkdf2_sha256$720000$cRfkFIziOWa16qa9LvYsjy$P2iZiWk50rgncSv/Q3WKM5DTay38UqjxheQiZ5wscy8=')
-            _new_usr.save()
-
-        except Exception as e:
-            pass
-
-    return mv_id
-
 
 class HomePage(View):
     template_name = 'home.html'
     def get(self, request: HttpRequest):
-        if len(Movie.objects.all()) == 0:
-            fill_objects()
+        # if len(Movie.objects.all()) == 0:
+            # fill_objects()
 
         # _movie = Movie.objects.get(mv_id)
         # _movie.add_to_user(request.user)

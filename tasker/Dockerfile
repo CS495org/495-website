@@ -1,5 +1,5 @@
-FROM python:3.12-alpine
-# FROM localhost:5000/tasker
+# FROM python:3.12-alpine
+FROM localhost:5000/tasker
 
 WORKDIR /app
 

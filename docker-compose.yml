@@ -1,5 +1,6 @@
 services:
   web:
+    container_name: tv-web
     build:
       context: ./website
       args:
@@ -23,7 +24,8 @@ services:
     # ports:
     #   - "7999:8000" #enable to bypass nginx thru http://localhost:7999/
     volumes:
-      - ./imgVar/:/app/static/imgVar
+      # - ./imgVar/:/app/static/imgVar
+      - img-var:/imgVar/
     networks:
       - frontend
       - backend
@@ -32,13 +34,16 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
+      # tasker:
+      #   condition: service_started
 
   nginx:
+    container_name: tv-proxy
     build:
       context: ./proxy
     volumes:
       - ./proxy/static/:/static
-      - ./imgVar/:/static/img/imgVar
+      - img-var:/static/img/imgVar
     ports:
       - "443:443"
     networks:
@@ -47,11 +52,12 @@ services:
       - web
 
   db:
+    container_name: tv-db
     image: postgres:16-alpine3.19
     env_file:
       - .env
     volumes:
-      - pg-data:/var/lib/postgresql/data
+      # - pg-data:/var/lib/postgresql/data
       - ./database/init-2.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "6543:${PORT}" #enable for accessing postgres from host machine at port 6543 (see ./database/README for more info)
@@ -64,6 +70,7 @@ services:
       retries: 10
 
   redis:
+    container_name: tv-redis
     image: cgr.dev/chainguard/redis:latest
     # volumes:
     #   - redis-data:/data
@@ -72,23 +79,6 @@ services:
     networks:
       - backend
 
-  # tasker:
-  #   build: ./tasker
-  #   command: celery -A tasks worker -E --loglevel=debug
-  #   depends_on:
-  #     - redis
-  #   networks:
-  #     - backend
-
-  # beat:
-  #   build: ./tasker
-  #   command: celery -A tasks beat --loglevel=debug
-  #   depends_on:
-  #     - redis
-  #     - tasker
-  #   networks:
-  #     - backend
-
 networks:
   frontend:
   backend:
@@ -96,6 +86,8 @@ networks:
 volumes:
   pg-data:
     driver: local
+  img-var:
+    external: true
   # redis-data:
   #   driver: local #to make redis persist
 

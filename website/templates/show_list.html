@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <title>Show List</title>
@@ -9,6 +10,7 @@
         {% for show in all_shows %}
             <li>{{ show.title }}
                 {{ show.overview }}
+                <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
             </li>
         {% endfor %}
     </ul>
