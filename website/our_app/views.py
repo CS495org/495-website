@@ -9,6 +9,7 @@ from django import forms
 from typing import Any
 from django.db.utils import IntegrityError
 from django.urls import reverse_lazy
+from django.core.mail import send_mail
 
 from interfaces.objs import pg_interface
 
@@ -65,6 +66,14 @@ class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
 
 
 class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
+    # subject = 'Subject here'
+    # message = 'Here is the message.'
+    # email_from = 'from@gmail.com'
+    # recipient_list = ['to@mail.com']
+    #
+    # send_mail(subject, message, email_from, recipient_list)
+
+
     template_name = 'update_shows.html'
     success_url = reverse_lazy('home')
     model = CustomUser
