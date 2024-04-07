@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Show Profile</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/showprofile.css' %}">
+    <script src="{% static 'js/sketch.js'%}" defer></script>
+    
+</head>
+<body>
+
+<!-- TV Show Profile Content -->
+<div class="show-profile-info">
+
+    <div class="background-div-left"></div>
+    <div class="background-div-right"></div>
+
+    <div class="background-image">
+        <img src="{% static 'img/comedy.jpg' %}">
+    </div>
+
+    <!-- left div -->
+    <div class="show-left">
+        <div class="show-pic">
+            <img src="{% static 'img/comedy.jpg' %}">
+        </div>
+        <div class="streaming-on">Streaming On:</div>
+
+        <div class="streaming-sites">
+            <a href="https://www.netflix.com" target="_blank">
+                <div class="streaming-placeholder">
+                    <img src="{% static 'img/netflix.jpg' %}">
+                </div>
+            </a>
+
+            <a href="https://www.hulu.com/hub/home" target="_blank">
+                <div class="streaming-placeholder">
+                    <img src="{% static 'img/hulu.png' %}">
+                </div>
+            </a>
+
+            <a href="https://www.disneyplus.com" target="_blank">
+                <div class="streaming-placeholder">
+                    <img src="{% static 'img/disney.jpg' %}">
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- right div -->
+    <div class="show-right">
+        <div class="title-year">
+            <h1>Family Guy</h1>
+            <p>2024</p>
+        </div>
+
+        <div class="tvpg-genre">
+            <div class="tvpg-rating">
+                <p>PG-13</p>
+            </div>
+            <div class="genre">
+                <p>Comedy</p>
+            </div>
+        </div>
+
+        <div class="show-icons">
+            <i class='bx bx-check-circle'></i>
+            <i class='bx bxs-star'></i>
+            <i class='bx bx-bookmark-plus'></i>
+            <i class='bx bxs-message-rounded'></i>
+        </div>
+
+        <div class="show-description">
+            <h3>Description</h3>
+            <p>In a wacky Rhode Island town, a dysfunctional family strives to cope with 
+                everyday life as they are thrown from one crazy scenario to another.
+            </p>
+        </div>
+
+        <div class="rotten-tomato">Rotten Tomato Score:</div>
+
+        <div class="circle-wrap">
+            <div class="outer">
+                <div class="inner">
+                    <div id="number"></div>
+                </div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                    <defs>
+                        <linearGradient id="GradientColor">
+                            <stop offset="0%" stop-color="#DA22FF" />
+                            <stop offset="100%" stop-color="#9733EE" />
+                        </linearGradient>
+                    </defs>
+                    <circle id="circle" cx="80" cy="80" r="49" stroke-linecap="round" />
+                </svg>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Episode content -->
+<div class="episode-info">
+    <div class="dropdown"> 
+        <div class="selected-season">
+            <h3>Season 1</h3>
+            <div class="drop-button">
+                <i class='bx bx-chevron-down'></i>
+            </div>
+        </div>
+        
+        <ul>
+            <li><a href='#'>Season 1</a></li>
+            <li><a href='#'>Season 2</a></li>
+            <li><a href='#'>Season 3</a></li>
+            <li><a href='#'>Season 4</a></li>
+            <li><a href='#'>Season 5</a></li>
+        </ul>
+    </div>
+
+
+    <div class="pic-text">
+        <div class="episode-pic">
+            <img src="{% static 'img/comedy.jpg' %}">
+        </div>
+
+        <div class="episode-text">
+            <div class="num-title">
+                <h1>S1 E1</h1>
+                <h1>-</h1>
+                <h1>Title</h1>
+            </div>
+
+            <div class="episode-description">
+                <p>Peter becomes very jealous, when his handi-capable new neighbor turns out to
+                     be the new star player on the toy company's softball team.
+                </p>
+            </div>
+
+            <div class="length-date">
+                <h3>24 min</h3>
+                <h3>*</h3>
+                <h3>Jan 31, 1999</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="pic-text">
+        <div class="episode-pic">
+            <img src="{% static 'img/comedy.jpg' %}">
+        </div>
+
+        <div class="episode-text">
+            <div class="num-title">
+                <h1>S1 E1</h1>
+                <h1>-</h1>
+                <h1>Title</h1>
+            </div>
+
+            <div class="episode-description">
+                <p>Peter becomes very jealous, when his handi-capable new neighbor turns out to
+                     be the new star player on the toy company's softball team.
+                </p>
+            </div>
+
+            <div class="length-date">
+                <h3>24 min</h3>
+                <h3>*</h3>
+                <h3>Jan 31, 1999</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="black-div">
+    <div class="cast-info">
+        <h1>Cast</h1>
+
+        <div class="scrollable-row">
+            <div class="cast-members">
+                <div class="cast-pic">
+                    <img src="{% static 'img/comedy.jpg' %}">
+                </div>
+                <p>Peter Griffinnnnnnnnnnnn</p>
+            </div>
+
+            <div class="cast-members">
+                <div class="cast-pic">
+                    <img src="{% static 'img/comedy.jpg' %}">
+                </div>
+                <p>Peter Griffinnnnnnnnnnnn</p>
+            </div>
+            <div class="cast-members">
+                <div class="cast-pic">
+                    <img src="{% static 'img/comedy.jpg' %}">
+                </div>
+                <p>Peter Griffinnnnnnnnnnnn</p>
+            </div>
+            <div class="cast-members">
+                <div class="cast-pic">
+                    <img src="{% static 'img/comedy.jpg' %}">
+                </div>
+                <p>Peter Griffinnnnnnnnnnnn</p>
+            </div>
+            <div class="cast-members">
+                <div class="cast-pic">
+                    <img src="{% static 'img/comedy.jpg' %}">
+                </div>
+                <p>Peter Griffinnnnnnnnnnnn</p>
+            </div>
+            <div class="cast-members">
+                <div class="cast-pic">
+                    <img src="{% static 'img/comedy.jpg' %}">
+                </div>
+                <p>Peter Griffinnnnnnnnnnnn</p>
+            </div>
+            <div class="cast-members">
+                <div class="cast-pic">
+                    <img src="{% static 'img/comedy.jpg' %}">
+                </div>
+                <p>Peter Griffinnnnnnnnnnnn</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateProgress(percentage) {
+        let number = document.getElementById("number");
+        let counter = 0;
+        let interval;
+
+        setInterval(() => {
+            if(counter == percentage) {
+                clearInterval(interval);
+            }
+            else {
+                counter += 1;
+                number.innerHTML = `${counter}%`;
+            }
+        }, 12);
+
+        const circle = document.querySelector('circle');
+        const circumference = parseFloat(circle.getAttribute('stroke-dasharray'));
+        const offset = circumference * (1 - percentage / 100);
+        circle.style.strokeDashoffset = offset;
+    }
+
+    // Get the circle element
+    const circle = document.querySelector('.circle');
+
+    // Update the custom property value dynamically
+    function updateDashOffset(percentage) {
+        const circumference = 307.86; // Adjust this value based on your circle's circumference
+        const dashOffset = circumference - (circumference * percentage / 100); 
+        document.documentElement.style.setProperty('--dash-offset', `${dashOffset}`);
+    }
+
+    var integer = 90;
+    updateProgress(integer);
+    updateDashOffset(integer); 
+    
+    /* Function to bring out seasons list *******************************************/
+    var dropButton = document.querySelector(".drop-button");
+    var icon = dropButton.querySelector("i");
+
+    dropButton.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent default link behavior
+        document.querySelector(".dropdown ul").classList.toggle("active"); // Toggle the "active" class on the dropdown list
+
+         // Toggle the chevron icon
+    if (icon.classList.contains('bx-chevron-down')) {
+        icon.classList.remove('bx-chevron-down');
+        icon.classList.add('bx-chevron-up');
+    } else {
+        icon.classList.remove('bx-chevron-up');
+        icon.classList.add('bx-chevron-down');
+    }
+    }); 
+
+    
+
+</script>
+
+<style>
+    
+</style>
+
+</body>
+</html>

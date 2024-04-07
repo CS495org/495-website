@@ -5,81 +5,65 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TV Show Profile</title>
+    <title>{{ show.title }} Profile</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/showprofile.css' %}">
     <script src="{% static 'js/sketch.js'%}" defer></script>
-    
 </head>
 <body>
 
 <!-- TV Show Profile Content -->
 <div class="show-profile-info">
-
     <div class="background-div-left"></div>
     <div class="background-div-right"></div>
 
     <div class="background-image">
-        <img src="{% static 'img/comedy.jpg' %}">
+        <!-- Assume show.background_image_url contains the URL for the background image -->
+        <img src="{{ show.background_image_url }}" alt="{{ show.title }} Background">
     </div>
 
     <!-- left div -->
     <div class="show-left">
         <div class="show-pic">
-            <img src="{% static 'img/comedy.jpg' %}">
+            <!-- Assume show.image_url contains the URL for the show's main image -->
+            <img src="{{ show.image_url }}" alt="{{ show.title }}">
         </div>
         <div class="streaming-on">Streaming On:</div>
 
         <div class="streaming-sites">
-            <a href="https://www.netflix.com" target="_blank">
+            {% for service in show.streaming_services %}
+            <a href="{{ service.url }}" target="_blank">
                 <div class="streaming-placeholder">
-                    <img src="{% static 'img/netflix.jpg' %}">
+                    <img src="{{ service.logo_url }}" alt="{{ service.name }}">
                 </div>
             </a>
-
-            <a href="https://www.hulu.com/hub/home" target="_blank">
-                <div class="streaming-placeholder">
-                    <img src="{% static 'img/hulu.png' %}">
-                </div>
-            </a>
-
-            <a href="https://www.disneyplus.com" target="_blank">
-                <div class="streaming-placeholder">
-                    <img src="{% static 'img/disney.jpg' %}">
-                </div>
-            </a>
+            {% endfor %}
         </div>
-
     </div>
 
     <!-- right div -->
     <div class="show-right">
         <div class="title-year">
-            <h1>Family Guy</h1>
-            <p>2024</p>
+            <h1>{{ show.title }}</h1>
+            <p>{{ show.year }}</p>
         </div>
 
         <div class="tvpg-genre">
             <div class="tvpg-rating">
-                <p>PG-13</p>
+                <p>{{ show.rating }}</p>
             </div>
             <div class="genre">
-                <p>Comedy</p>
+                <p>{{ show.genre }}</p>
             </div>
         </div>
 
         <div class="show-icons">
-            <i class='bx bx-check-circle'></i>
-            <i class='bx bxs-star'></i>
-            <i class='bx bx-bookmark-plus'></i>
-            <i class='bx bxs-message-rounded'></i>
+            <!-- Add dynamic icons if needed -->
         </div>
 
         <div class="show-description">
             <h3>Description</h3>
-            <p>In a wacky Rhode Island town, a dysfunctional family strives to cope with 
-                everyday life as they are thrown from one crazy scenario to another.
-            </p>
+            <p>{{ show.description }}</p>
         </div>
 
         <div class="rotten-tomato">Rotten Tomato Score:</div>
@@ -101,135 +85,10 @@
                 </svg>
             </div>
         </div>
-
-    </div>
-
-</div>
-
-<!-- Episode content -->
-<div class="episode-info">
-    <div class="dropdown"> 
-        <div class="selected-season">
-            <h3>Season 1</h3>
-            <div class="drop-button">
-                <i class='bx bx-chevron-down'></i>
-            </div>
-        </div>
-        
-        <ul>
-            <li><a href='#'>Season 1</a></li>
-            <li><a href='#'>Season 2</a></li>
-            <li><a href='#'>Season 3</a></li>
-            <li><a href='#'>Season 4</a></li>
-            <li><a href='#'>Season 5</a></li>
-        </ul>
-    </div>
-
-
-    <div class="pic-text">
-        <div class="episode-pic">
-            <img src="{% static 'img/comedy.jpg' %}">
-        </div>
-
-        <div class="episode-text">
-            <div class="num-title">
-                <h1>S1 E1</h1>
-                <h1>-</h1>
-                <h1>Title</h1>
-            </div>
-
-            <div class="episode-description">
-                <p>Peter becomes very jealous, when his handi-capable new neighbor turns out to
-                     be the new star player on the toy company's softball team.
-                </p>
-            </div>
-
-            <div class="length-date">
-                <h3>24 min</h3>
-                <h3>*</h3>
-                <h3>Jan 31, 1999</h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="pic-text">
-        <div class="episode-pic">
-            <img src="{% static 'img/comedy.jpg' %}">
-        </div>
-
-        <div class="episode-text">
-            <div class="num-title">
-                <h1>S1 E1</h1>
-                <h1>-</h1>
-                <h1>Title</h1>
-            </div>
-
-            <div class="episode-description">
-                <p>Peter becomes very jealous, when his handi-capable new neighbor turns out to
-                     be the new star player on the toy company's softball team.
-                </p>
-            </div>
-
-            <div class="length-date">
-                <h3>24 min</h3>
-                <h3>*</h3>
-                <h3>Jan 31, 1999</h3>
-            </div>
-        </div>
     </div>
 </div>
 
-<div class="black-div">
-    <div class="cast-info">
-        <h1>Cast</h1>
-
-        <div class="scrollable-row">
-            <div class="cast-members">
-                <div class="cast-pic">
-                    <img src="{% static 'img/comedy.jpg' %}">
-                </div>
-                <p>Peter Griffinnnnnnnnnnnn</p>
-            </div>
-
-            <div class="cast-members">
-                <div class="cast-pic">
-                    <img src="{% static 'img/comedy.jpg' %}">
-                </div>
-                <p>Peter Griffinnnnnnnnnnnn</p>
-            </div>
-            <div class="cast-members">
-                <div class="cast-pic">
-                    <img src="{% static 'img/comedy.jpg' %}">
-                </div>
-                <p>Peter Griffinnnnnnnnnnnn</p>
-            </div>
-            <div class="cast-members">
-                <div class="cast-pic">
-                    <img src="{% static 'img/comedy.jpg' %}">
-                </div>
-                <p>Peter Griffinnnnnnnnnnnn</p>
-            </div>
-            <div class="cast-members">
-                <div class="cast-pic">
-                    <img src="{% static 'img/comedy.jpg' %}">
-                </div>
-                <p>Peter Griffinnnnnnnnnnnn</p>
-            </div>
-            <div class="cast-members">
-                <div class="cast-pic">
-                    <img src="{% static 'img/comedy.jpg' %}">
-                </div>
-                <p>Peter Griffinnnnnnnnnnnn</p>
-            </div>
-            <div class="cast-members">
-                <div class="cast-pic">
-                    <img src="{% static 'img/comedy.jpg' %}">
-                </div>
-                <p>Peter Griffinnnnnnnnnnnn</p>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Episode content and cast info sections can also be dynamically generated -->
 
 <script>
     function updateProgress(percentage) {
