@@ -41,7 +41,7 @@
     <div class="scrollable-row">
         {% for show in shows|slice":7" %}
         <div class="show-placeholder">
-            <img src="{{ show.image_url }}" alt="{{ show.title }}">
+            <img src="{% static 'img/imgvar/' %}{{ show.poster_path }}" alt="{{ show.title }}">
             <h3>{{ show.title }}</h3>
         </div>
         <!--
@@ -60,12 +60,11 @@
 
     <!-- Row 2 -->
     <div class="scrollable-row">
-        <div class="scrollable-row">
-            {% for show in shows|slice":7" %}
-            <div class="show-placeholder">
-                <img src="{{ show.image_url }}" alt="{{ show.title }}">
-                <h3>{{ show.title }}</h3>
-            </div>
+        {% for show in shows|slice":7" %}
+        <div class="show-placeholder">
+            <img src="{% static 'img/imgvar/' %}{{ show.poster_path }}" alt="{{ show.title }}">
+            <h3>{{ show.title }}</h3>
+        </div>
             <!--
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
@@ -83,12 +82,11 @@
 
     <!-- Row 3 -->
     <div class="scrollable-row">
-        <div class="scrollable-row">
-            {% for show in shows|slice":7" %}
-            <div class="show-placeholder">
-                <img src="{{ show.image_url }}" alt="{{ show.title }}">
-                <h3>{{ show.title }}</h3>
-            </div>
+        {% for show in shows|slice":7" %}
+        <div class="show-placeholder">
+            <img src="{% static 'img/imgvar/' %}{{ show.poster_path }}" alt="{{ show.title }}">
+            <h3>{{ show.title }}</h3>
+        </div>
         <!--
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
