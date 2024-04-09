@@ -35,12 +35,13 @@ def fill_objects():
 
     for row in pg_interface.get_rows(table_name='"Shows_Trending_This_Week"',
                                      cols=["id", "overview",
-                                           "name", "poster_path"])[:20]:
+                                           "name", "poster_path", "first_air_date"])[:20]:
         try:
             Show.objects.create(id=row.get("id"),
                                 title=row.get("name"),
                                 overview=row.get("overview"),
-                                poster_path=str(row.get("poster_path")).replace("/",''))
+                                poster_path=str(row.get("poster_path")).replace("/",''),
+                                first_air_date=row.get("first_air_date"))
         except IntegrityError as e:
             pass
 

@@ -31,7 +31,7 @@ class HomePage(View):
         # _movie.add_to_user(request.user)
 
         context = get_context()
-        # context['image_files'] = [f"{i}.jpg" for i in range(51)]
+        #context['image_files'] = [f"{i}.jpg" for i in range(51)]
         return render(request, self.template_name, context=context)
 
 
