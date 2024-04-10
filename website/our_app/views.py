@@ -9,6 +9,7 @@ from django import forms
 from typing import Any
 from django.db.utils import IntegrityError
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 
 from interfaces.objs import pg_interface
 
@@ -36,13 +37,29 @@ class HomePage(View):
 
 
 
-class RedirectByID(LoginRequiredMixin, RedirectView):
+class RedirectByUserID(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
         return f"{self.request.user.id}"
 
 
+# class RedirectByObjectID(LoginRequiredMixin, RedirectView):
+#     def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
+#         return f"{self.request.}"
+
+
 def show_list(request):
     return render(request, 'show_list.html', context=get_context())
+
+
+class ObjectView(View):
+    template = "object_view.html"
+
+    def get(self, request: HttpRequest, **kwargs):
+        pk = kwargs.get('pk')
+        # print(pk, type(pk))
+        return render(request, self.template, context= {
+            "show" : Show.objects.get(id=pk)
+            } )
 
 
 class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):

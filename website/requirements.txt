@@ -12,5 +12,3 @@ django-celery-results
 python-decouple
 requests
 twilio
-
-django-debug-toolbar==4.3.0
