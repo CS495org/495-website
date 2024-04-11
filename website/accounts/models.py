@@ -14,8 +14,8 @@ class Movie(models.Model):
     air_date = models.DateField()
     genres = models.TextField()
 
-    def add_to_user(self, user):
-        _user = CustomUser.objects.get(user)
+    def add_to_user(self, user_id):
+        _user = CustomUser.objects.get(pk=user_id)
         _user.add_movie(self.id)
 
     def __str__(self):
@@ -41,8 +41,8 @@ class Show(models.Model):
     air_date = models.DateField()
     genres = models.TextField()
 
-    def add_to_user(self, user):
-        _user = CustomUser.objects.get(user)
+    def add_to_user(self, user_id):
+        _user = CustomUser.objects.get(pk=user_id)
         _user.add_show(self.id)
 
     def __str__(self):
@@ -65,11 +65,12 @@ class CustomUser(AbstractUser):
         return self.username
 
     def add_movie(self, movie_id: str):
-        _mv = Movie(_d = movie_id)
-        _mv.save()
+        _mv = Movie.objects.get(pk=movie_id)
+        # _mv.save()
         self.fav_movies.add(_mv)
 
     def add_show(self, show_id: str):
-        _sh = Show(id=show_id)
-        _sh.save()
+        # _sh = Show(pk=show_id)
+        _sh = Show.objects.get(pk=show_id)
+        # _sh.save()
         self.fav_shows.add(_sh)

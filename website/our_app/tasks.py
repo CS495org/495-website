@@ -24,8 +24,7 @@ def get_images():
 
 @app.task
 def fill_objects():
-    if not len(Movie.objects.all()) == 0:
-        return
+    if not len(Movie.objects.all()) == 0: return
 
     for row in pg_interface.get_rows(table_name='"Movies_Trending_This_Week"',
                                      cols=["id", "overview",
@@ -40,7 +39,7 @@ def fill_objects():
                                  backdrop_path = str(row.get("backdrop_path")).replace("/", ""),
                                  genres=row.get("genre_ids"),
                                  air_date = row.get("release_date"))
-            # mv_id = row.get("id")
+
         except IntegrityError as e:
             pass
 
@@ -65,12 +64,12 @@ def fill_objects():
         try:
             _new_usr = CustomUser(username='tateb', email='email@email.com',
                                   password=r'pbkdf2_sha256$720000$cRfkFIziOWa16qa9LvYsjy$P2iZiWk50rgncSv/Q3WKM5DTay38UqjxheQiZ5wscy8=')
+
             _new_usr.save()
+            # _new_usr.add_movie(Movie.objects.all()[0].id)
 
         except Exception as e:
             pass
 
 
     get_images()
-
-    # return mv_id
