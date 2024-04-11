@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE",
           "DJANGO_SECURE_KEY", "DJANGO_PG_SCHEMA",
-          "RHOST", "RPORT"]
+          "RHOST", "RPORT", "GMAIL", "GMAILPSWD"]
 CONFIG = env.get(PARAMS)
 
 # Quick-start development settings - unsuitable for production
@@ -196,5 +196,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'from@gmail.com'
-EMAIL_HOST_PASSWORD = 'gmailpassword'
+EMAIL_HOST_USER = CONFIG.get("GMAIL")
+EMAIL_HOST_PASSWORD = CONFIG.get("GMAILPSWD")
