@@ -4,11 +4,12 @@ from django.http import HttpRequest, HttpResponse
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView, RedirectView
-from accounts.models import Movie, CustomUser, Show
+from accounts.models import Movie, CustomUser, Show, TopRatedShow
 from django import forms
 from typing import Any
 from django.db.utils import IntegrityError
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 
 from interfaces.objs import pg_interface
 
@@ -16,6 +17,7 @@ def get_context():
     context = {
         "all_shows" : Show.objects.all(),
         "all_movies" : Movie.objects.all(),
+        "top_rated_shows": TopRatedShow.objects.all()
     }
 
     return context
@@ -31,18 +33,34 @@ class HomePage(View):
         # _movie.add_to_user(request.user)
 
         context = get_context()
-        #context['image_files'] = [f"{i}.jpg" for i in range(51)]
+        # context['image_files'] = [f"{i}.jpg" for i in range(51)]
         return render(request, self.template_name, context=context)
 
 
 
-class RedirectByID(LoginRequiredMixin, RedirectView):
+class RedirectByUserID(LoginRequiredMixin, RedirectView):
     def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
         return f"{self.request.user.id}"
 
 
+# class RedirectByObjectID(LoginRequiredMixin, RedirectView):
+#     def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
+#         return f"{self.request.}"
+
+
 def show_list(request):
     return render(request, 'show_list.html', context=get_context())
+
+
+class ObjectView(View):
+    template = "object_view.html"
+
+    def get(self, request: HttpRequest, **kwargs):
+        pk = kwargs.get('pk')
+        # print(pk, type(pk))
+        return render(request, self.template, context= {
+            "show" : Show.objects.get(id=pk)
+            } )
 
 
 class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
@@ -106,8 +124,20 @@ def genre_view(request):
     context["image_files"] = [f"{i}.jpg" for i in range(51)]
     return render(request, "accounts/genre.html", context)
 
-def showprofile_view(request):
-    return render(request, "accounts/showprofile.html", get_context())
+def showprofile_view(request, show_id):
+    try:
+        # Try to get the Show object first
+        show = Show.objects.get(id=show_id)
+    except Show.DoesNotExist:
+        try:
+            # If the Show object does not exist, try to get the TopRatedShow object
+            show = TopRatedShow.objects.get(id=show_id)
+        except TopRatedShow.DoesNotExist:
+            # If neither Show nor TopRatedShow object exists, return a 404 error
+            return HttpResponseNotFound("Show not found")
+    
+    context = {'show': show}
+    return render(request, 'accounts/showprofile.html', context)
 
 def will_view(request):
     return render(request, "group/will.html", get_context())

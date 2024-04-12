@@ -13,7 +13,7 @@
 
 <body>
     
-<a href="{% url 'showprofile' %}">
+<a href="{% url 'showprofile' show_id=show.id %}">
     <div class="show-placeholder">
         <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
         <div class="check-star">
@@ -23,7 +23,8 @@
 
         <div class="name-year">
             <h3>{{ show.title }}</h3>
-            <p>{{ show.first_air_date }}</p>
+            <p>{{ show.air_date }}</p>
+            
         </div>
     </div>
 </a>

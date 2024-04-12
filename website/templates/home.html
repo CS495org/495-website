@@ -72,7 +72,7 @@
     </div>
 
     <!-- Second header -->
-    <h2>Top 10 Series</h2>
+    <h2>Top 10 Rated Series</h2>
 
     <!-- Row 2 -->
     <div class="scrollable-row">
@@ -196,9 +196,9 @@
     <!-- Row 3 -->
     <div class="scrollable-row">
 
-      {% for image_file in image_files|slice:"20:30" %}
-        {% include 'components/show-card.html' %}
-      {% endfor %}
+        {% for show in top_rated_shows %}
+            {% include 'components/show-card.html' %}
+        {% endfor %}
 
     </div>
 

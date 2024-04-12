@@ -16,6 +16,6 @@ beat_schedule = {
     # },
     'fill-movie-objects' : {
         'task' : 'our_app.tasks.fill_objects',
-        'schedule' : 100.0
+        'schedule' : 3.0
     }
 }

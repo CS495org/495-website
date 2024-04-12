@@ -20,13 +20,13 @@
     <div class="background-div-right"></div>
 
     <div class="background-image">
-        <img src="{% static 'img/comedy.jpg' %}">
+        <img src="{% static 'img/imgVar/' %}{{ show.backdrop_path }}">
     </div>
 
     <!-- left div -->
     <div class="show-left">
         <div class="show-pic">
-            <img src="{% static 'img/comedy.jpg' %}">
+            <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
         </div>
         <div class="streaming-on">Streaming On:</div>
 
@@ -55,8 +55,8 @@
     <!-- right div -->
     <div class="show-right">
         <div class="title-year">
-            <h1>Family Guy</h1>
-            <p>2024</p>
+            <h1> {{show.title}} </h1>
+            <p> {{show.air_date}} </p>
         </div>
 
         <div class="tvpg-genre">
@@ -64,7 +64,7 @@
                 <p>PG-13</p>
             </div>
             <div class="genre">
-                <p>Comedy</p>
+                <p> {{show.genres}} </p>
             </div>
         </div>
 
@@ -77,9 +77,7 @@
 
         <div class="show-description">
             <h3>Description</h3>
-            <p>In a wacky Rhode Island town, a dysfunctional family strives to cope with 
-                everyday life as they are thrown from one crazy scenario to another.
-            </p>
+            <p> {{show.overview}} </p>
         </div>
 
         <div class="rotten-tomato">Rotten Tomato Score:</div>

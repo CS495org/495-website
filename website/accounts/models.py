@@ -10,7 +10,9 @@ class Movie(models.Model):
     title = models.TextField()
     overview = models.TextField()
     poster_path = models.TextField()
-    # _popularity = models.
+    backdrop_path = models.TextField()
+    air_date = models.DateField()
+    genres = models.TextField()
 
     def add_to_user(self, user):
         _user = CustomUser.objects.get(user)
@@ -35,6 +37,34 @@ class Show(models.Model):
     title = models.TextField()
     overview = models.TextField()
     poster_path = models.TextField()
+    backdrop_path = models.TextField()
+    air_date = models.DateField()
+    genres = models.TextField()
+
+    def add_to_user(self, user):
+        _user = CustomUser.objects.get(user)
+        _user.add_show(self.id)
+
+    def __str__(self):
+        return self.title
+
+    def to_dict(self):
+        return {
+            "title" : self.title,
+            "overview" : self.overview,
+            "id" : self.id,
+            "poster_path" : self.poster_path,
+        }
+
+class TopRatedShow(models.Model):
+    id = models.CharField(max_length=38+9,
+                           primary_key=True)
+    title = models.TextField()
+    overview = models.TextField()
+    poster_path = models.TextField()
+    backdrop_path = models.TextField()
+    air_date = models.DateField()
+    genres = models.TextField()
 
     def add_to_user(self, user):
         _user = CustomUser.objects.get(user)
