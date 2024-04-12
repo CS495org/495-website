@@ -62,7 +62,7 @@ body {
     width: 70%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.2;
+    opacity: 0.4;
     background: linear-gradient(to right, rgba(0, 0, 0, 1) 50%, transparent);
     mix-blend-mode: multiply; /* Adjust the blend mode as needed */
 }
@@ -149,6 +149,11 @@ body {
 
 .title-year h1 {
     font-size: 50px;
+    display: inline-block;
+}
+
+.title-year .year {
+    font-size: 20px; /* Adjust the font size of the year here */
 }
 
 .tvpg-genre {
