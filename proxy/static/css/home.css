@@ -226,6 +226,7 @@ h2 {
     color: rgb(154, 154, 255);
 }
 
+
 .show {
     background-color: blue;
     width: 250px;
@@ -240,4 +241,9 @@ h2 {
     height: 100%;
     border-radius: 5px;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.show img:hover {
+    transform: scale(1.05);
 }
