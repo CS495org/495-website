@@ -22,6 +22,8 @@ services:
       PORT: ${PORT}
       RHOST: ${RHOST}
       RPORT: ${RPORT}
+      GMAIL: ${GMAIL}
+      GMAILPSWD: ${GMAILPSWD}
     volumes:
       - img-var:/imgVar/
     networks:

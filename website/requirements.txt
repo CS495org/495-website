@@ -12,5 +12,6 @@ django-celery-results
 python-decouple
 requests
 twilio
+Django-Verify-Email
 
 django-debug-toolbar==4.3.0

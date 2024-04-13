@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # "debug_toolbar",
     'our_app',
     'accounts',
+    "verify_email.apps.VerifyEmailConfig",
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -157,7 +158,7 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 CSRF_TRUSTED_ORIGINS = [
@@ -198,3 +199,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = CONFIG.get("GMAIL")
 EMAIL_HOST_PASSWORD = CONFIG.get("GMAILPSWD")
+
+REQUEST_NEW_EMAIL_TEMPLATE

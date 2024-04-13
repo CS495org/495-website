@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
+from verify_email.email_handler import send_verification_email
 
 from .forms import CustomUserCreationForm, LoginForm
 
@@ -8,6 +9,14 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
 
+    def form_valid(self, form):
+        # Override form_valid method to add custom logic after the form is validated
+        response = super().form_valid(form)
+
+        # Call your function to send verification email
+        send_verification_email(self.request, form)
+
+        return response
 
 
 from django.contrib.auth import authenticate, login

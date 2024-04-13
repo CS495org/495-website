@@ -68,8 +68,8 @@ class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
 class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
     # subject = 'Subject here'
     # message = 'Here is the message.'
-    # email_from = 'from@gmail.com'
-    # recipient_list = ['to@mail.com']
+    # email_from = 'tvgroup.cs495@gmail.com'
+    # recipient_list = ['reilandeubank@proton.me']
     #
     # send_mail(subject, message, email_from, recipient_list)
 
