@@ -12,6 +12,7 @@ from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 
 from datetime import datetime
+from django.http import JsonResponse
 
 from interfaces.objs import pg_interface
 
@@ -83,7 +84,6 @@ class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
         return {**context, **get_context()}
 
 
-
 class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
     template_name = 'update_shows.html'
     success_url = reverse_lazy('home')
@@ -99,8 +99,32 @@ class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        return {**context, **get_context()}
+        return {**context, **get_context()} 
 
+
+class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+
+    def post(self, request, *args, **kwargs):
+        show_id = kwargs.get('show_id')
+        if show_id:
+            try:
+                user = self.request.user
+                show = Show.objects.get(pk=show_id)  # Assuming Show is your model
+                user.fav_shows.add(show)
+                user.save()
+                return JsonResponse({'message': 'Show favorited successfully.'})
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Show ID is required.'}, status=400)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
 
 
 def main_view(request):

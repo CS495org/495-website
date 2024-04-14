@@ -69,14 +69,62 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-
-
-/* Functionality to make the check and the star clickable ***************************************/
+/* Functionality to make the check and the star clickable ***************************************
 document.querySelectorAll('.star').forEach(function(icon) {
     //initially make all cards unfavorited
     
-}); 
+}); */
+
+// Add event listeners when the DOM content is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Select all star icons and add click event listeners
+    document.querySelectorAll('.star').forEach(function(star) {
+        star.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+            
+            const showId = this.getAttribute('data-show-id'); // Get the show ID
+            const title = this.getAttribute('data-show-title'); //Get the show title
+            
+            // Send an AJAX request to favorite the show
+          //  fetch(`/ajax_update_fav_shows/${showId}/`, {
+            fetch(`https://localhost/tv-manager/ajax_update_fav_shows/${showId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken(), // Get the CSRF token
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ showId: showId }), // Include the show ID in the request body
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to favorite the show');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Optionally, update the UI to reflect the favorited state
+                this.classList.add('favorited');
+                alert(`${title} has been favorited!`);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle errors (e.g., display error message to the user)
+            });
+        });
+    });
+});
+
+// Function to get the CSRF token from the form
+function getCSRFToken() {
+    const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (csrfTokenElement) {
+        return csrfTokenElement.value;
+    } else {
+        console.error('CSRF token not found');
+        return null;
+    }
+} 
+
 
 
 document.querySelectorAll('.check').forEach(function(icon) {

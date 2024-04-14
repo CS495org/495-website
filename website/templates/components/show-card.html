@@ -8,28 +8,31 @@
   <title>Show Component</title>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" type="text/css" href=" {% static '/css/show-card.css' %} ">
-  <script src="{% static 'sketch.js'%}" defer></script>
+  <script src="{% static 'js/sketch.js'%}" defer></script>
+
 </head>
 
 <body>
+
+    <form>
+        {% csrf_token %}
+        <!-- Other form fields -->
+    </form>
     
-<a href="{% url 'showprofile' show_id=show.id %}">
-    <div class="show-placeholder">
-        <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
-        <div class="check-star">
-            <span class="check"><i class='bx bx-check'></i></span>
-            <span class="star" data-show-id="{{ show.id }}"><i class='bx bxs-star' ></i></span>
+    <a href="{% url 'showprofile' show_id=show.id %}">
+        <div class="show-placeholder">
+            <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
+            <div class="check-star">
+                <span class="check"><i class='bx bx-check'></i></span>
+                <span class="star" data-show-id="{{ show.id }}" data-show-title="{{ show.title }}"> <i class='bx bxs-star' ></i></span>
+            </div>
+
+            <div class="name-year">
+                <h3>{{ show.title }}</h3>
+                <p>{{ show.air_date|date:"Y" }}</p>
+            </div>
         </div>
-
-        <div class="name-year">
-            <h3>{{ show.title }}</h3>
-            <p>{{ show.air_date|date:"Y" }}</p>
-            
-        </div>
-    </div>
-</a>
-
-
+    </a>
 
 </body>
 
