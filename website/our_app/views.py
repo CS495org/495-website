@@ -1,78 +1,130 @@
+from django.db.models.base import Model as Model
 from django.shortcuts import render
-from django.http import request, JsonResponse, HttpResponse, HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.views import View
-# from django.utils.decorators import method_decorator
-# from django.views.decorators.csrf import csrf_exempt
-from django.template.exceptions import TemplateDoesNotExist
-from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, PasswordChangeView
-from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.decorators.cache import cache_page
+from django.views.generic import UpdateView, RedirectView
+from accounts.models import Movie, CustomUser, Show
+from django import forms
+from typing import Any
+from django.db.utils import IntegrityError
+from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 
-from interfaces.objs import pg_interface, red
+from interfaces.objs import pg_interface
+
+def get_context():
+    context = {
+        "all_shows" : Show.objects.all(),
+        "all_movies" : Movie.objects.all(),
+    }
+
+    return context
 
 
 class HomePage(View):
     template_name = 'home.html'
-
     def get(self, request: HttpRequest):
-        query_files = [
-            "trending_shows", "top_ten_shows"
-        ]
+        # if len(Movie.objects.all()) == 0:
+            # fill_objects()
 
-        query_results = {
-            file_name : pg_interface.execute_file_query(file_name)\
-                        for file_name in query_files
-        }
+        # _movie = Movie.objects.get(mv_id)
+        # _movie.add_to_user(request.user)
 
-        context: dict[str, dict[str, list[str]]] = {
-            file_name : dict() for file_name in query_files
-        }
-
-        for key, value in query_results.items():
-            context[key]["names"] = [row.get("name") for row in value]
-            context[key]["img_ids"] = [row.get("poster_path").replace('/', '') for row in value]
-
-        # print(context)
-
+        context = get_context()
+        # context['image_files'] = [f"{i}.jpg" for i in range(51)]
         return render(request, self.template_name, context=context)
 
 
-class RenderAnyTemplate(View):
-    '''class for quickly developing frontend features\n
-    will attempt to render html template found at dev_templates/<file_name>.html\n
-    to use this: drop your html template in ./templates/dev_templates, then
-    go to https://localhost/render-any/<FILE_NAME>\n
-    don't include the .html file extension'''
 
-    def get(self, request: HttpRequest, to_render: str) -> HttpResponse:
-            file_path = 'render_any/' + to_render + '.html'
-
-            return render(request, file_path)
+class RedirectByUserID(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
+        return f"{self.request.user.id}"
 
 
-class RedisView(View):
-    '''redis class based view'''
-
-    def get(self, request: HttpRequest) -> JsonResponse:
-        '''increment page hits, return it as json'''
-        try:
-            page_hits = red.incr('page_hits')
-            return JsonResponse(data = {"response" : f"Page hits: {page_hits}"})
-
-        except Exception as e:
-            return JsonResponse(data = {"error" : str(e)})
+# class RedirectByObjectID(LoginRequiredMixin, RedirectView):
+#     def get_redirect_url(self, *args: Any, **kwargs: Any) -> str | None:
+#         return f"{self.request.}"
 
 
-# class DatabaseView(LoginRequiredMixin, View):
-class DatabaseView(View):
-    '''database class based view'''
+def show_list(request):
+    return render(request, 'show_list.html', context=get_context())
 
-    def get(self, request: HttpRequest) -> JsonResponse:
-        '''get * from public.example_table'''
-        try:
-            rows = pg_interface.get_rows(table_name='"Top_Rated_Movies"')
-            return JsonResponse(data = {"response" : rows})
 
-        except Exception as e:
-            return JsonResponse(data = {"error" : str(e)})
+class ObjectView(View):
+    template = "object_view.html"
+
+    def get(self, request: HttpRequest, **kwargs):
+        pk = kwargs.get('pk')
+        # print(pk, type(pk))
+        return render(request, self.template, context= {
+            "show" : Show.objects.get(id=pk)
+            } )
+
+
+class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
+    template_name = 'update_movies.html'
+    success_url = reverse_lazy('home')
+    model = CustomUser
+
+    fields = ['fav_movies']
+    _movie = forms.ModelMultipleChoiceField(
+        queryset=Movie.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    queryset = CustomUser.objects.all()
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
+
+
+
+class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
+    template_name = 'update_shows.html'
+    success_url = reverse_lazy('home')
+    model = CustomUser
+
+    fields = ['fav_shows']
+    _show = forms.ModelMultipleChoiceField(
+        queryset=Show.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    queryset = CustomUser.objects.all()
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
+
+
+
+def main_view(request):
+    return render(request, "main.html", get_context())
+
+def profile_view(request):
+    return render(request, "accounts/profile.html", get_context())
+
+def calendar_view(request):
+    return render(request, "accounts/calendar.html", get_context())
+
+def discover_view(request):
+    return render(request, "accounts/discover.html", get_context())
+
+def settings_view(request):
+    return render(request, "accounts/settings.html", get_context())
+
+def group_view(request):
+    return render(request, "accounts/group.html", get_context())
+
+def genre_view(request):
+    context = get_context()
+    context["image_files"] = [f"{i}.jpg" for i in range(51)]
+    return render(request, "accounts/genre.html", context)
+
+def showprofile_view(request):
+    return render(request, "accounts/showprofile.html", get_context())
+
+def will_view(request):
+    return render(request, "group/will.html", get_context())

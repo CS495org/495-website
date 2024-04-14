@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genre</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/genre.css' %} ">
+    <script src="{% static 'sketch.js' %}" defer></script>
+</head>
+<body>
+  
+    <div class="content">
+        <!-- Genre-specific header -->
+        <h2>Genre</h2>
+        
+        <!-- Grid layout for genre -->
+        <div class="thumbnail-grid">
+            
+        
+            {% for image_file in image_files|slice:"-1" %}
+                <a href="{% url 'showprofile' %}">
+                    <div class="genre-placeholder">
+                        <h3>Title</h3>
+                        <img src="{% static 'img/imgVar2/' %}{{ image_file }}">
+                    </div>
+                </a>
+            {% endfor %}
+            
+
+        </div>
+    </div>
+</body>
+</html>

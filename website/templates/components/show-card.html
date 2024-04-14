@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Show Component</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href=" {% static '/css/show-card.css' %} ">
+  <script src="{% static 'sketch.js'%}" defer></script>
+</head>
+
+<body>
+    
+<a href="{% url 'showprofile' %}">
+    <div class="show-placeholder">
+        <img src="{% static 'img/imgVar2/' %}{{ image_file }}">
+        <div class="check-star">
+            <span class="check"><i class='bx bx-check'></i></span>
+            <span class="star"><i class='bx bxs-star' ></i></span>
+        </div>
+
+        <div class="name-year">
+            <h3>Show Titleeeeeeeeeeeeeeeeeee</h3>
+            <p>Year</p>
+        </div>
+    </div>
+</a>
+
+
+
+</body>
+
+</html>

@@ -5,5 +5,10 @@ etb-env==0.2.1
 redis==5.0.1
 hiredis==2.3.2
 django-redis==5.4.0
-
-django-debug-toolbar==4.3.0
+# django-celery==3.3.1
+celery
+django-celery-beat
+django-celery-results
+python-decouple
+requests
+twilio

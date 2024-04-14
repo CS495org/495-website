@@ -13,12 +13,15 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from interfaces.objs import env
 import os
+from project.celery import beat_schedule
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE", "DJANGO_SECURE_KEY", "DJANGO_PG_SCHEMA"]
+PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE",
+          "DJANGO_SECURE_KEY", "DJANGO_PG_SCHEMA",
+          "RHOST", "RPORT"]
 CONFIG = env.get(PARAMS)
 
 # Quick-start development settings - unsuitable for production
@@ -134,16 +137,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# INTERNAL_IPS = [
-#     "127.0.0.1",
-#     "*",
-#     "localhost",
-#     "192.168.0.240",
-#     "172.28.0.3",
-#     "172.28.0.1"
-# ]
-
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -164,7 +157,6 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
@@ -173,20 +165,28 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 
-# CORS_ORIGIN_ALLOW_ALL = True
+
+redis_host = CONFIG.get("RHOST")
+redis_port = CONFIG.get("RPORT")
+
+redis_uri = f"redis://{redis_host}:{redis_port}"
 
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://redis:6379",
+        "LOCATION": redis_uri,
         "KEY_PREFIX" : "__django__",
     }
 }
 
 CACHE_TTL = 60 * 15
 
-
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
 SESSION_COOKIE_AGE = 3600
+
+CELERY_BROKER_URL = redis_uri
+CELERY_RESULT_BACKEND = redis_uri
+
+CELERY_BEAT_SCHEDULE = beat_schedule
