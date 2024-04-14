@@ -22,23 +22,21 @@
         <div class="profile-pic-placeholder">
             <img src="{% static 'img/comedy.jpg' %}">
         </div>
-        <div class="username">TonyS</div>
+        <div class="username"> {{ request.user.username }} </div>
+
+        <!--
         <div class="user-bio">Just a guy trying to make it in the waste management business. 
             Loves ducks, good Italian food, and a quiet day on the boat.</div>
+        -->
         
         <!-- Favorites -->
         <h2>Favorites</h2>
         <div class="scrollable-row">
-
-
-            <div class="show-placeholder">Placeholder</div>
-            <div class="show-placeholder">Placeholder</div>
-            <div class="show-placeholder">Placeholder</div>
-            <div class="show-placeholder">Placeholder</div>
-            <div class="show-placeholder">Placeholder</div>
-            <div class="show-placeholder">Placeholder</div>
-            <div class="show-placeholder">Placeholder</div>
-            <div class="show-placeholder">Placeholder</div>
+            {% if request.user.is_authenticated %}
+                {% for show in request.user.fav_shows.all %}
+                    {% include 'components/show-card.html' %}
+                {% endfor %}
+            {% endif %}
         </div>
         
         <!-- Recents -->

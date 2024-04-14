@@ -75,33 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Functionality to make the check and the star clickable ***************************************/
 document.querySelectorAll('.star').forEach(function(icon) {
     //initially make all cards unfavorited
-    var isFavorite = false;
-
-    icon.addEventListener('click', function(event) {
-        // Prevent the default action of the icon, such as navigating to a URL
-        event.preventDefault();
-
-        // Toggle the 'clicked' class for the clicked star icon
-        icon.classList.toggle('clicked');
-
-        // Get the parent show card element of the clicked icon
-        var showCard = icon.closest('.show-placeholder');
-
-        if (isFavorite) {
-            // If it's currently favorited, display an unfavorited message
-            showMessage("Removed from favorites!");
-        } else {
-            // If it's currently unfavorited, display a favorited message
-            showMessage("Added to favorites!");
-        }
-
-        isFavorite = !isFavorite;
-    });
+    
 }); 
-
-function showMessage(message) {
-    alert(message); 
-} 
 
 
 document.querySelectorAll('.check').forEach(function(icon) {

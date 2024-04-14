@@ -18,7 +18,7 @@
         <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
         <div class="check-star">
             <span class="check"><i class='bx bx-check'></i></span>
-            <span class="star"><i class='bx bxs-star' ></i></span>
+            <span class="star" data-show-id="{{ show.id }}"><i class='bx bxs-star' ></i></span>
         </div>
 
         <div class="name-year">

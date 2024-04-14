@@ -100,6 +100,19 @@ a {
 
 .star {
     margin-left: 20px;
+    transition: transform 0.3s ease; 
+}
+
+.check {
+    transition: transform 0.3s ease; 
+}
+
+.star.clicked {
+    color: yellow;
+}
+
+.check.clicked {
+    color: rgb(22, 213, 22);
 }
 
 .star:hover {
