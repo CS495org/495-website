@@ -26,11 +26,14 @@ def get_images():
 def fill_objects():
     if not len(Movie.objects.all()) == 0: return
 
-    for row in pg_interface.get_rows(table_name='"Movies_Trending_This_Week"',
-                                     cols=["id", "overview",
-                                           "title", "poster_path",
-                                           "backdrop_path", "genre_ids",
-                                           "release_date"])[:20]:
+    import time; time.sleep(10)
+
+    # for row in pg_interface.get_rows(table_name='"Movies_Trending_This_Week"',
+    #                                  cols=["id", "overview",
+    #                                        "title", "poster_path",
+    #                                        "backdrop_path", "genre_ids",
+    #                                        "release_date"])[:20]:
+    for row in pg_interface.execute_file_query('init_movies')[20:]:
         try:
             Movie.objects.create(id=str(int(row.get("id"))),
                                  title=row.get("title"),
@@ -43,11 +46,12 @@ def fill_objects():
         except IntegrityError as e:
             pass
 
-    for row in pg_interface.get_rows(table_name='"Shows_Trending_This_Week"',
-                                     cols=["id", "overview",
-                                           "name", "poster_path",
-                                           "backdrop_path", "genre_ids",
-                                           "first_air_date"])[:20]:
+    # for row in pg_interface.get_rows(table_name='"Shows_Trending_This_Week"',
+    #                                  cols=["id", "overview",
+    #                                        "name", "poster_path",
+    #                                        "backdrop_path", "genre_ids",
+    #                                        "first_air_date"])[:20]:
+    for row in pg_interface.execute_file_query('init_shows')[20:]:
         try:
             Show.objects.create(id=str(int(row.get("id"))),
                                 title=row.get("name"),
@@ -58,6 +62,7 @@ def fill_objects():
                                 air_date = row.get("first_air_date")
                                 )
         except IntegrityError as e:
+            print(e, row.get("id"), row.get("first_air_date"))
             pass
 
     if len(CustomUser.objects.all()) < 2:

@@ -3,3 +3,11 @@ Image hashes?
 Twilio
 Email verification/sending
 Movie/Show object methods for adding to user
+
+seasons feature-
+    set up ab connector, call their api
+    just prep table, statement, throw it in tasks
+
+Set cache rules
+Documentation
+Version control queries, select where not already in django tables
