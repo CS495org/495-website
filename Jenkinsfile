@@ -49,11 +49,10 @@ OUR_AIRBYTE='${OUR_AIRBYTE}'
             steps {
                 script {
                     try { sh 'docker compose down' } catch (Exception e) {}
+                    try { sh 'unzip database/init-2.zip' } catch (Exception e) {}
 
-                    sh 'unzip database/init-2.zip'
                     sh 'docker volume create img-var'
                     sh 'docker compose up --build --detach'
-
                 }
             }
         }
