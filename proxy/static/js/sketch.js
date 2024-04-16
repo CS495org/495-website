@@ -75,7 +75,7 @@ document.querySelectorAll('.star').forEach(function(icon) {
     
 }); */
 
-// Add event listeners when the DOM content is loaded
+// Add event listeners for star icons
 document.addEventListener('DOMContentLoaded', function() {
 
 
@@ -83,7 +83,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.star').forEach(function(star) {
         star.addEventListener('click', function(event) {
             event.preventDefault(); // Prevent the default link behavior
-            
+
+            const isAuthenticatedValue = document.getElementById('isAuthenticated').value;
+
+            // Convert the string value to a boolean
+            const isAuthenticated = isAuthenticatedValue === 'true';
+            // If the user is not authenticated, redirect to the login page
+            if (!isAuthenticated) {
+                window.location.href = 'https://localhost/accounts/login/'; // Adjust the URL as per your login page URL
+                return; // Stop further execution
+            }
+
+
             const showId = this.getAttribute('data-show-id'); // Get the show ID
             const title = this.getAttribute('data-show-title'); //Get the show title
             const starIcon = this.querySelector('i');
@@ -170,10 +181,10 @@ document.querySelectorAll('.check').forEach(function(icon) {
     });
 }); 
 
-function showMessage(message) {
-    alert(message); 
-} 
-
+/*function reloadPage() {
+    // Perform a hard reload of the page
+    window.location.reload(true);
+} */
 
 
 

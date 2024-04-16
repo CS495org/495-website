@@ -1,8 +1,9 @@
 from django.db.models.base import Model as Model
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.views.generic import UpdateView, RedirectView
 from accounts.models import Movie, CustomUser, Show, TopRatedShow
 from django import forms
@@ -25,28 +26,44 @@ def get_context():
 
     return context
 
+@login_required
+def home_view(request):
+    context = get_context()
+
+    if request.user.is_authenticated:
+        fav_shows = request.user.fav_shows.all()
+        fav_show_ids = set(fav_shows.values_list('id', flat=True))
+        context.update({
+            'fav_shows': fav_shows,
+            'fav_show_ids': fav_show_ids,
+        })
+
+    #context = get_context()
+    
+    return render(request, "home.html", context=context)
+
 
 class HomePage(View):
     template_name = 'home.html'
+
+    '''
     def get(self, request: HttpRequest):
         # if len(Movie.objects.all()) == 0:
             # fill_objects()
 
         # _movie = Movie.objects.get(mv_id)
         # _movie.add_to_user(request.user)
-        context = get_context()
 
-        if request.user.is_authenticated:
-            fav_shows = request.user.fav_shows.all()
-            fav_show_ids = set(fav_shows.values_list('id', flat=True))
-            context.update({
-                'fav_shows': fav_shows,
-                'fav_show_ids': fav_show_ids,
-            })
-
-        #context = get_context()
-        
         return render(request, self.template_name, context=context)
+    '''
+
+    def get(self, request: HttpRequest):
+        if request.user.is_authenticated:
+            # If the user is already logged in, redirect to home_view
+            return redirect('home')  # Adjust 'home_view' to your actual view name
+        else:
+            context = get_context()
+            return render(request, self.template_name, context=context)
 
 
 
@@ -111,6 +128,7 @@ class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
         return {**context, **get_context()} 
 
 class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
+    #success_url = reverse_lazy('home')
     model = CustomUser
 
     def post(self, request, *args, **kwargs):
@@ -143,9 +161,12 @@ class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return {**context, **get_context()}
 
+
 def main_view(request):
     return render(request, "main.html", get_context())
 
+
+@login_required
 def profile_view(request):
     fav_shows = request.user.fav_shows.all()
     fav_show_ids = set(fav_shows.values_list('id', flat=True))

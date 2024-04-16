@@ -10,6 +10,8 @@
   <link rel="stylesheet" type="text/css" href=" {% static '/css/show-card.css' %} ">
   <script src="{% static 'js/sketch.js'%}" defer></script>
 
+  <input type="hidden" id="isAuthenticated" value="{% if request.user.is_authenticated %}true{% else %}false{% endif %}">
+
 </head>
 
 <body>
@@ -26,14 +28,14 @@
                 <span class="check"><i class='bx bx-check'></i></span>
                 <span class="star" data-show-id="{{ show.id }}" data-show-title="{{ show.title }}"> 
                                      
-                    {% if show.id in fav_show_ids %}
+                   {% if show.id in fav_show_ids %}
                         <i class='bx bxs-star favorited'></i>
                     {% else %}
                         <i class='bx bxs-star'></i>
-                    {% endif %} 
-                    
+                    {% endif %}   
+                     
                 </span>
-            </div>
+            </div>  
 
             <div class="name-year">
                 <h3>{{ show.title }}</h3>
@@ -42,7 +44,7 @@
         </div>
     </a>
 
-
 </body>
 
 </html>
+
