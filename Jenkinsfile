@@ -11,9 +11,9 @@ pipeline {
         HOST='db'
         PORT='5432'
 
-        POSTGRES_USER=tate
+        POSTGRES_USER='tate'
         POSTGRES_PASSWORD=credentials('POSTGRES_PASSWORD')
-        POSTGRES_DB=tate
+        POSTGRES_DB='tate'
         DJANGO_SECURE_KEY=credentials('DJANGO_SECURE_KEY')
         DJANGO_USER=credentials('DJANGO_USER')
     }
