@@ -1,5 +1,14 @@
-django==5.0.1
+django==5.0.2
 gunicorn==21.2.0
-etb-pg==0.1.4
-etb-env==0.2.0
+etb-pg==0.1.5
+etb-env==0.2.1
 redis==5.0.1
+hiredis==2.3.2
+django-redis==5.4.0
+# django-celery==3.3.1
+celery
+django-celery-beat
+django-celery-results
+python-decouple
+requests
+twilio

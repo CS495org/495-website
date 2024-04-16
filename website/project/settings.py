@@ -11,15 +11,18 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from interfaces.objs import env_interface
+from interfaces.objs import env
 import os
+from project.celery import beat_schedule
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE", "DJANGO_SECURE_KEY", "DJANGO_PG_SCHEMA"]
-CONFIG = env_interface.get(PARAMS)
+PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE",
+          "DJANGO_SECURE_KEY", "DJANGO_PG_SCHEMA",
+          "RHOST", "RPORT"]
+CONFIG = env.get(PARAMS)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -28,11 +31,9 @@ CONFIG = env_interface.get(PARAMS)
 SECRET_KEY = CONFIG.get("DJANGO_SECURE_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-ALLOWED_HOSTS = ['tate-server.ddns.net']
+ALLOWED_HOSTS = ['*', 'localhost']
 
 # Application definition
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # "debug_toolbar",
     'our_app',
     'accounts',
 ]
@@ -126,7 +128,7 @@ USE_TZ = True
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    # "whitenoise.middleware.WhiteNoiseMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -134,7 +136,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
 
 
 # Static files (CSS, JavaScript, Images)
@@ -156,12 +157,36 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-# CORS_ORIGIN_ALLOW_ALL = True
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost'
+]
 
-CSRF_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
+
+
+redis_host = CONFIG.get("RHOST")
+redis_port = CONFIG.get("RPORT")
+
+redis_uri = f"redis://{redis_host}:{redis_port}"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": redis_uri,
+        "KEY_PREFIX" : "__django__",
+    }
+}
+
+CACHE_TTL = 60 * 15
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+SESSION_COOKIE_AGE = 3600
+
+CELERY_BROKER_URL = redis_uri
+CELERY_RESULT_BACKEND = redis_uri
+
+CELERY_BEAT_SCHEDULE = beat_schedule

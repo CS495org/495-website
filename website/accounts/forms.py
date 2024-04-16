@@ -1,10 +1,12 @@
-from django.contrib.auth.forms import (UserCreationForm, 
-                                       UserChangeForm, 
+from django.contrib.auth.forms import (UserCreationForm,
+                                       UserChangeForm,
                                        AuthenticationForm,
                                        UsernameField)
 from django.utils.translation import gettext_lazy as gl
 from .models import CustomUser
 from django import forms
+from django.views.generic.edit import UpdateView, FormView
+
 
 
 class CustomUserCreationForm(UserCreationForm):

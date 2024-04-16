@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/main.css' %} ">
+    <script src="sketch.js" defer></script>
+</head>
+<body>
+
+    <!-- Navigation bar for the introduction page -->
+    <nav>
+        <div class="logo">
+            <p>Dream Vision</p>
+        </div>
+
+        <div class="buttons">
+            <a href="{% url 'login' %}">
+                <button class="navbuttons">Login</button>
+            </a>
+
+            <a href="{% url 'signup' %}">
+                <button class="navbuttons">Sign Up</button>
+            </a>
+        </div>
+    </nav> 
+
+    <!-- divs for the different sections -->
+    <div class="container">
+        <div class="section1">
+            <div class="image-overlay"></div>
+            <img src="{% static 'img/main starry night.jpg' %}">
+    
+            <h1>UNLOCK THE WORLD OF VISUAL ENTERTAINMENT</h1>
+            <p>Immerse yourself within the captivating world of television by tracking, discovering, <br>
+                and managing your favorite tv programs 
+            </p>
+        </div>
+
+        <div class="section2">
+            <div class="image-overlay"></div>
+            <img src="{% static 'img/man-couch.jpg' %}">
+
+            <h1>Manage Your Content</h1>
+            <p>Keep track of the content you love and enjoy</p>
+        </div>
+
+        <div class="section3">
+            <div class="image-overlay"></div>
+            <img src="{% static 'img/kid-sitting.jpg' %}">
+            
+            <h1>Discover It All</h1>
+            <p>Discover new shows and programs so you never run out <br>of things to watch</p>
+        </div>
+
+        <div class="section4">
+            <div class="image-overlay"></div>
+            <img src="{% static 'img/phone.jpg' %}">
+            
+            <h1>Get Notified</h1>
+            <p>Get notified when your shows come on or when <br>new content is released</p>
+        </div>
+    </div>
+
+</body>
+</html>

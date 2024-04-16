@@ -1,7 +1,13 @@
+from typing import Any
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, SetPasswordForm, PasswordResetForm, UsernameField
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import (UserCreationForm, AuthenticationForm,
+                                       PasswordChangeForm, SetPasswordForm,
+                                       PasswordResetForm, UsernameField)
+# from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from accounts.models import CustomUser, Movie, Show
+from django.forms.forms import Form
+
 
 class RegistrationForm(UserCreationForm):
   password1 = forms.CharField(
@@ -14,7 +20,7 @@ class RegistrationForm(UserCreationForm):
   )
 
   class Meta:
-    model = User
+    model = CustomUser
     fields = ('username', 'email', )
 
     widgets = {
@@ -54,7 +60,7 @@ class UserSetPasswordForm(SetPasswordForm):
         'class': 'form-control',
         'placeholder': 'Confirm New Password'
     }), label="Confirm New Password")
-    
+
 
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
@@ -69,3 +75,30 @@ class UserPasswordChangeForm(PasswordChangeForm):
         'class': 'form-control',
         'placeholder': 'Confirm New Password'
     }), label="Confirm New Password")
+
+
+# mvs = [['09457'],[ '345634'], ['3560987'], ['0983734']]
+
+
+class FavMoviesForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+
+        fields = ['fav_movies']
+        _movie = forms.ModelMultipleChoiceField(
+           queryset=Movie.objects.all(),
+           widget=forms.CheckboxSelectMultiple
+        )
+
+
+
+class FavShowsForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+
+        fields = ['fav_shows']
+        _movie = forms.ModelMultipleChoiceField(
+           queryset=Show.objects.all(),
+           widget=forms.CheckboxSelectMultiple
+        )
+

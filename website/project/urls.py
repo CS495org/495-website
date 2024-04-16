@@ -17,14 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
-from our_app.views import RenderAnyTemplate
+from our_app.views import HomePage
+from django.views.decorators.cache import cache_page
 
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("", cache_page(60*1)(HomePage.as_view()), name="home"),
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),
     path("tv-manager/", include("our_app.urls")),
-    path('render-any/<str:to_render>', RenderAnyTemplate.as_view(), name='render-any-view')
+    # path("__debug__/", include("debug_toolbar.urls")),
 ]

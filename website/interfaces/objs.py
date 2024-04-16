@@ -1,14 +1,13 @@
 from redis import Redis
 
-# from etb_db.DB import Db
-from etb_env.ENV import Env
+from etb_env import ENV
 from etb_pg import PGDB
 
 
-env_interface = Env('/.env')
+env = ENV()
 
 DB_PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE"]
-DB_VALS: dict = env_interface.get(DB_PARAMS)
+DB_VALS: dict = env.get(DB_PARAMS)
 
 DB_CONF = {
     "user" : DB_VALS.get("USER"),
@@ -18,10 +17,10 @@ DB_CONF = {
     "dbname" : DB_VALS.get("DATABASE"),
 }
 
-pg_interface = PGDB(DB_CONF)
+pg_interface = PGDB(DB_CONF, sql_dir='/app/our_app/SQL')
 
 
 REDIS_PARAMS = ["RHOST", "RPORT"]
-REDIS_CONF: dict = env_interface.get(REDIS_PARAMS)
+REDIS_CONF: dict = env.get(REDIS_PARAMS)
 
 red = Redis(host=REDIS_CONF["RHOST"], port=int(REDIS_CONF["RPORT"]))
