@@ -52,6 +52,7 @@ OUR_AIRBYTE='${OUR_AIRBYTE}'
                     try {
                         sh 'docker compose down'
                         sh 'unzip database/init-2.zip'
+                        sh 'docker volume create img-var'
                         sh 'docker compose up --build --detach'
                     } catch (Exception e) {
                         // wasn't running in the first place
