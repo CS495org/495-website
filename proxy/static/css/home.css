@@ -206,14 +206,6 @@ h2 {
     transform: scale(1.2);
 }
 
-.star.clicked {
-    color: yellow;
-}
-
-.check.clicked {
-    color: rgb(22, 213, 22);
-}
-
 
 /* top ten show */
 .top-ten {

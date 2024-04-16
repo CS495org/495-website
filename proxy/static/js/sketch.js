@@ -77,6 +77,8 @@ document.querySelectorAll('.star').forEach(function(icon) {
 
 // Add event listeners when the DOM content is loaded
 document.addEventListener('DOMContentLoaded', function() {
+
+
     // Select all star icons and add click event listeners
     document.querySelectorAll('.star').forEach(function(star) {
         star.addEventListener('click', function(event) {
@@ -84,9 +86,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const showId = this.getAttribute('data-show-id'); // Get the show ID
             const title = this.getAttribute('data-show-title'); //Get the show title
+            const starIcon = this.querySelector('i');
+            starIcon.classList.toggle('favorited');
             
             // Send an AJAX request to favorite the show
-          //  fetch(`/ajax_update_fav_shows/${showId}/`, {
             fetch(`https://localhost/tv-manager/ajax_update_fav_shows/${showId}/`, {
                 method: 'POST',
                 headers: {
@@ -102,17 +105,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(data => {
-                // Optionally, update the UI to reflect the favorited state
-                this.classList.add('favorited');
-                alert(`${title} has been favorited!`);
+                const action = data.action;
+                const fav_show_ids = data.fav_show_ids; // Assuming this is how you receive fav_show_ids from the server
+
+                console.log('fav_show_ids:', fav_show_ids);
+
+                if (action === 'added') {
+                    alert(`${title} has been added to favorites!`);
+                    starIcon.classList.add('favorited');
+                }
+                else if (action === 'removed'){
+                    alert(`${title} has been removed from favorites!`);
+                    starIcon.classList.remove('favorited');
+                }
+
             })
             .catch(error => {
                 console.error('Error:', error);
                 // Handle errors (e.g., display error message to the user)
             });
+
         });
     });
 });
+
+
 
 // Function to get the CSRF token from the form
 function getCSRFToken() {

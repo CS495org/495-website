@@ -34,9 +34,18 @@ class HomePage(View):
 
         # _movie = Movie.objects.get(mv_id)
         # _movie.add_to_user(request.user)
-
         context = get_context()
-        # context['image_files'] = [f"{i}.jpg" for i in range(51)]
+
+        if request.user.is_authenticated:
+            fav_shows = request.user.fav_shows.all()
+            fav_show_ids = set(fav_shows.values_list('id', flat=True))
+            context.update({
+                'fav_shows': fav_shows,
+                'fav_show_ids': fav_show_ids,
+            })
+
+        #context = get_context()
+        
         return render(request, self.template_name, context=context)
 
 
@@ -101,7 +110,6 @@ class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return {**context, **get_context()} 
 
-
 class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
     model = CustomUser
 
@@ -110,10 +118,19 @@ class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
         if show_id:
             try:
                 user = self.request.user
-                show = Show.objects.get(pk=show_id)  # Assuming Show is your model
-                user.fav_shows.add(show)
+                show = Show.objects.get(pk=show_id)
+                if user.fav_shows.filter(pk=show_id).exists():  # Check if the show is already favorited
+                    user.fav_shows.remove(show)  # Remove the show from fav_shows
+                    action = 'removed'
+                else:
+                    user.fav_shows.add(show)  # Add the show to fav_shows
+                    action = 'added'
                 user.save()
-                return JsonResponse({'message': 'Show favorited successfully.'})
+
+                fav_show_ids = list(user.fav_shows.values_list('id', flat=True))
+                
+
+                return JsonResponse({'action': action, 'fav_show_ids': fav_show_ids})
             except Exception as e:
                 return JsonResponse({'error': str(e)}, status=500)
         else:
@@ -126,12 +143,19 @@ class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         return {**context, **get_context()}
 
-
 def main_view(request):
     return render(request, "main.html", get_context())
 
 def profile_view(request):
-    return render(request, "accounts/profile.html", get_context())
+    fav_shows = request.user.fav_shows.all()
+    fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+    context = {
+        'fav_shows': fav_shows,  # Pass the user's favorited shows to the template
+        'fav_show_ids': fav_show_ids,
+        **get_context()
+    }
+    return render(request, "accounts/profile.html", context)
 
 def calendar_view(request):
     return render(request, "accounts/calendar.html", get_context())

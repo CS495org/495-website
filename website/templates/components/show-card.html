@@ -24,7 +24,15 @@
             <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
             <div class="check-star">
                 <span class="check"><i class='bx bx-check'></i></span>
-                <span class="star" data-show-id="{{ show.id }}" data-show-title="{{ show.title }}"> <i class='bx bxs-star' ></i></span>
+                <span class="star" data-show-id="{{ show.id }}" data-show-title="{{ show.title }}"> 
+                                     
+                    {% if show.id in fav_show_ids %}
+                        <i class='bx bxs-star favorited'></i>
+                    {% else %}
+                        <i class='bx bxs-star'></i>
+                    {% endif %} 
+                    
+                </span>
             </div>
 
             <div class="name-year">
@@ -33,6 +41,7 @@
             </div>
         </div>
     </a>
+
 
 </body>
 
