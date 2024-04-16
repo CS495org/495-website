@@ -1,6 +1,6 @@
 pipeline {
-    agent any
-    
+    agent server
+
     environment {
         OUR_AIRBYTE='https://github.com/CS495org/airbyte.git'
         DJANGO_PG_SCHEMA='DJANGO_PG_SCHEMA'
@@ -9,9 +9,9 @@ pipeline {
         HOST='db'
         PORT='5432'
 
-        POSTGRES_USER=credentials('POSTGRES_USER')
+        POSTGRES_USER=tate
         POSTGRES_PASSWORD=credentials('POSTGRES_PASSWORD')
-        POSTGRES_DB=credentials('POSTGRES_DB')
+        POSTGRES_DB=tate
         DJANGO_SECURE_KEY=credentials('DJANGO_SECURE_KEY')
         DJANGO_USER=credentials('DJANGO_USER')
     }
@@ -37,7 +37,8 @@ DJANGO_PG_SCHEMA='${DJANGO_PG_SCHEMA}'
 RHOST='${RHOST}'
 RPORT='${RPORT}'
 
-OUR_AIRBYTE='${OUR_AIRBYTE}'"""
+OUR_AIRBYTE='${OUR_AIRBYTE}'
+"""
                 }
             }
         }
@@ -48,6 +49,7 @@ OUR_AIRBYTE='${OUR_AIRBYTE}'"""
 
                     try {
                         sh 'docker compose down'
+                        sh 'unzip database/init-2.zip'
                         sh 'docker compose up --build --detach'
                     } catch (Exception e) {
                         // wasn't running in the first place
