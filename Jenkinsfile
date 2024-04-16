@@ -1,5 +1,7 @@
 pipeline {
-    agent server
+    agent {
+        node 'server'
+    }
 
     environment {
         OUR_AIRBYTE='https://github.com/CS495org/airbyte.git'
