@@ -48,15 +48,11 @@ OUR_AIRBYTE='${OUR_AIRBYTE}'
         stage('Compose Down && Up'){
             steps {
                 script {
+                    try { sh 'docker compose down' } catch (Exception e) {}
 
-                    try {
-                        sh 'docker compose down'
-                    } catch (Exception e) {
-                        // wasn't running in the first place
-                        sh 'unzip database/init-2.zip'
-                        sh 'docker volume create img-var'
-                        sh 'docker compose up --build --detach'
-                    }
+                    sh 'unzip database/init-2.zip'
+                    sh 'docker volume create img-var'
+                    sh 'docker compose up --build --detach'
 
                 }
             }
