@@ -3,7 +3,7 @@
 *.key
 *.crt
 
-database/*.zip
+database/*.sql
 
 # My env
 webenv/
