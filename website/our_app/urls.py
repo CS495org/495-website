@@ -10,13 +10,14 @@ urlpatterns = [
     # path("db-test-endpt/", cache_page(60*1)(views.DatabaseView.as_view()), name='db-test-view'),
     path('update-fav-movies/<slug:pk>/', views.UpdateFavMoviesView.as_view(), name='update_fav_movies'),
     path('update-fav-movies/', views.RedirectByUserID.as_view(), name='update_movies_redirect'),
-    path('update-fav-shows/<slug:pk>/', views.UpdateFavShowsView.as_view(), name='update_fav_shows'),
-    path('update-fav-shows/', views.RedirectByUserID.as_view(), name='update_shows_redirect'),
+    #path('update-fav-shows/<slug:pk>/', views.UpdateFavShowsView.as_view(), name='update_fav_shows'),
+    #path('update-fav-shows/', views.RedirectByUserID.as_view(), name='update_shows_redirect'),
     path('shows/', views.show_list, name="all_shows"),
     path('any-show/<slug:pk>/', views.ObjectView.as_view(), name='object_view'),
     # path('any-show/', views.RedirectByObjectID.as_view(), name='object_view_redirect'),
 
     path('ajax_update_fav_shows/<int:show_id>/', views.AjaxUpdateFavShowsView.as_view(), name='ajax_update_fav_shows'),
+    path('ajax_update_fav_top/<int:show_id>/', views.AjaxUpdateFavTopView.as_view(), name='ajax_update_fav_top'),
 
     path("main/", views.main_view, name='main'),
     path("profile/", views.profile_view, name='profile'),

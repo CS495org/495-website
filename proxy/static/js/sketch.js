@@ -75,66 +75,112 @@ document.querySelectorAll('.star').forEach(function(icon) {
     
 }); */
 
-// Add event listeners for star icons
-document.addEventListener('DOMContentLoaded', function() {
-
-
+document.addEventListener('DOMContentLoaded', async function() {
     // Select all star icons and add click event listeners
     document.querySelectorAll('.star').forEach(function(star) {
-        star.addEventListener('click', function(event) {
+        star.addEventListener('click', async function(event) {
             event.preventDefault(); // Prevent the default link behavior
 
             const isAuthenticatedValue = document.getElementById('isAuthenticated').value;
-
-            // Convert the string value to a boolean
             const isAuthenticated = isAuthenticatedValue === 'true';
-            // If the user is not authenticated, redirect to the login page
+            
             if (!isAuthenticated) {
-                window.location.href = 'https://localhost/accounts/login/'; // Adjust the URL as per your login page URL
-                return; // Stop further execution
+                window.location.href = 'https://localhost/accounts/login/';
+                return;
             }
 
-
-            const showId = this.getAttribute('data-show-id'); // Get the show ID
-            const title = this.getAttribute('data-show-title'); //Get the show title
+            const showId = this.getAttribute('data-show-id');
+            const title = this.getAttribute('data-show-title');
             const starIcon = this.querySelector('i');
             starIcon.classList.toggle('favorited');
+
+            let firstFetchSuccessful = false;
             
-            // Send an AJAX request to favorite the show
-            fetch(`https://localhost/tv-manager/ajax_update_fav_shows/${showId}/`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCSRFToken(), // Get the CSRF token
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ showId: showId }), // Include the show ID in the request body
-            })
-            .then(response => {
+            try {
+                const response = await fetch(`https://localhost/tv-manager/ajax_update_fav_shows/${showId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCSRFToken(),
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ showId: showId }),
+                });
+
                 if (!response.ok) {
                     throw new Error('Failed to favorite the show');
                 }
-                return response.json();
-            })
-            .then(data => {
+
+                const data = await response.json();
                 const action = data.action;
-                const fav_show_ids = data.fav_show_ids; // Assuming this is how you receive fav_show_ids from the server
+                const fav_show_ids = data.fav_show_ids;
 
                 console.log('fav_show_ids:', fav_show_ids);
+                firstFetchSuccessful = true;
 
                 if (action === 'added') {
                     alert(`${title} has been added to favorites!`);
                     starIcon.classList.add('favorited');
-                }
-                else if (action === 'removed'){
+                } else if (action === 'removed') {
                     alert(`${title} has been removed from favorites!`);
                     starIcon.classList.remove('favorited');
                 }
 
-            })
-            .catch(error => {
+                window.location.reload();
+                
+
+                
+            } catch (error) {
                 console.error('Error:', error);
                 // Handle errors (e.g., display error message to the user)
-            });
+            }
+
+            console.log('First fetch successful:', firstFetchSuccessful);
+
+
+            if(!firstFetchSuccessful) {
+                try {
+                    const secondResponse = await fetch(`https://localhost/tv-manager/ajax_update_fav_top/${showId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': getCSRFToken(),
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ showId: showId }),
+                    });
+    
+                    if (!secondResponse.ok) {
+                        throw new Error('Failed to favorite the show');
+                    }
+    
+                    const second_data = await secondResponse.json();
+                    const action_fav_top = second_data.action_fav_top;
+                    const fav_top_ids = second_data.fav_top_ids;
+    
+                    console.log('fav_top_ids:', fav_top_ids);
+                   // firstFetchSuccessful = true;
+    
+                    if (action_fav_top === 'added') {
+                        alert(`${title} has been added to favorites!`);
+                        starIcon.classList.add('favorited');
+                    } else if (action_fav_top === 'removed') {
+                        alert(`${title} has been removed from favorites!`);
+                        starIcon.classList.remove('favorited');
+                    }
+
+                  //  const scrollPosition = window.scrollY || window.pageYOffset;
+                    // Reload the page
+                    window.location.reload();
+                    // Restore the scroll position after the page reloads
+                   // window.scrollTo(0, scrollPosition); 
+    
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    // Handle errors (e.g., display error message to the user)
+                } 
+            }  
+
+
 
         });
     });
@@ -155,36 +201,6 @@ function getCSRFToken() {
 
 
 
-document.querySelectorAll('.check').forEach(function(icon) {
-    //initially make all cards unfavorited
-    var isComplete = false;
-
-    icon.addEventListener('click', function(event) {
-        // Prevent the default action of the icon, such as navigating to a URL
-        event.preventDefault();
-
-        // Toggle the 'clicked' class for the clicked star icon
-        icon.classList.toggle('clicked');
-
-        // Get the parent show card element of the clicked icon
-        var showCard = icon.closest('.show-placeholder');
-
-        if (isComplete) {
-            // If it's currently favorited, display an unfavorited message
-            showMessage("Removed from completed!");
-        } else {
-            // If it's currently unfavorited, display a favorited message
-            showMessage("Added to completed!");
-        }
-
-        isComplete = !isComplete;
-    });
-}); 
-
-/*function reloadPage() {
-    // Perform a hard reload of the page
-    window.location.reload(true);
-} */
 
 
 

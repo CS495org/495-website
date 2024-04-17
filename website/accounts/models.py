@@ -84,7 +84,8 @@ class TopRatedShow(models.Model):
 
 class CustomUser(AbstractUser):
     fav_movies = models.ManyToManyField(Movie, blank=True)
-    fav_shows = models.ManyToManyField(Show,  blank=True)
+    fav_shows = models.ManyToManyField(Show, blank=True)
+    fav_top_rated = models.ManyToManyField(TopRatedShow, blank=True)
 
     def __str__(self):
         return self.username
@@ -98,3 +99,8 @@ class CustomUser(AbstractUser):
         _sh = Show(id=show_id)
         _sh.save()
         self.fav_shows.add(_sh)
+
+    def add_top(self, show_id: str):
+        _to = TopRatedShow(id=show_id)
+        _to.save()
+        self.fav_top_rated.add(_to)

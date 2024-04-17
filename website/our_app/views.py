@@ -33,9 +33,15 @@ def home_view(request):
     if request.user.is_authenticated:
         fav_shows = request.user.fav_shows.all()
         fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+        fav_top_rated = request.user.fav_top_rated.all()
+        fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
+
         context.update({
             'fav_shows': fav_shows,
             'fav_show_ids': fav_show_ids,
+            'fav_top_rated': fav_top_rated,
+            'fav_top_ids': fav_top_ids
         })
 
     #context = get_context()
@@ -110,23 +116,6 @@ class UpdateFavMoviesView(LoginRequiredMixin, UpdateView):
         return {**context, **get_context()}
 
 
-class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
-    template_name = 'update_shows.html'
-    success_url = reverse_lazy('home')
-    model = CustomUser
-
-    fields = ['fav_shows']
-    _show = forms.ModelMultipleChoiceField(
-        queryset=Show.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )
-
-    queryset = CustomUser.objects.all()
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        return {**context, **get_context()} 
-
 class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
     #success_url = reverse_lazy('home')
     model = CustomUser
@@ -149,6 +138,114 @@ class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
                 
 
                 return JsonResponse({'action': action, 'fav_show_ids': fav_show_ids})
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Show ID is required.'}, status=400)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
+
+
+'''
+class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
+    template_name = 'update_shows.html'
+    success_url = reverse_lazy('home')
+    model = CustomUser
+
+    fields = ['fav_shows']
+    _show = forms.ModelMultipleChoiceField(
+        queryset=Show.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    queryset = CustomUser.objects.all()
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()} 
+
+
+class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
+    #success_url = reverse_lazy('home')
+    model = CustomUser
+
+    def post(self, request, *args, **kwargs):
+        show_id = kwargs.get('show_id')
+        if show_id:
+            try:
+                user = self.request.user
+
+                #handle fav_shows list
+                show = Show.objects.get(pk=show_id)
+                top = TopRatedShow.objects.get(pk=show_id)
+
+                if user.fav_shows.filter(pk=show_id).exists():  # Check if the show is already favorited
+                    user.fav_shows.remove(show)  # Remove the show from fav_shows
+                    action = 'removed'
+                else:
+                    user.fav_shows.add(show)  # Add the show to fav_shows
+                    action = 'added'
+
+                
+                if not user.fav_shows.filter(pk=show_id).exists():              
+                    if user.fav_top_rated.filter(pk=show_id).exists():  # Check if the show is already favorited
+                        user.fav_top_rated.remove(top)
+                        action_top = 'removed'
+                    else:
+                        user.fav_top_rated.add(top)
+                        action_top = 'added'
+                
+
+                user.save()
+
+                fav_show_ids = list(user.fav_shows.values_list('id', flat=True))
+                #fav_top_ids = list(user.fav_top_rated.values_list('id', flat=True))
+    
+                return JsonResponse({'action_show': action_show, 'fav_show_ids': fav_show_ids})
+                #return JsonResponse({'action_show': action_show, 'action_top': action_top, 'fav_show_ids': fav_show_ids, 'fav_top_ids': fav_top_ids})
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Show ID is required.'}, status=400)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
+
+
+'''
+class AjaxUpdateFavTopView(LoginRequiredMixin, UpdateView):
+    #success_url = reverse_lazy('home')
+    model = CustomUser
+
+    def post(self, request, *args, **kwargs):
+        show_id = kwargs.get('show_id')
+        if show_id:
+            try:
+                user = self.request.user
+                
+                #handle fav_top_rated list
+                top = TopRatedShow.objects.get(pk=show_id)
+                if user.fav_top_rated.filter(pk=show_id).exists():
+                    user.fav_top_rated.remove(top)
+                    action_fav_top = 'removed'
+                else:
+                    user.fav_top_rated.add(top)
+                    action_fav_top = 'added'
+                
+                user.save()
+
+                fav_top_ids = list(user.fav_top_rated.values_list('id', flat=True))
+                
+                return JsonResponse({'action_fav_top': action_fav_top, 'fav_top_ids': fav_top_ids})
             except Exception as e:
                 return JsonResponse({'error': str(e)}, status=500)
         else:

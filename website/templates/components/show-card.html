@@ -28,7 +28,7 @@
                 <span class="check"><i class='bx bx-check'></i></span>
                 <span class="star" data-show-id="{{ show.id }}" data-show-title="{{ show.title }}"> 
                                      
-                   {% if show.id in fav_show_ids %}
+                    {% if show.id in fav_show_ids or show.id in fav_top_ids%}
                         <i class='bx bxs-star favorited'></i>
                     {% else %}
                         <i class='bx bxs-star'></i>

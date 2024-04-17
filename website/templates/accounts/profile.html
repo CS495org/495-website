@@ -36,6 +36,10 @@
                 {% for show in request.user.fav_shows.all %}
                     {% include 'components/show-card.html' %}
                 {% endfor %}
+
+                {% for show in request.user.fav_top_rated.all %}
+                    {% include 'components/show-card.html' %}
+                {% endfor %}
             {% endif %}
         </div>
         

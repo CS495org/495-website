@@ -47,10 +47,12 @@
 
 <body>
 
-  <!-- Button to go to login page -->
-  <a href="{% url 'login' %}">
-    <button class="login-button">Login</button>
-  </a>
+  {% if not request.user.is_authenticated %}  
+      <!-- Button to go to login page -->
+      <a href="{% url 'login' %}">
+        <button class="login-button">Login</button>
+      </a>
+  {% endif %}
 
   <div class="wrapper">
       <!-- Include the sidebar -->
