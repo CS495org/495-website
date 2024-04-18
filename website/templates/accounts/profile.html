@@ -44,7 +44,7 @@
         </div>
 
 
-        <!-- Recents -->
+        <!-- Completed -->
         <h2>Completed</h2>
         <div class="scrollable-row">
             {% if request.user.is_authenticated %}
@@ -57,16 +57,30 @@
                 {% endfor %}
             {% endif %}
         </div>
-        
+
         <!-- Watchlist -->
         <h2>Watchlist</h2>
+        <div class="scrollable-row">
+            {% if request.user.is_authenticated %}
+                {% for show in request.user.watch_shows.all %}
+                    {% include 'components/show-card.html' %}
+                {% endfor %}
+
+                {% for show in request.user.watch_top_rated.all %}
+                    {% include 'components/show-card.html' %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <!-- Testing -->
+        <h2>Testing</h2>
         <div class="scrollable-row">
             <div class="show-placeholder">Add shows to your watchlist!</div>
         </div>
     </div>
 
 
-    
+
     <script>
         (function () {
             window.onpageshow = function(event) {
