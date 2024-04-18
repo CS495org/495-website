@@ -33,13 +33,21 @@
         <h2>Favorites</h2>
         <div class="scrollable-row">
             {% if request.user.is_authenticated %}
-                {% for show in request.user.fav_shows.all %}
-                    {% include 'components/show-card.html' %}
-                {% endfor %}
 
-                {% for show in request.user.fav_top_rated.all %}
-                    {% include 'components/show-card.html' %}
-                {% endfor %}
+                {% if not fav_shows|length and not fav_top_rated|length %}
+                    <div class="scrollable-row">
+                        <div class="show-placeholder">Add shows to favorites!</div>
+                    </div>
+                {% else %}
+                    {% for show in request.user.fav_shows.all %}
+                        {% include 'components/show-card.html' %}
+                    {% endfor %}
+
+                    {% for show in request.user.fav_top_rated.all %}
+                        {% include 'components/show-card.html' %}
+                    {% endfor %}
+                {% endif %}
+
             {% endif %}
         </div>
 
@@ -48,13 +56,21 @@
         <h2>Completed</h2>
         <div class="scrollable-row">
             {% if request.user.is_authenticated %}
-                {% for show in request.user.comp_shows.all %}
-                    {% include 'components/show-card.html' %}
-                {% endfor %}
 
-                {% for show in request.user.comp_top_rated.all %}
-                    {% include 'components/show-card.html' %}
-                {% endfor %}
+                {% if not comp_shows|length and not comp_top_rated|length %}
+                    <div class="scrollable-row">
+                        <div class="show-placeholder">Add shows to completed!</div>
+                    </div>
+                {% else %}
+                    {% for show in request.user.comp_shows.all %}
+                        {% include 'components/show-card.html' %}
+                    {% endfor %}
+
+                    {% for show in request.user.comp_top_rated.all %}
+                        {% include 'components/show-card.html' %}
+                    {% endfor %}
+                {% endif %}
+
             {% endif %}
         </div>
 
@@ -62,21 +78,24 @@
         <h2>Watchlist</h2>
         <div class="scrollable-row">
             {% if request.user.is_authenticated %}
-                {% for show in request.user.watch_shows.all %}
-                    {% include 'components/show-card.html' %}
-                {% endfor %}
 
-                {% for show in request.user.watch_top_rated.all %}
-                    {% include 'components/show-card.html' %}
-                {% endfor %}
+                {% if not watch_shows|length and not watch_top_rated|length %}
+                    <div class="scrollable-row">
+                        <div class="show-placeholder">Add shows to watchlist!</div>
+                    </div>
+                {% else %}
+                    {% for show in request.user.watch_shows.all %}
+                        {% include 'components/show-card.html' %}
+                    {% endfor %}
+
+                    {% for show in request.user.watch_top_rated.all %}
+                        {% include 'components/show-card.html' %}
+                    {% endfor %}
+                {% endif %}
+
             {% endif %}
         </div>
         
-        <!-- Testing -->
-        <h2>Testing</h2>
-        <div class="scrollable-row">
-            <div class="show-placeholder">Add shows to your watchlist!</div>
-        </div>
     </div>
 
 

@@ -395,9 +395,11 @@ def profile_view(request):
 
     return render(request, "accounts/profile.html", context)
 
+@login_required
 def calendar_view(request):
     return render(request, "accounts/calendar.html", get_context())
 
+@login_required
 def discover_view(request):
     context = get_context()
 
@@ -434,17 +436,20 @@ def discover_view(request):
 
     return render(request, "accounts/discover.html", context)
 
+@login_required
 def settings_view(request):
     return render(request, "accounts/settings.html", get_context())
 
 def group_view(request):
     return render(request, "accounts/group.html", get_context())
 
+@login_required
 def genre_view(request):
-    context = get_context()
-    context["image_files"] = [f"{i}.jpg" for i in range(51)]
+    #context = get_context()
+    #context["image_files"] = [f"{i}.jpg" for i in range(51)]
     return render(request, "accounts/genre.html", context)
 
+@login_required
 def showprofile_view(request, show_id):
 
     #context = get_context()
