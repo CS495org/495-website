@@ -26,6 +26,7 @@ def get_context():
 
     return context
 
+
 @login_required
 def home_view(request):
     context = get_context()
@@ -37,11 +38,21 @@ def home_view(request):
         fav_top_rated = request.user.fav_top_rated.all()
         fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
 
+        comp_shows = request.user.comp_shows.all()
+        comp_show_ids = set(comp_shows.values_list('id', flat=True))
+
+        comp_top_rated = request.user.comp_top_rated.all()
+        comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
+
         context.update({
             'fav_shows': fav_shows,
             'fav_show_ids': fav_show_ids,
             'fav_top_rated': fav_top_rated,
-            'fav_top_ids': fav_top_ids
+            'fav_top_ids': fav_top_ids,
+            'comp_shows': comp_shows,
+            'comp_show_ids': comp_show_ids,
+            'comp_top_rated': comp_top_rated,
+            'comp_top_ids': comp_top_ids
         })
 
     #context = get_context()
