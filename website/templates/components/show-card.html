@@ -25,7 +25,16 @@
         <div class="show-placeholder">
             <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
             <div class="check-star">
-                <span class="check"><i class='bx bx-check'></i></span>
+                <span class="check" data-show-id="{{ show.id }}" data-show-title="{{ show.title }}">
+
+                    {% if show.id in comp_show_ids or show.id in comp_top_ids%}
+                        <i class='bx bx-check completed'></i>
+                    {% else %}
+                        <i class='bx bx-check'></i>
+                    {% endif %}  
+
+                </span>
+
                 <span class="star" data-show-id="{{ show.id }}" data-show-title="{{ show.title }}"> 
                                      
                     {% if show.id in fav_show_ids or show.id in fav_top_ids%}

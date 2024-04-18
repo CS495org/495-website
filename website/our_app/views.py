@@ -162,77 +162,6 @@ class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
         return {**context, **get_context()}
 
 
-'''
-class UpdateFavShowsView(LoginRequiredMixin, UpdateView):
-    template_name = 'update_shows.html'
-    success_url = reverse_lazy('home')
-    model = CustomUser
-
-    fields = ['fav_shows']
-    _show = forms.ModelMultipleChoiceField(
-        queryset=Show.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )
-
-    queryset = CustomUser.objects.all()
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        return {**context, **get_context()} 
-
-
-class AjaxUpdateFavShowsView(LoginRequiredMixin, UpdateView):
-    #success_url = reverse_lazy('home')
-    model = CustomUser
-
-    def post(self, request, *args, **kwargs):
-        show_id = kwargs.get('show_id')
-        if show_id:
-            try:
-                user = self.request.user
-
-                #handle fav_shows list
-                show = Show.objects.get(pk=show_id)
-                top = TopRatedShow.objects.get(pk=show_id)
-
-                if user.fav_shows.filter(pk=show_id).exists():  # Check if the show is already favorited
-                    user.fav_shows.remove(show)  # Remove the show from fav_shows
-                    action = 'removed'
-                else:
-                    user.fav_shows.add(show)  # Add the show to fav_shows
-                    action = 'added'
-
-                
-                if not user.fav_shows.filter(pk=show_id).exists():              
-                    if user.fav_top_rated.filter(pk=show_id).exists():  # Check if the show is already favorited
-                        user.fav_top_rated.remove(top)
-                        action_top = 'removed'
-                    else:
-                        user.fav_top_rated.add(top)
-                        action_top = 'added'
-                
-
-                user.save()
-
-                fav_show_ids = list(user.fav_shows.values_list('id', flat=True))
-                #fav_top_ids = list(user.fav_top_rated.values_list('id', flat=True))
-    
-                return JsonResponse({'action_show': action_show, 'fav_show_ids': fav_show_ids})
-                #return JsonResponse({'action_show': action_show, 'action_top': action_top, 'fav_show_ids': fav_show_ids, 'fav_top_ids': fav_top_ids})
-            except Exception as e:
-                return JsonResponse({'error': str(e)}, status=500)
-        else:
-            return JsonResponse({'error': 'Show ID is required.'}, status=400)
-
-    def get_success_url(self):
-        return reverse_lazy('home')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return {**context, **get_context()}
-
-
-'''
 class AjaxUpdateFavTopView(LoginRequiredMixin, UpdateView):
     #success_url = reverse_lazy('home')
     model = CustomUser
@@ -270,6 +199,78 @@ class AjaxUpdateFavTopView(LoginRequiredMixin, UpdateView):
         return {**context, **get_context()}
 
 
+class AjaxUpdateCompShowsView(LoginRequiredMixin, UpdateView):
+    #success_url = reverse_lazy('home')
+    model = CustomUser
+
+    def post(self, request, *args, **kwargs):
+        show_id = kwargs.get('show_id')
+        if show_id:
+            try:
+                user = self.request.user
+                show = Show.objects.get(pk=show_id)
+                if user.comp_shows.filter(pk=show_id).exists():  # Check if the show is already favorited
+                    user.comp_shows.remove(show)  # Remove the show from fav_shows
+                    action_comp_show = 'removed'
+                else:
+                    user.comp_shows.add(show)  # Add the show to fav_shows
+                    action_comp_show = 'added'
+                user.save()
+
+                comp_show_ids = list(user.comp_shows.values_list('id', flat=True))
+                
+
+                return JsonResponse({'action_comp_show': action_comp_show, 'comp_show_ids': comp_show_ids})
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Show ID is required.'}, status=400)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
+
+
+class AjaxUpdateCompTopView(LoginRequiredMixin, UpdateView):
+    #success_url = reverse_lazy('home')
+    model = CustomUser
+
+    def post(self, request, *args, **kwargs):
+        show_id = kwargs.get('show_id')
+        if show_id:
+            try:
+                user = self.request.user
+                
+                #handle fav_top_rated list
+                top = TopRatedShow.objects.get(pk=show_id)
+                if user.comp_top_rated.filter(pk=show_id).exists():
+                    user.comp_top_rated.remove(top)
+                    action_comp_top = 'removed'
+                else:
+                    user.comp_top_rated.add(top)
+                    action_comp_top = 'added'
+                
+                user.save()
+
+                comp_top_ids = list(user.comp_top_rated.values_list('id', flat=True))
+                
+                return JsonResponse({'action_comp_top': action_comp_top, 'comp_top_ids': comp_top_ids})
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Show ID is required.'}, status=400)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
+
+
 def main_view(request):
     return render(request, "main.html", get_context())
 
@@ -278,10 +279,14 @@ def main_view(request):
 def profile_view(request):
     fav_shows = request.user.fav_shows.all()
     fav_show_ids = set(fav_shows.values_list('id', flat=True))
+    comp_shows = request.user.comp_shows.all()
+    comp_show_ids = set(comp_shows.values_list('id', flat=True))
 
     context = {
         'fav_shows': fav_shows,  # Pass the user's favorited shows to the template
         'fav_show_ids': fav_show_ids,
+        'comp_shows': comp_shows,
+        'comp_show_ids': comp_show_ids,
         **get_context()
     }
     return render(request, "accounts/profile.html", context)
