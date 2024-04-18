@@ -178,7 +178,8 @@ body {
 }
 
 .show-icons .bx.bx-check-circle:hover {
-    color:  #3d07a8;
+    /*color:  #3d07a8;*/
+    color: #8867cb;
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -190,7 +191,8 @@ body {
 }
 
 .show-icons .bx.bxs-star:hover {
-    color: #3d07a8;
+    /*color: #3d07a8;*/
+    color: #8867cb;
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -202,7 +204,7 @@ body {
 }
 
 .show-icons .bx.bx-bookmark-plus:hover {
-    color: #3d07a8;
+    color: #8867cb;
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -214,7 +216,7 @@ body {
 }
 
 .show-icons .bx.bxs-message-rounded:hover {
-    color:  #3d07a8;
+    color: #8867cb;
     transform: scale(1.2);
     cursor: pointer;
 }
@@ -480,3 +482,10 @@ li a {
 }
 
 
+.favorited {
+    color:  #3d07a8;
+} 
+
+.completed {
+    color:  #3d07a8;
+}

@@ -277,18 +277,31 @@ def main_view(request):
 
 @login_required
 def profile_view(request):
+    context = get_context()
+
     fav_shows = request.user.fav_shows.all()
     fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+    fav_top_rated = request.user.fav_top_rated.all()
+    fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
+
     comp_shows = request.user.comp_shows.all()
     comp_show_ids = set(comp_shows.values_list('id', flat=True))
 
-    context = {
-        'fav_shows': fav_shows,  # Pass the user's favorited shows to the template
+    comp_top_rated = request.user.comp_top_rated.all()
+    comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
+
+    context.update({
+        'fav_shows': fav_shows,
         'fav_show_ids': fav_show_ids,
+        'fav_top_rated': fav_top_rated,
+        'fav_top_ids': fav_top_ids,
         'comp_shows': comp_shows,
         'comp_show_ids': comp_show_ids,
-        **get_context()
-    }
+        'comp_top_rated': comp_top_rated,
+        'comp_top_ids': comp_top_ids
+    })
+
     return render(request, "accounts/profile.html", context)
 
 def calendar_view(request):
@@ -309,6 +322,21 @@ def genre_view(request):
     return render(request, "accounts/genre.html", context)
 
 def showprofile_view(request, show_id):
+
+    #context = get_context()
+
+    fav_shows = request.user.fav_shows.all()
+    fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+    fav_top_rated = request.user.fav_top_rated.all()
+    fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
+
+    comp_shows = request.user.comp_shows.all()
+    comp_show_ids = set(comp_shows.values_list('id', flat=True))
+
+    comp_top_rated = request.user.comp_top_rated.all()
+    comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
+
     try:
         # Try to get the Show object first
         show = Show.objects.get(id=show_id)
@@ -320,7 +348,17 @@ def showprofile_view(request, show_id):
             # If neither Show nor TopRatedShow object exists, return a 404 error
             return HttpResponseNotFound("Show not found")
     
-    context = {'show': show}
+    context = {'show': show,
+               'fav_shows': fav_shows,  # Pass the user's favorited shows to the template
+               'fav_show_ids': fav_show_ids,
+               'fav_top_rated': fav_top_rated,
+               'fav_top_ids': fav_top_ids,
+               'comp_shows': comp_shows,
+               'comp_show_ids': comp_show_ids,
+               'comp_top_rated': comp_top_rated,
+               'comp_top_ids': comp_top_ids
+    }
+    
     return render(request, 'accounts/showprofile.html', context)
 
 def will_view(request):
