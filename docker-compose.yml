@@ -20,6 +20,9 @@ services:
       PORT: ${PORT}
       RHOST: ${RHOST}
       RPORT: ${RPORT}
+      MY_ACCOUNT_SI: ${MY_ACCOUNT_SI}
+      TWILIO_AUTH_TOKEN: ${TWILIO_AUTH_TOKEN}
+      MY_TWILIO_NUMBER: ${MY_TWILIO_NUMBER}
     # ports:
     #   - "7999:8000" #enable to bypass nginx thru http://localhost:7999/
     volumes:
