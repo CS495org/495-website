@@ -6,102 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{% static 'profile.css' %}">
-    <script src="{% static 'sketch.js'%}" defer></script>
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/profile.css' %} ">
+    <script src="{% static 'js/sketch.js' %}" defer></script>
 </head>
 
 <body>
 
     <div class="wrapper">
         <!-- Include the sidebar -->
-        {% include 'sidebar.html' %}
+        {% include 'components/sidebar.html' %}
     </div>
-    
 
     <!-- Profile Content -->
     <div class="profile-info">
         <div class="profile-pic-placeholder">
-            <img src="https://www.starnewsonline.com/gcdn/authoring/2013/06/19/NSTN/ghows-NC-6d0e280e-bfec-4826-9efc-430f1ecdc18e-bf520249.jpeg?width=1200&disable=upscale&format=pjpg&auto=webp" 
-            style="width: 100%; height: 100%; border-radius: 50%;">
+            <img src="{% static 'img/comedy.jpg' %}">
         </div>
-        <div class="username">TonyS</div>
+        <div class="username"> {{ request.user.username }} </div>
+
+        <!--
         <div class="user-bio">Just a guy trying to make it in the waste management business. 
             Loves ducks, good Italian food, and a quiet day on the boat.</div>
+        -->
         
         <!-- Favorites -->
         <h2>Favorites</h2>
         <div class="scrollable-row">
-            <div class="show-placeholder">
-                <img src="https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
-                alt="The Godfather"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://m.media-amazon.com/images/M/MV5BY2NkZjEzMDgtN2RjYy00YzM1LWI4ZmQtMjIwYjFjNmI3ZGEwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
-                alt="Goodfellas"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://m.media-amazon.com/images/I/61+2sMUAuTL._AC_UF894,1000_QL80_.jpg"
-                alt="Boardwalk Empire"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p184796_b_v9_ae.jpg"
-                alt="The Wire"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p7896048_b_v9_aa.jpg"
-                alt="Curb Your Enthusiasm"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://m.media-amazon.com/images/M/MV5BYmQ4YWMxYjUtNjZmYi00MDQ1LWFjMjMtNjA5ZDdiYjdiODU5XkEyXkFqcGdeQXVyMTMzNDExODE5._V1_.jpg"
-                alt="Breaking Bad"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p13837077_b_v9_aa.jpg"
-                alt="Better Call Saul"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://m.media-amazon.com/images/M/MV5BNDJiZDgyZjctYmRjMS00ZjdkLTkwMTEtNGU1NDg3NDQ0Yzk1XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg"
-                alt="Fargo"/>
-            </div>
-            <!-- Add show placeholders here -->
+            {% if request.user.is_authenticated %}
+                {% for show in request.user.fav_shows.all %}
+                    {% include 'components/show-card.html' %}
+                {% endfor %}
+
+                {% for show in request.user.fav_top_rated.all %}
+                    {% include 'components/show-card.html' %}
+                {% endfor %}
+            {% endif %}
+        </div>
+
+
+        <!-- Recents -->
+        <h2>Completed</h2>
+        <div class="scrollable-row">
+            {% if request.user.is_authenticated %}
+                {% for show in request.user.comp_shows.all %}
+                    {% include 'components/show-card.html' %}
+                {% endfor %}
+
+                {% for show in request.user.comp_top_rated.all %}
+                    {% include 'components/show-card.html' %}
+                {% endfor %}
+            {% endif %}
         </div>
         
-        <!-- Recents -->
-        <h2>Recents</h2>
+        <!-- Watchlist -->
+        <h2>Watchlist</h2>
         <div class="scrollable-row">
-            <div class="show-placeholder">
-                <img src="https://upload.wikimedia.org/wikipedia/en/4/44/The_Bachelor_S23_poster.jpg"
-                alt="The Bachelor"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://m.media-amazon.com/images/M/MV5BOGY4ZWM1MDUtZmM3MS00ZjAxLTkyYzMtMjgxODI1YzkzNGUwXkEyXkFqcGdeQXVyNzk2NzE5Mjk@._V1_.jpg"
-                alt="Nathan For You"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://resizing.flixster.com/3ko6zO6791p1QPOXHUI2eCwmHXQ=/ems.cHJkLWVtcy1hc3NldHMvdHZzZXJpZXMvMDIyOTBmN2QtMzM0Yi00ODUxLWE0MWYtMmViYWJiOGViZjRkLmpwZw=="
-                alt="Ozark"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://m.media-amazon.com/images/M/MV5BZjYzZDgzMmYtYjY5Zi00YTk1LThhMDYtNjFlNzM4MTZhYzgyXkEyXkFqcGdeQXVyMTE5NDQ1MzQ3._V1_.jpg"
-                alt="Peaky Blinders"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p10292319_b_v8_ab.jpg"
-                alt="True Detective"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p11993088_b_v8_aa.jpg"
-                alt="Narcos"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://dnm.nflximg.net/api/v6/WNk1mr9x_Cd_2itp6pUM7-lXMJg/AAAABX_9QobAfDElVFAfnwKX_ZsfKdkvrkQSpqv5APkZKZ5JArLJ7_-l_S23PFoanCV006zYCPxhKjmj7EGKiBizYlWWNRZoosBP0vNHlniCAtS53FNSJ10mNbLjybhup2_pnFc_Kg.jpg?r=319"
-                alt="Mindhunter"/>
-            </div>
-            <div class="show-placeholder">
-                <img src="https://m.media-amazon.com/images/M/MV5BM2QyNDIzOGMtNThhNS00NmUwLWI0ZjUtZjdkN2I1OTRjZWQ3XkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_.jpg"
-                alt="Mr. Robot"/>
-            </div>
-            <!-- Add show placeholders here -->
+            <div class="show-placeholder">Add shows to your watchlist!</div>
         </div>
     </div>
 

@@ -6,24 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{% static 'settings.css' %}">
+    <link rel="stylesheet" type="text/css" href=" {% static '/css/settings.css' %} ">
     <script src="{% static 'sketch.js' %}" defer></script>
 </head>
 
 <body>
-    <div class="wrapper">
-        <!-- Include the sidebar -->
-        {% include 'sidebar.html' %}
-    </div>
+
+    {% include 'components/sidebar.html' %}
+
 
     <!-- Settings Content -->
     <div class="settings-content">
-        <a href="#" class="settings-button">Change Username</a>
-        <a href="#" class="settings-button">Change Password</a>
-        <form action="#" method="post">
-            {% csrf_token %}
-            <button type="submit" class="settings-button">Log Out</button>
-        </form>
+        <button class="settings-button">Change Username</button>
+        <button class="settings-button">Change Password</button>
+        <button class="settings-button">Log Out</button>
     </div>
 
 </body>

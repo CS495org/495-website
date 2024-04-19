@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{% static 'discover.css' %}">
-    <script src="{% static 'sketch.js'%}" defer></script>
+    <link rel="stylesheet" href="{% static 'css/discover.css' %}">
+    <script src="{% static 'js/sketch.js'%}" defer></script>
 </head>
 <body>
 
@@ -21,7 +21,7 @@
 
 <div class="wrapper">
     <!-- Include the sidebar -->
-    {% include 'sidebar.html' %}
+    {% include 'components/sidebar.html' %}
 </div>
  
 
@@ -40,7 +40,7 @@
     <!-- Row 1 -->
     <div class="scrollable-row">
         
-        <div class="show-placeholder">Placeholder</div>
+
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
         <div class="show-placeholder">Placeholder</div>
@@ -92,72 +92,72 @@
     <div class="thumbnail-grid">
 
         <!-- Drama -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/drama.jpg' %}">
+            <img src="{% static 'img/drama.jpeg' %}">
             <span class="genre-text">Drama</span>
         </div>
     </a>
         <!-- Comedy -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/comedy.jpg' %}">
+            <img src="{% static 'img/comedy.jpg' %}">
             <span class="genre-text">Comedy</span>
         </div>
     </a>
         <!-- Action -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/action.jpg' %}">
+            <img src="{% static 'img/action.jpg' %}">
             <span class="genre-text">Action</span>
         </div>
     </a>
         <!-- Thriller -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/thriller.jpg' %}">
+            <img src="{% static 'img/thriller.jpg' %}">
             <span class="genre-text">Thriller</span>
         </div>
     </a>
         <!-- Sci-Fi -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/sci-fi.jpg' %}">
+            <img src="{% static 'img/sci-fi.jpg' %}">
             <span class="genre-text">Sci-Fi</span>
         </div>
     </a>
         <!-- Fantasy -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/fantasy.jpg' %}">
+            <img src="{% static 'img/fantasy.jpg' %}">
             <span class="genre-text">Fantasy</span>
         </div>
     </a>
         <!-- Horror -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/horror2.jpg' %}">
+            <img src="{% static 'img/horror2.jpg' %}">
             <span class="genre-text">Horror</span>
         </div>
     </a>
         <!-- Crime -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/crime.jpg' %}">
+            <img src="{% static 'img/crime.jpg' %}">
             <span class="genre-text">Crime</span>
         </div>
     </a>
         <!-- Romance -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/romance.jpg' %}">
+            <img src="{% static 'img/romance.jpg' %}">
             <span class="genre-text">Romance</span>
         </div>
     </a>
         <!-- Documentary -->
-    <a href="{% url 'discover' %}">
+    <a href="{% url 'genre' %}">
         <div class="genre-placeholder">
-            <img src="{% static 'images/documentary.jpg' %}">
+            <img src="{% static 'img/documentary.jpg' %}">
             <span class="genre-text">Documentary</span>
         </div>
     </a>
