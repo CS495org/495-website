@@ -11,6 +11,7 @@
     
 
     <input type="hidden" id="isAuthenticated" value="{% if request.user.is_authenticated %}true{% else %}false{% endif %}">
+    <input type="hidden" id="vote_average" value="{{ show.vote_average }}">
     
 </head>
 <body>
@@ -206,6 +207,8 @@
 </div>
 
 <script>
+    const vote = document.getElementById('vote_average').value;
+
     function updateProgress(percentage) {
         let number = document.getElementById("number");
         let counter = 0;
@@ -237,7 +240,7 @@
         document.documentElement.style.setProperty('--dash-offset', `${dashOffset}`);
     }
 
-    var integer = 90;
+    var integer = Math.round(vote * 10);
     updateProgress(integer);
     updateDashOffset(integer); 
     

@@ -40,6 +40,9 @@ class Show(models.Model):
     backdrop_path = models.TextField()
     air_date = models.DateField()
     genres = models.TextField()
+    vote_count = models.IntegerField()  
+    vote_average = models.FloatField()
+    
 
     def add_to_user(self, user):
         _user = CustomUser.objects.get(user)

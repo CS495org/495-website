@@ -18,10 +18,13 @@ from django.http import JsonResponse
 from interfaces.objs import pg_interface
 
 def get_context():
+    top_ten_shows = Show.objects.order_by('-vote_count')[:10]
+
     context = {
         "all_shows" : Show.objects.all(),
         "all_movies" : Movie.objects.all(),
-        "top_rated_shows": TopRatedShow.objects.all()
+        "top_rated_shows": TopRatedShow.objects.all(),
+        'top_ten_shows': top_ten_shows
     }
 
     return context
@@ -50,6 +53,8 @@ def home_view(request):
         watch_top_rated = request.user.watch_top_rated.all()
         watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
 
+        top_ten_shows = Show.objects.order_by('-vote_count')[:10]
+
         context.update({
             'fav_shows': fav_shows,
             'fav_show_ids': fav_show_ids,
@@ -63,6 +68,7 @@ def home_view(request):
             'watch_show_ids': watch_show_ids,
             'watch_top_rated': watch_top_rated,
             'watch_top_ids': watch_top_ids,
+            'top_ten_shows': top_ten_shows
 
         })
 
@@ -421,6 +427,8 @@ def discover_view(request):
     watch_top_rated = request.user.watch_top_rated.all()
     watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
 
+    most_recent_shows = Show.objects.order_by('-air_date')[:10]
+
     context.update({
         'fav_shows': fav_shows,
         'fav_show_ids': fav_show_ids,
@@ -431,7 +439,8 @@ def discover_view(request):
         'comp_top_rated': comp_top_rated,
         'comp_top_ids': comp_top_ids,
         'watch_shows': watch_shows,
-        'watch_top_ids': watch_top_ids
+        'watch_top_ids': watch_top_ids,
+        'most_recent_shows': most_recent_shows
     })
 
     return render(request, "accounts/discover.html", context)
@@ -445,8 +454,40 @@ def group_view(request):
 
 @login_required
 def genre_view(request):
-    #context = get_context()
-    #context["image_files"] = [f"{i}.jpg" for i in range(51)]
+    context = get_context()
+
+    fav_shows = request.user.fav_shows.all()
+    fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+    fav_top_rated = request.user.fav_top_rated.all()
+    fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
+
+    comp_shows = request.user.comp_shows.all()
+    comp_show_ids = set(comp_shows.values_list('id', flat=True))
+
+    comp_top_rated = request.user.comp_top_rated.all()
+    comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
+
+    watch_shows = request.user.watch_shows.all()
+    watch_show_ids = set(watch_shows.values_list('id', flat=True))
+
+    watch_top_rated = request.user.watch_top_rated.all()
+    watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
+
+    context.update({
+        'fav_shows': fav_shows,
+        'fav_show_ids': fav_show_ids,
+        'fav_top_rated': fav_top_rated,
+        'fav_top_ids': fav_top_ids,
+        'comp_shows': comp_shows,
+        'comp_show_ids': comp_show_ids,
+        'comp_top_rated': comp_top_rated,
+        'comp_top_ids': comp_top_ids,
+        'watch_shows': watch_shows,
+        'watch_top_ids': watch_top_ids
+    })
+
+    
     return render(request, "accounts/genre.html", context)
 
 @login_required

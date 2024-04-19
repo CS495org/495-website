@@ -75,14 +75,9 @@
     <!-- Row 3 -->
     <div class="scrollable-row">
         
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
+        {% for show in most_recent_shows %}
+            {% include 'components/show-card.html' %}
+        {% endfor %}
         <!-- Add more placeholders as needed -->
     </div>
 

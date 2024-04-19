@@ -33,7 +33,7 @@ def fill_objects():
                                      cols=["id", "overview",
                                            "title", "poster_path",
                                            "backdrop_path", "genre_ids",
-                                           "release_date"])[:20]:
+                                           "release_date"])[:1]:
         try:
             Movie.objects.create(id=str(int(row.get("id"))),
                                  title=row.get("title"),
@@ -50,7 +50,7 @@ def fill_objects():
                                      cols=["id", "overview",
                                            "name", "poster_path",
                                            "backdrop_path", "genre_ids",
-                                           "first_air_date"])[:20]:
+                                           "first_air_date", "vote_count", "vote_average"])[:40]:
         try:
             Show.objects.create(id=str(int(row.get("id"))),
                                 title=row.get("name"),
@@ -58,7 +58,9 @@ def fill_objects():
                                 poster_path=str(row.get("poster_path")).replace("/",''),
                                 backdrop_path = str(row.get("backdrop_path")).replace("/", ""),
                                 genres=row.get("genre_ids"),
-                                air_date = row.get("first_air_date")
+                                air_date = row.get("first_air_date"),
+                                vote_count = row.get("vote_count"),
+                                vote_average = row.get("vote_average")
                                 )
         except IntegrityError as e:
             pass
@@ -67,7 +69,7 @@ def fill_objects():
                                      cols=["id", "overview",
                                            "name", "poster_path",
                                            "backdrop_path", "genre_ids",
-                                           "first_air_date"])[:10]:
+                                           "first_air_date"])[:1]:
         try:
             TopRatedShow.objects.create(id=str(int(row.get("id"))),
                                 title=row.get("name"),

@@ -70,7 +70,7 @@
     <!-- Row 1 -->
     <div class="scrollable-row">
 
-        {% for show in all_shows %}
+        {% for show in all_shows|slice:":20" %}
             {% include 'components/show-card.html' %}
         {% endfor %}
   
@@ -78,12 +78,12 @@
     </div>
 
     <!-- Second header -->
-    <h2>Top 10 Rated Series</h2>
+    <h2>Top 10 Series</h2>
 
     <!-- Row 2 -->
     <div class="scrollable-row">
 
-        {% for show in top_rated_shows %}
+        {% for show in top_ten_shows %}
             <!-- 1 -->
             <a href="{% url 'showprofile' show_id=show.id %}">
                 <div class="top-ten">
@@ -106,12 +106,12 @@
     </div>
 
     <!-- Third header -->
-    <h2>Award Nominated</h2>
+    <h2>Fan Favorites</h2>
 
     <!-- Row 3 -->
     <div class="scrollable-row">
 
-        {% for show in top_rated_shows %}
+        {% for show in all_shows|slice:"20:40" %}
             {% include 'components/show-card.html' %}
         {% endfor %}
 
