@@ -59,7 +59,7 @@
     <input type="text" placeholder="Search" name="q">
     <!-- Just a test to see if search button is interative -->
     <a href="https://giphy.com/gifs/spongebob-cartoon-nickelodeon-thumbs-3o7abKhOpu0NwenH3O">
-      <button type="submit"><img src="{% static 'images/search.png' %}"></button>
+      <button type="submit"><img src="{% static 'img/search.png' %}"></button>
     </a>
   </div>
 
@@ -70,7 +70,7 @@
     <!-- Row 1 -->
     <div class="scrollable-row">
 
-        {% for show in all_shows %}
+        {% for show in all_shows|slice:":20" %}
             {% include 'components/show-card.html' %}
         {% endfor %}
   
@@ -78,12 +78,12 @@
     </div>
 
     <!-- Second header -->
-    <h2>Top 10 Rated Series</h2>
+    <h2>Top 10 Series</h2>
 
     <!-- Row 2 -->
     <div class="scrollable-row">
 
-        {% for show in top_rated_shows %}
+        {% for show in top_ten_shows %}
             <!-- 1 -->
             <a href="{% url 'showprofile' show_id=show.id %}">
                 <div class="top-ten">
@@ -106,21 +106,20 @@
     </div>
 
     <!-- Third header -->
-    <h2>Award Nominated</h2>
+    <h2>Fan Favorites</h2>
 
     <!-- Row 3 -->
     <div class="scrollable-row">
 
-        {% for show in top_rated_shows %}
+        {% for show in all_shows|slice:"20:40" %}
             {% include 'components/show-card.html' %}
         {% endfor %}
 
     </div>
 
-    <!-- Fourth header -->
+    <!-- Fourth header 
     <h2>Coming Soon</h2>
 
-    <!-- Row 4 -->
     <div class="scrollable-row">
 
       {% for image_file in image_files|slice:"30:40" %}
@@ -128,8 +127,20 @@
       {% endfor %}
       
     </div>
+  -->
 
   </div>
+
+
+  <script>
+    (function () {
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+    })();
+  </script>
 
 
 </body>

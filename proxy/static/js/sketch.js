@@ -310,6 +310,3 @@ function getCSRFToken() {
 
 
 
-
-
-

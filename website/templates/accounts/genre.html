@@ -19,11 +19,11 @@
         <div class="thumbnail-grid">
             
         
-            {% for image_file in image_files|slice:"-1" %}
-                <a href="{% url 'showprofile' %}">
+            {% for show in all_shows %}
+                <a href="{% url 'showprofile' show_id=show.id %}">
                     <div class="genre-placeholder">
-                        <h3>Title</h3>
-                        <img src="{% static 'img/imgVar2/' %}{{ image_file }}">
+                        <h3> {{show.title}} </h3>
+                        <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
                     </div>
                 </a>
             {% endfor %}

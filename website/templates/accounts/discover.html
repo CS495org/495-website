@@ -12,11 +12,12 @@
 </head>
 <body>
 
-  <!-- Button to go to login page -->
-<a href="{% url 'login' %}">
-    <button class="login-button">Login</button>
-</a>
-  
+{% if not request.user.is_authenticated %}  
+    <!-- Button to go to login page -->
+    <a href="{% url 'login' %}">
+        <button class="login-button">Login</button>
+    </a>
+{% endif %}
 
 
 <div class="wrapper">
@@ -29,7 +30,7 @@
         <input type="text" placeholder="Search" name="q">
      <!-- Just a test to see if search button is interative -->
     <a href="https://giphy.com/gifs/spongebob-cartoon-nickelodeon-thumbs-3o7abKhOpu0NwenH3O">
-        <button type="submit"><img src="{% static 'images/search.png' %}"></button>   
+        <button type="submit"><img src="{% static 'img/search.png' %}"></button>   
     </a>
 </div>
 
@@ -74,14 +75,9 @@
     <!-- Row 3 -->
     <div class="scrollable-row">
         
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
+        {% for show in most_recent_shows %}
+            {% include 'components/show-card.html' %}
+        {% endfor %}
         <!-- Add more placeholders as needed -->
     </div>
 

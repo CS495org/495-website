@@ -18,10 +18,13 @@ from django.http import JsonResponse
 from interfaces.objs import pg_interface
 
 def get_context():
+    top_ten_shows = Show.objects.order_by('-vote_count')[:10]
+
     context = {
         "all_shows" : Show.objects.all(),
         "all_movies" : Movie.objects.all(),
-        "top_rated_shows": TopRatedShow.objects.all()
+        "top_rated_shows": TopRatedShow.objects.all(),
+        'top_ten_shows': top_ten_shows
     }
 
     return context
@@ -44,6 +47,14 @@ def home_view(request):
         comp_top_rated = request.user.comp_top_rated.all()
         comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
 
+        watch_shows = request.user.watch_shows.all()
+        watch_show_ids = set(watch_shows.values_list('id', flat=True))
+
+        watch_top_rated = request.user.watch_top_rated.all()
+        watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
+
+        top_ten_shows = Show.objects.order_by('-vote_count')[:10]
+
         context.update({
             'fav_shows': fav_shows,
             'fav_show_ids': fav_show_ids,
@@ -52,7 +63,13 @@ def home_view(request):
             'comp_shows': comp_shows,
             'comp_show_ids': comp_show_ids,
             'comp_top_rated': comp_top_rated,
-            'comp_top_ids': comp_top_ids
+            'comp_top_ids': comp_top_ids,
+            'watch_shows': watch_shows,
+            'watch_show_ids': watch_show_ids,
+            'watch_top_rated': watch_top_rated,
+            'watch_top_ids': watch_top_ids,
+            'top_ten_shows': top_ten_shows
+
         })
 
     #context = get_context()
@@ -271,44 +288,231 @@ class AjaxUpdateCompTopView(LoginRequiredMixin, UpdateView):
         return {**context, **get_context()}
 
 
+class AjaxUpdateWatchShowsView(LoginRequiredMixin, UpdateView):
+    #success_url = reverse_lazy('home')
+    model = CustomUser
+
+    def post(self, request, *args, **kwargs):
+        show_id = kwargs.get('show_id')
+        if show_id:
+            try:
+                user = self.request.user
+                show = Show.objects.get(pk=show_id)
+                if user.watch_shows.filter(pk=show_id).exists():  # Check if the show is already favorited
+                    user.watch_shows.remove(show)  # Remove the show from fav_shows
+                    action_watch_show = 'removed'
+                else:
+                    user.watch_shows.add(show)  # Add the show to fav_shows
+                    action_watch_show = 'added'
+                user.save()
+
+                watch_show_ids = list(user.watch_shows.values_list('id', flat=True))
+                
+
+                return JsonResponse({'action_watch_show': action_watch_show, 'watch_show_ids': watch_show_ids})
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Show ID is required.'}, status=400)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
+
+
+class AjaxUpdateWatchTopView(LoginRequiredMixin, UpdateView):
+    #success_url = reverse_lazy('home')
+    model = CustomUser
+
+    def post(self, request, *args, **kwargs):
+        show_id = kwargs.get('show_id')
+        if show_id:
+            try:
+                user = self.request.user
+                
+                #handle fav_top_rated list
+                top = TopRatedShow.objects.get(pk=show_id)
+                if user.comp_top_rated.filter(pk=show_id).exists():
+                    user.watch_top_rated.remove(top)
+                    action_watch_top = 'removed'
+                else:
+                    user.watch_top_rated.add(top)
+                    action_watch_top = 'added'
+                
+                user.save()
+
+                watch_top_ids = list(user.watch_top_rated.values_list('id', flat=True))
+                
+                return JsonResponse({'action_watch_top': action_watch_top, 'watch_top_ids': watch_top_ids})
+            except Exception as e:
+                return JsonResponse({'error': str(e)}, status=500)
+        else:
+            return JsonResponse({'error': 'Show ID is required.'}, status=400)
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return {**context, **get_context()}
+
+
 def main_view(request):
     return render(request, "main.html", get_context())
 
 
 @login_required
 def profile_view(request):
+    context = get_context()
+
     fav_shows = request.user.fav_shows.all()
     fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+    fav_top_rated = request.user.fav_top_rated.all()
+    fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
+
     comp_shows = request.user.comp_shows.all()
     comp_show_ids = set(comp_shows.values_list('id', flat=True))
 
-    context = {
-        'fav_shows': fav_shows,  # Pass the user's favorited shows to the template
+    comp_top_rated = request.user.comp_top_rated.all()
+    comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
+
+    watch_shows = request.user.watch_shows.all()
+    watch_show_ids = set(watch_shows.values_list('id', flat=True))
+
+    watch_top_rated = request.user.watch_top_rated.all()
+    watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
+
+    context.update({
+        'fav_shows': fav_shows,
         'fav_show_ids': fav_show_ids,
+        'fav_top_rated': fav_top_rated,
+        'fav_top_ids': fav_top_ids,
         'comp_shows': comp_shows,
         'comp_show_ids': comp_show_ids,
-        **get_context()
-    }
+        'comp_top_rated': comp_top_rated,
+        'comp_top_ids': comp_top_ids,
+        'watch_shows': watch_shows,
+        'watch_top_ids': watch_top_ids
+    })
+
     return render(request, "accounts/profile.html", context)
 
+@login_required
 def calendar_view(request):
     return render(request, "accounts/calendar.html", get_context())
 
+@login_required
 def discover_view(request):
-    return render(request, "accounts/discover.html", get_context())
+    context = get_context()
 
+    fav_shows = request.user.fav_shows.all()
+    fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+    fav_top_rated = request.user.fav_top_rated.all()
+    fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
+
+    comp_shows = request.user.comp_shows.all()
+    comp_show_ids = set(comp_shows.values_list('id', flat=True))
+
+    comp_top_rated = request.user.comp_top_rated.all()
+    comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
+
+    watch_shows = request.user.watch_shows.all()
+    watch_show_ids = set(watch_shows.values_list('id', flat=True))
+
+    watch_top_rated = request.user.watch_top_rated.all()
+    watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
+
+    most_recent_shows = Show.objects.order_by('-air_date')[:10]
+
+    context.update({
+        'fav_shows': fav_shows,
+        'fav_show_ids': fav_show_ids,
+        'fav_top_rated': fav_top_rated,
+        'fav_top_ids': fav_top_ids,
+        'comp_shows': comp_shows,
+        'comp_show_ids': comp_show_ids,
+        'comp_top_rated': comp_top_rated,
+        'comp_top_ids': comp_top_ids,
+        'watch_shows': watch_shows,
+        'watch_top_ids': watch_top_ids,
+        'most_recent_shows': most_recent_shows
+    })
+
+    return render(request, "accounts/discover.html", context)
+
+@login_required
 def settings_view(request):
     return render(request, "accounts/settings.html", get_context())
 
 def group_view(request):
     return render(request, "accounts/group.html", get_context())
 
+@login_required
 def genre_view(request):
     context = get_context()
-    context["image_files"] = [f"{i}.jpg" for i in range(51)]
+
+    fav_shows = request.user.fav_shows.all()
+    fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+    fav_top_rated = request.user.fav_top_rated.all()
+    fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
+
+    comp_shows = request.user.comp_shows.all()
+    comp_show_ids = set(comp_shows.values_list('id', flat=True))
+
+    comp_top_rated = request.user.comp_top_rated.all()
+    comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
+
+    watch_shows = request.user.watch_shows.all()
+    watch_show_ids = set(watch_shows.values_list('id', flat=True))
+
+    watch_top_rated = request.user.watch_top_rated.all()
+    watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
+
+    context.update({
+        'fav_shows': fav_shows,
+        'fav_show_ids': fav_show_ids,
+        'fav_top_rated': fav_top_rated,
+        'fav_top_ids': fav_top_ids,
+        'comp_shows': comp_shows,
+        'comp_show_ids': comp_show_ids,
+        'comp_top_rated': comp_top_rated,
+        'comp_top_ids': comp_top_ids,
+        'watch_shows': watch_shows,
+        'watch_top_ids': watch_top_ids
+    })
+
+    
     return render(request, "accounts/genre.html", context)
 
+@login_required
 def showprofile_view(request, show_id):
+
+    #context = get_context()
+
+    fav_shows = request.user.fav_shows.all()
+    fav_show_ids = set(fav_shows.values_list('id', flat=True))
+
+    fav_top_rated = request.user.fav_top_rated.all()
+    fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
+
+    comp_shows = request.user.comp_shows.all()
+    comp_show_ids = set(comp_shows.values_list('id', flat=True))
+
+    comp_top_rated = request.user.comp_top_rated.all()
+    comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
+
+    watch_shows = request.user.watch_shows.all()
+    watch_show_ids = set(watch_shows.values_list('id', flat=True))
+
+    watch_top_rated = request.user.watch_top_rated.all()
+    watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
+
     try:
         # Try to get the Show object first
         show = Show.objects.get(id=show_id)
@@ -320,7 +524,22 @@ def showprofile_view(request, show_id):
             # If neither Show nor TopRatedShow object exists, return a 404 error
             return HttpResponseNotFound("Show not found")
     
-    context = {'show': show}
+    context = {'show': show,
+               'fav_shows': fav_shows,  # Pass the user's favorited shows to the template
+               'fav_show_ids': fav_show_ids,
+               'fav_top_rated': fav_top_rated,
+               'fav_top_ids': fav_top_ids,
+               'comp_shows': comp_shows,
+               'comp_show_ids': comp_show_ids,
+               'comp_top_rated': comp_top_rated,
+               'comp_top_ids': comp_top_ids,
+               'watch_shows': watch_shows,
+               'watch_show_ids': watch_show_ids,
+               'watch_top_rated': watch_top_rated,
+               'watch_top_ids': watch_top_ids
+
+    }
+    
     return render(request, 'accounts/showprofile.html', context)
 
 def will_view(request):

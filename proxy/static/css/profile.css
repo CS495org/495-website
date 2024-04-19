@@ -55,7 +55,7 @@ body {
     width: 205px;
     height: 350px;
     margin-right: 20px;
-    background-color: red;
+    background-color: blue;
     display: flex;
     flex-direction: column;
     align-items: center;

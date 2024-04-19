@@ -40,6 +40,9 @@ class Show(models.Model):
     backdrop_path = models.TextField()
     air_date = models.DateField()
     genres = models.TextField()
+    vote_count = models.IntegerField()  
+    vote_average = models.FloatField()
+    
 
     def add_to_user(self, user):
         _user = CustomUser.objects.get(user)
@@ -96,6 +99,8 @@ class CustomUser(AbstractUser):
     fav_top_rated = models.ManyToManyField(TopRatedShow, related_name='favorited_by', blank=True)
     comp_shows = models.ManyToManyField(Show, related_name='completed_by', blank=True)
     comp_top_rated = models.ManyToManyField(TopRatedShow, related_name='completed_by', blank=True)
+    watch_shows = models.ManyToManyField(Show, related_name='watchlist_by', blank=True)
+    watch_top_rated = models.ManyToManyField(TopRatedShow, related_name='watchlist_by', blank=True)
 
     def __str__(self):
         return self.username
