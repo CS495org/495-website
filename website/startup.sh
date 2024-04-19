@@ -8,4 +8,5 @@ python manage.py createsuperuser --noinput --username $DJANGO_USER --email etbut
 # python manage.py check --deploy
 # ^^ uncomment in prod
 
-gunicorn --config gunicorn_config.py project.wsgi:application #& celery -A project worker -l info -B
+gunicorn --config gunicorn_config.py project.wsgi:application & \
+celery -A project worker -l info -BE
