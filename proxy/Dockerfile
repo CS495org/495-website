@@ -9,9 +9,9 @@ COPY ./ssl-params.conf /etc/nginx/
 
 COPY ./cert_config.conf /etc/nginx/
 
-COPY ./certs/dhparam.pem /etc/nginx/
-COPY ./certs/fullchain.pem /etc/nginx/ssl/
-COPY ./certs/privkey.pem /etc/nginx/ssl/
+RUN mkdir -p /etc/nginx/ssl
+
+COPY ./certs/* /etc/nginx/ssl/
 
 EXPOSE 443
 
