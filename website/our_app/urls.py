@@ -17,14 +17,10 @@ urlpatterns = [
     # path('any-show/', views.RedirectByObjectID.as_view(), name='object_view_redirect'),
 
     path('ajax_update_fav_shows/<int:show_id>/', views.AjaxUpdateFavShowsView.as_view(), name='ajax_update_fav_shows'),
-    path('ajax_update_fav_top/<int:show_id>/', views.AjaxUpdateFavTopView.as_view(), name='ajax_update_fav_top'),
 
     path('ajax_update_comp_shows/<int:show_id>/', views.AjaxUpdateCompShowsView.as_view(), name='ajax_update_comp_shows'),
-    path('ajax_update_comp_top/<int:show_id>/', views.AjaxUpdateCompTopView.as_view(), name='ajax_update_comp_top'),
 
     path('ajax_update_watch_shows/<int:show_id>/', views.AjaxUpdateWatchShowsView.as_view(), name='ajax_update_watch_shows'),
-    path('ajax_update_watch_top/<int:show_id>/', views.AjaxUpdateWatchTopView.as_view(), name='ajax_update_watch_top'),
-
 
     path("main/", views.main_view, name='main'),
     path("profile/", views.profile_view, name='profile'),

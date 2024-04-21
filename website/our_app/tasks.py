@@ -65,23 +65,6 @@ def fill_objects():
         except IntegrityError as e:
             pass
 
-    for row in pg_interface.get_rows(table_name='"Top_Rated_Shows"',
-                                     cols=["id", "overview",
-                                           "name", "poster_path",
-                                           "backdrop_path", "genre_ids",
-                                           "first_air_date"])[:1]:
-        try:
-            TopRatedShow.objects.create(id=str(int(row.get("id"))),
-                                title=row.get("name"),
-                                overview=row.get("overview"),
-                                poster_path=str(row.get("poster_path")).replace("/",''),
-                                backdrop_path = str(row.get("backdrop_path")).replace("/", ""),
-                                genres=row.get("genre_ids"),
-                                air_date = row.get("first_air_date")
-                                )
-        except IntegrityError as e:
-            pass
-
     if len(CustomUser.objects.all()) < 2:
         try:
             _new_usr = CustomUser(username='tateb', email='email@email.com',

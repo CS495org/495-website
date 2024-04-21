@@ -122,61 +122,13 @@ document.addEventListener('DOMContentLoaded', async function() {
                 }
 
                 window.location.reload();
-                
-
-                
+                                
             } catch (error) {
                 console.error('Error:', error);
                 // Handle errors (e.g., display error message to the user)
             }
 
             console.log('First fetch successful:', firstFetchSuccessful);
-
-
-            if(!firstFetchSuccessful) {
-                try {
-                    const secondResponse = await fetch(`https://localhost/tv-manager/ajax_update_fav_top/${showId}/`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRFToken': getCSRFToken(),
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ showId: showId }),
-                    });
-    
-                    if (!secondResponse.ok) {
-                        throw new Error('Failed to favorite the show');
-                    }
-    
-                    const second_data = await secondResponse.json();
-                    const action_fav_top = second_data.action_fav_top;
-                    const fav_top_ids = second_data.fav_top_ids;
-    
-                    console.log('fav_top_ids:', fav_top_ids);
-                   // firstFetchSuccessful = true;
-    
-                    if (action_fav_top === 'added') {
-                        alert(`${title} has been added to favorites!`);
-                        starIcon.classList.add('favorited');
-                    } else if (action_fav_top === 'removed') {
-                        alert(`${title} has been removed from favorites!`);
-                        starIcon.classList.remove('favorited');
-                    }
-
-                  //  const scrollPosition = window.scrollY || window.pageYOffset;
-                    // Reload the page
-                    window.location.reload();
-                    // Restore the scroll position after the page reloads
-                   // window.scrollTo(0, scrollPosition); 
-    
-                    
-                } catch (error) {
-                    console.error('Error:', error);
-                    // Handle errors (e.g., display error message to the user)
-                } 
-            }  
-
-
 
         });
     });
@@ -243,52 +195,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
 
             console.log('First fetch successful:', firstFetchSuccessful);
-
-
-            if(!firstFetchSuccessful) {
-                try {
-                    const secondResponse = await fetch(`https://localhost/tv-manager/ajax_update_comp_top/${showId}/`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRFToken': getCSRFToken(),
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ showId: showId }),
-                    });
-    
-                    if (!secondResponse.ok) {
-                        throw new Error('Failed to mark show as completed');
-                    }
-    
-                    const second_data = await secondResponse.json();
-                    const action_comp_top = second_data.action_comp_top;
-                    const comp_top_ids = second_data.comp_top_ids;
-    
-                    console.log('comp_top_ids:', comp_top_ids);
-                   // firstFetchSuccessful = true;
-    
-                    if (action_comp_top === 'added') {
-                        alert(`${title} has been added to completed!`);
-                        checkIcon.classList.add('completed');
-                    } else if (action_comp_top === 'removed') {
-                        alert(`${title} has been removed from completed!`);
-                        checkIcon.classList.remove('completed');
-                    }
-
-                  //  const scrollPosition = window.scrollY || window.pageYOffset;
-                    // Reload the page
-                    window.location.reload();
-                    // Restore the scroll position after the page reloads
-                   // window.scrollTo(0, scrollPosition); 
-    
-                    
-                } catch (error) {
-                    console.error('Error:', error);
-                    // Handle errors (e.g., display error message to the user)
-                } 
-            }  
-
-
 
         });
     });
