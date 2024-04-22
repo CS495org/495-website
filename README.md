@@ -25,8 +25,9 @@ Go through the Dockerfiles (it's probably the one in /website), and comment the 
 ### What are sources of
 ### What external resources are used (put any free/paid tier information here)
 - Twilio (free tier, for simple sending of SMS)
--  Open calendar (open source embedded calendar)
--   Gmail SMTP (Free, but you must set up a gmail account and an app password to use SMTP)
+- Open calendar (open source embedded calendar)
+- Gmail SMTP (Free, but you must set up a gmail account and an app password to use SMTP)
+- The Movie Database (TMDB) API is used. You will have to register the app, but it is free to use for a school project like this  
 
 ### Other installation questions
 1. What is AirByte and how does that work?
