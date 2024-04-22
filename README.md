@@ -2,7 +2,7 @@
 
 To run it locally:
 1. Follow the instructions in .env.example to create your .env file.
-2. From this directory, run "./run.sh"
+2. From this directory, run "./all.sh"
 3. If you get an error about permission denied for "localhost:5000", that means
 I forgot to uncomment a line in a Dockerfile about using my local docker registry.
 Go through the Dockerfiles (it's probably the one in /website), and comment the "FROM localhost:5000/< image name >" and uncomment the "FROM < image name >" line above it.
@@ -15,8 +15,8 @@ Go through the Dockerfiles (it's probably the one in /website), and comment the 
 2. From this directory, run "./all.sh"
 3. If you get an error about permission denied for "localhost:5000", that means
 I forgot to uncomment a line in a Dockerfile about using my local docker registry.
-Go through the Dockerfiles (it's probably the one in /website), and comment the
-"FROM localhost:5000/< image name >" and uncomment the "FROM < image name >" line above it.
+Go through the Dockerfiles (it's probably the one in /website), and comment the line
+"FROM localhost:5000/< image name >" and uncomment the line "FROM < image name >" above it.
 
 ### What software is needed?  (docker really shines here)
 1. Docker + Compose Plugin
@@ -50,7 +50,7 @@ Ex: "placed orders that have not been fulfilled can be viewed on the in process 
 
 ## How to modify/extend software
 ### Assuming someone has followed the instruction for installing the application, how can they make changes?
-- Website pages are dynamically linked to the back-end database, but can be modified with simple HTML/CSS under ```/website/templates```. Therefore, any UI changes or additions can be directly edited in those HTML files.
+- Website pages are dynamically linked to the back-end database, but can be modified with simple HTML/CSS under ```/website/templates/```. Therefore, any UI changes or additions can be directly edited in those HTML files.
 - To create any changes in the middleware logic, you'll need to write Django code. This will all be done inside the ```/website/``` directory, in different subdirectories based on function.
 - A required python package can be added to the docker compose file by first updating "495-website/website/requirements.txt" with the desired requirement (e.g. django==5.0.2)
 - Evironment variables can be added to the .env file (e.g. TWILIO_AUTH_TOKEN='1234'), and then passed through to a container using "docker-compose.yml" under environment (e.g. USER: ${POSTGRES_USER}). This allows any container to reference variables from the project's .env file, so secrets can be safely obscured from the repository
@@ -72,7 +72,7 @@ TODO
 
 ## FAQs
 1. How can I run the software locally?
-- In the root directory of the repository, use the run script ```./all.sh``` or the docker command ```docker compose up --build``` and connect to ```https://localhost/``` in your chosen web browser.
+- In the root directory of the project, use the run script ```./all.sh``` or the docker command ```docker compose up --build``` and connect to ```https://localhost/``` in your chosen web browser.
 2. How can I create an account?
 - Click the "login" button, and follow the prompts to create an account with a username and a password, and a valid phone number.
 3. How can I add a show to my watchlist/favorites?
