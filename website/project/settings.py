@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from interfaces.objs import env
+from interfaces import env
 import os
 import multiprocessing
 from project.celery import beat_schedule
@@ -22,8 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE",
           "DJANGO_SECURE_KEY", "DJANGO_PG_SCHEMA",
-          "RHOST", "RPORT"]
-CONFIG = env.get(PARAMS)
+          "RHOST", "RPORT", "DEBUG"]
+CONFIG = env.get(PARAMS, dont_assert=["DEBUG"])
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -32,9 +32,9 @@ CONFIG = env.get(PARAMS)
 SECRET_KEY = CONFIG.get("DJANGO_SECURE_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(CONFIG.get("DEBUG", False))
 
-ALLOWED_HOSTS = ['*', 'localhost']
+ALLOWED_HOSTS = ['tate-server.ddns.net']
 
 # Application definition
 
@@ -150,8 +150,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-#if not DEBUG:
-#    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -159,7 +157,6 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 

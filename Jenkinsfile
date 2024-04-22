@@ -4,18 +4,20 @@ pipeline {
     }
 
     environment {
-        OUR_AIRBYTE='https://github.com/CS495org/airbyte.git'
         DJANGO_PG_SCHEMA='DJANGO_PG_SCHEMA'
         RHOST='redis'
         RPORT='6379'
         HOST='db'
         PORT='5432'
 
-        POSTGRES_USER='tate'
+        POSTGRES_USER=credentials('POSTGRES_USER')
         POSTGRES_PASSWORD=credentials('POSTGRES_PASSWORD')
-        POSTGRES_DB='tate'
+        POSTGRES_DB=credentials('POSTGRES_DB')
         DJANGO_SECURE_KEY=credentials('DJANGO_SECURE_KEY')
         DJANGO_USER=credentials('DJANGO_USER')
+        GMAIL=credentials('GMAIL')
+        GMAILPSWD=credentials('GMAILPSWD')
+        TMDB_API_KEY=credentials('TMDB_API_KEY')
     }
 
     stages {
@@ -39,7 +41,10 @@ DJANGO_PG_SCHEMA='${DJANGO_PG_SCHEMA}'
 RHOST='${RHOST}'
 RPORT='${RPORT}'
 
-OUR_AIRBYTE='${OUR_AIRBYTE}'
+GMAIL='${GMAIL}'
+GMAILPSWD='${GMAILPSWD}'
+TMDB_API_KEY='${TMDB_API_KEY}'
+DEBUG=False
 """
                 }
             }
@@ -48,11 +53,7 @@ OUR_AIRBYTE='${OUR_AIRBYTE}'
         stage('Compose Down && Up'){
             steps {
                 script {
-                    try { sh 'docker compose down' } catch (Exception e) {}
-                    // try { sh 'unzip -oq database/init-2.zip -d database' } catch (Exception e) {}
-
-                    sh 'docker volume create img-var'
-                    sh 'docker compose up --build --detach'
+                    sh './all.sh'
                 }
             }
         }

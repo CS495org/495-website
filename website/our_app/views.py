@@ -15,7 +15,7 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 from django.http import JsonResponse
 
-from interfaces.objs import pg_interface
+from interfaces import pg_interface
 
 def get_context():
     top_ten_shows = Show.objects.order_by('-vote_count')[:10]

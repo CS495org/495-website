@@ -1,5 +1,5 @@
 from project.celery import app
-from interfaces.objs import pg_interface, env, pg_writer
+from interfaces import pg_interface, env, pg_writer
 from accounts.models import Movie, Show, TopRatedShow
 import requests
 from django.db.utils import IntegrityError
