@@ -1,6 +1,6 @@
 django==5.0.2
 gunicorn==21.2.0
-etb-pg==0.1.5
+etb-pg==0.1.6
 etb-env==0.2.1
 redis==5.0.1
 hiredis==2.3.2
@@ -12,3 +12,4 @@ django-celery-results
 python-decouple
 requests
 twilio
+Django-Verify-Email

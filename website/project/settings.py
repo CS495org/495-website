@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from interfaces.objs import env
 import os
+import multiprocessing
 from project.celery import beat_schedule
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     # "debug_toolbar",
     'our_app',
     'accounts',
+    "verify_email.apps.VerifyEmailConfig",
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -157,11 +159,19 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = CONFIG.get("GMAIL")
+EMAIL_HOST_PASSWORD = CONFIG.get("GMAILPSWD")
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://localhost'
+    'https://localhost',
+    'https://tate-server.ddns.net'
 ]
 
 
@@ -190,3 +200,5 @@ CELERY_BROKER_URL = redis_uri
 CELERY_RESULT_BACKEND = redis_uri
 
 CELERY_BEAT_SCHEDULE = beat_schedule
+
+CELERYD_CONCURRENCY = multiprocessing.cpu_count() * 2 + 1

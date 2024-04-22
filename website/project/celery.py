@@ -12,6 +12,11 @@ app.autodiscover_tasks()
 beat_schedule = {
     'fill-movie-objects' : {
         'task' : 'our_app.tasks.fill_objects',
-        'schedule' : 60.0
+        'schedule' : 30.0
+    },
+    'fill-images' : {
+        'task' : 'our_app.tasks.get_images',
+        'schedule' : 10.0
     }
 }
+

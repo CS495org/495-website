@@ -28,4 +28,5 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("tv-manager/", include("our_app.urls")),
     # path("__debug__/", include("debug_toolbar.urls")),
+    path('verification/', include('verify_email.urls')),
 ]

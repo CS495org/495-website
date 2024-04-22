@@ -9,6 +9,7 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" type="text/css" href=" {% static '/css/sidebars.css' %} ">
   <script src="{% static 'js/sketch.js'%}" defer></script>
+
 </head>
 
 <body>
@@ -44,7 +45,7 @@
       <!-- list of buttons -->
       <ul>
         <!-- home -->
-        <li id="home"><a href="{% url 'home' %}">
+        <li id="home"><a href="{% url 'home' %}" onclick="reloadPage()">
             <span class="icon"><i class='bx bxs-home'></i></span>
             <span class="item">Home</span>
           </a></li>

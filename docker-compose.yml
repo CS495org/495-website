@@ -22,6 +22,9 @@ services:
       PORT: ${PORT}
       RHOST: ${RHOST}
       RPORT: ${RPORT}
+      GMAIL: ${GMAIL}
+      GMAILPSWD: ${GMAILPSWD}
+      TMDB_API_KEY: ${TMDB_API_KEY}
     volumes:
       - img-var:/imgVar/
     networks:

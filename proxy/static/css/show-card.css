@@ -100,12 +100,30 @@ a {
 
 .star {
     margin-left: 20px;
+    transition: transform 0.3s ease; 
+}
+
+.check {
+    transition: transform 0.3s ease; 
+}
+
+
+
+.favorited {
+    color: gold;
+} 
+
+.completed {
+    color: rgb(9, 212, 9);
 }
 
 .star:hover {
-    color: yellow;
+    color: rgb(250, 250, 177);
+    transform: scale(1.2);
 }
 
 .check:hover {
-    color: rgb(22, 213, 22);
+    color: rgb(134, 220, 134);
+    transform: scale(1.2);
 }
+

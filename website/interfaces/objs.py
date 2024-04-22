@@ -18,6 +18,7 @@ DB_CONF = {
 }
 
 pg_interface = PGDB(DB_CONF, sql_dir='/app/our_app/SQL')
+pg_writer = PGDB(DB_CONF, sql_dir='/app/our_app/SQL', read_only=False)
 
 
 REDIS_PARAMS = ["RHOST", "RPORT"]
