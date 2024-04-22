@@ -18,12 +18,12 @@ from django.http import JsonResponse
 from interfaces.objs import pg_interface
 
 def get_context():
-    #top_ten_shows = Show.objects.order_by('-vote_count')[:10]
+    top_ten_shows = Show.objects.order_by('-vote_count')[:10]
 
     context = {
         "all_shows" : Show.objects.all(),
         "all_movies" : Movie.objects.all(),
-        #'top_ten_shows': top_ten_shows
+        'top_ten_shows': top_ten_shows
     }
 
     return context
@@ -37,37 +37,22 @@ def home_view(request):
         fav_shows = request.user.fav_shows.all()
         fav_show_ids = set(fav_shows.values_list('id', flat=True))
 
-        fav_top_rated = request.user.fav_top_rated.all()
-        fav_top_ids = set(fav_top_rated.values_list('id', flat=True))
-
         comp_shows = request.user.comp_shows.all()
         comp_show_ids = set(comp_shows.values_list('id', flat=True))
-
-        comp_top_rated = request.user.comp_top_rated.all()
-        comp_top_ids = set(comp_top_rated.values_list('id', flat=True))
 
         watch_shows = request.user.watch_shows.all()
         watch_show_ids = set(watch_shows.values_list('id', flat=True))
 
-        watch_top_rated = request.user.watch_top_rated.all()
-        watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
-
-        #top_ten_shows = Show.objects.order_by('-vote_count')[:10]
+        top_ten_shows = Show.objects.order_by('-vote_count')[:10]
 
         context.update({
             'fav_shows': fav_shows,
             'fav_show_ids': fav_show_ids,
-            'fav_top_rated': fav_top_rated,
-            'fav_top_ids': fav_top_ids,
             'comp_shows': comp_shows,
             'comp_show_ids': comp_show_ids,
-            'comp_top_rated': comp_top_rated,
-            'comp_top_ids': comp_top_ids,
             'watch_shows': watch_shows,
             'watch_show_ids': watch_show_ids,
-            'watch_top_rated': watch_top_rated,
-            'watch_top_ids': watch_top_ids,
-            #'top_ten_shows': top_ten_shows
+            'top_ten_shows': top_ten_shows
 
         })
 

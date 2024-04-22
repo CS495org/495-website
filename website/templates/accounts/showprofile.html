@@ -11,7 +11,7 @@
     
 
     <input type="hidden" id="isAuthenticated" value="{% if request.user.is_authenticated %}true{% else %}false{% endif %}">
-  <!--   <input type="hidden" id="vote_average" value="{{ show.vote_average }}"> -->
+    <input type="hidden" id="vote_average" value="{{ show.vote_average }}"> 
     
 </head>
 <body>
@@ -70,7 +70,7 @@
 
         <div class="tvpg-genre">
             <div class="tvpg-rating">
-                <p>PG-13</p>
+                <p>TV</p>
             </div>
             <div class="genre">
                 <p> {{show.genres}} </p>
@@ -207,7 +207,7 @@
 </div>
 
 <script>
-    //const vote = document.getElementById('vote_average').value;
+    const vote = document.getElementById('vote_average').value;
 
     function updateProgress(percentage) {
         let number = document.getElementById("number");
@@ -240,9 +240,9 @@
         document.documentElement.style.setProperty('--dash-offset', `${dashOffset}`);
     }
 
-    //var integer = Math.round(vote * 10);
-    updateProgress(90);
-    updateDashOffset(90); 
+    var integer = Math.round(vote * 10);
+    updateProgress(integer);
+    updateDashOffset(integer); 
     
     /* Function to bring out seasons list *******************************************/
     var dropButton = document.querySelector(".drop-button");
