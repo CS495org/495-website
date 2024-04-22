@@ -24,9 +24,9 @@ Go through the Dockerfiles (it's probably the one in /website), and comment the
 
 ### What are sources of
 ### What external resources are used (put any free/paid tier information here)
-1. Twilio (free tier, for simple sending of SMS)
-2. Open calendar (open source embedded calendar)
-3. Gmail SMTP (Free, but you must set up a gmail account and an app password to use SMTP)
+- Twilio (free tier, for simple sending of SMS)
+-  Open calendar (open source embedded calendar)
+-   Gmail SMTP (Free, but you must set up a gmail account and an app password to use SMTP)
 
 ### Other installation questions
 1. What is AirByte and how does that work?
@@ -41,17 +41,20 @@ once it has done the initial sync. You will need a TMDB API key to interact with
 3. Add and remove shows from watchlist/favorites
 
 ###  Document results of each function and how they link to other functions 
+TODO
 Ex: "placed orders that have not been fulfilled can be viewed on the in process screen"..."there are three types of user accounts"
 
 ### How are external resources incorporated?
-1. Twilio is used to verify a user's phone number and send SMS reminders for air dates
+- Twilio is used to verify a user's phone number and send SMS reminders for air dates
+- Gmail is used for sending users verification emails. You will need a gmail account and an associated app password to use Gmail's SMTP server 
 
 ## How to modify/extend software
 ### Assuming someone has followed the instruction for installing the application, how can they make changes?
-1. Website pages are dynamically linked to the back-end database, but can be modified with simple HTML/CSS under "/495-website/website/templates".
-2. A required python package can be added to the docker compose file by first updating "495-website/website/requirements.txt" with the desired requirement (e.g. django==5.0.2)
-3. Environment variables can be added to the .env file (e.g. TWILIO_AUTH_TOKEN='1234'), and then passed through to a container using "docker-compose.yml" under environment (e.g. USER: ${POSTGRES_USER}). This allows any container to reference variables from the project's .env file, so secrets can be safely obscured from the reposiroty.
-4. Objects can be appended to the database by
+- Website pages are dynamically linked to the back-end database, but can be modified with simple HTML/CSS under ```/website/templates```. Therefore, any UI changes or additions can be directly edited in those HTML files.
+- To create any changes in the middleware logic, you'll need to write Django code. This will all be done inside the ```/website/``` directory, in different subdirectories based on function.
+- A required python package can be added to the docker compose file by first updating "495-website/website/requirements.txt" with the desired requirement (e.g. django==5.0.2)
+- Evironment variables can be added to the .env file (e.g. TWILIO_AUTH_TOKEN='1234'), and then passed through to a container using "docker-compose.yml" under environment (e.g. USER: ${POSTGRES_USER}). This allows any container to reference variables from the project's .env file, so secrets can be safely obscured from the repository
+- Objects can be appended to the database by
 
 
 
@@ -60,8 +63,11 @@ Ex: "placed orders that have not been fulfilled can be viewed on the in process 
 
 
 ### Where is the backlog and the project bug lists? Call out major issue such as migrating to better resources or new major versions that require retrofitting
+TODO
 ### Should also communicate style expectations
+TODO
 ### How to run any existing automated testing.  Location of test cases
+TODO
 
 
 ## FAQs
