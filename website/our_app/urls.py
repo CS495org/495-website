@@ -26,9 +26,11 @@ urlpatterns = [
     path("profile/", views.profile_view, name='profile'),
     path("calendar/", views.calendar_view, name='calendar'),
     path("discover/", views.discover_view, name='discover'),
+    #path("discover/<int:genre_id>/<str:genre_name>/", views.discover_view, name='discover'),
     path("settings/", views.settings_view, name='settings'),
     path("group/", views.group_view, name='group'),
-    path("genre/", views.genre_view, name='genre'),
+    #path("genre/", views.genre_view, name='genre'),
+    path('genre/<int:genre_id>/<str:genre_name>/', views.genre_view, name='genre'),
     path('showprofile/<int:show_id>/', views.showprofile_view, name='showprofile'),
     path("will/", views.will_view, name='will'),
 ]

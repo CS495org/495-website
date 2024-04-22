@@ -301,7 +301,7 @@ def group_view(request):
     return render(request, "accounts/group.html", get_context())
 
 @login_required
-def genre_view(request):
+def genre_view(request, genre_id, genre_name):
     context = get_context()
 
     fav_shows = request.user.fav_shows.all()
@@ -313,13 +313,27 @@ def genre_view(request):
     watch_shows = request.user.watch_shows.all()
     watch_show_ids = set(watch_shows.values_list('id', flat=True))
 
+    crime_shows = Show.objects.filter(genres__contains=[9648]) 
+    action_shows = Show.objects.filter(genres__contains=[10759]) 
+    drama_shows = Show.objects.filter(genres__contains=[18])
+    scifi_shows = Show.objects.filter(genres__contains=[10765])
+    comedy_shows = Show.objects.filter(genres__contains=[35])
+
     context.update({
         'fav_shows': fav_shows,
         'fav_show_ids': fav_show_ids,
         'comp_shows': comp_shows,
         'comp_show_ids': comp_show_ids,
         'watch_shows': watch_shows,
-        'watch_show_ids': watch_show_ids
+        'watch_show_ids': watch_show_ids,
+        
+        'genre_id': genre_id,
+        'genre_name': genre_name,
+        'crime_shows': crime_shows,
+        'action_shows': action_shows,
+        'drama_shows': drama_shows,
+        'scifi_shows': scifi_shows,
+        'comedy_shows': comedy_shows,
     })
 
     
