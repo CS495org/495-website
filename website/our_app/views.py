@@ -18,12 +18,12 @@ from django.http import JsonResponse
 from interfaces.objs import pg_interface
 
 def get_context():
-    top_ten_shows = Show.objects.order_by('-vote_count')[:10]
+    #top_ten_shows = Show.objects.order_by('-vote_count')[:10]
 
     context = {
         "all_shows" : Show.objects.all(),
         "all_movies" : Movie.objects.all(),
-        'top_ten_shows': top_ten_shows
+        #'top_ten_shows': top_ten_shows
     }
 
     return context
@@ -52,7 +52,7 @@ def home_view(request):
         watch_top_rated = request.user.watch_top_rated.all()
         watch_top_ids = set(watch_top_rated.values_list('id', flat=True))
 
-        top_ten_shows = Show.objects.order_by('-vote_count')[:10]
+        #top_ten_shows = Show.objects.order_by('-vote_count')[:10]
 
         context.update({
             'fav_shows': fav_shows,
@@ -67,7 +67,7 @@ def home_view(request):
             'watch_show_ids': watch_show_ids,
             'watch_top_rated': watch_top_rated,
             'watch_top_ids': watch_top_ids,
-            'top_ten_shows': top_ten_shows
+            #'top_ten_shows': top_ten_shows
 
         })
 
