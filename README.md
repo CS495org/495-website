@@ -53,8 +53,8 @@ Ex: "placed orders that have not been fulfilled can be viewed on the in process 
 ### Assuming someone has followed the instruction for installing the application, how can they make changes?
 - Website pages are dynamically linked to the back-end database, but can be modified with simple HTML/CSS under ```/website/templates/```. Therefore, any UI changes or additions can be directly edited in those HTML files.
 - To create any changes in the middleware logic, you'll need to write Django code. This will all be done inside the ```/website/``` directory, in different subdirectories based on function.
-- A required python package can be added to the docker compose file by first updating "495-website/website/requirements.txt" with the desired requirement (e.g. django==5.0.2)
-- Evironment variables can be added to the .env file (e.g. TWILIO_AUTH_TOKEN='1234'), and then passed through to a container using "docker-compose.yml" under environment (e.g. USER: ${POSTGRES_USER}). This allows any container to reference variables from the project's .env file, so secrets can be safely obscured from the repository
+- A required python package can be added to the web container by first updating ```/website/requirements.txt``` with the desired requirement (e.g. django==5.0.2)
+- Evironment variables can be added to the .env file (e.g. TWILIO_AUTH_TOKEN='1234'), and then passed through to a container using ```docker-compose.yml``` under environment (e.g. USER: ${POSTGRES_USER}). This allows any container to reference variables from the project's .env file, so secrets can be safely obscured from the repository
 - Objects can be appended to the database by
 
 
