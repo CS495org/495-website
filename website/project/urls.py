@@ -17,12 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
-from our_app.views import HomePage
+from our_app.views import home_view
 from django.views.decorators.cache import cache_page
 
 
 urlpatterns = [
-    path("", cache_page(60*1)(HomePage.as_view()), name="home"),
+    path("", cache_page(60*1)(home_view), name="home"),
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("accounts/", include("django.contrib.auth.urls")),

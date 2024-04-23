@@ -7,7 +7,7 @@ menu.addEventListener("click", function(event) {
     document.querySelector("body").classList.toggle("active");
     overlay.style.display = document.querySelector("body").classList.contains("active") ? "block" : "none"; // Toggle overlay display
     event.stopPropagation();
-});  
+});
 
 //function to close side bar when any part of the screen is clicked
 const sidebar = document.querySelector(".sidebar");
@@ -18,7 +18,7 @@ document.onclick = function(e) {
         document.querySelector("body").classList.remove("active");
         overlay.style.display = "none"; // Hide overlay when sidebar is closed
     }
-} 
+}
 
 //function to highlight the current page the user is on
 document.addEventListener("DOMContentLoaded", function() {
@@ -79,9 +79,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             const isAuthenticatedValue = document.getElementById('isAuthenticated').value;
             const isAuthenticated = isAuthenticatedValue === 'true';
-            
+
             if (!isAuthenticated) {
-                window.location.href = 'https://localhost/accounts/login/';
+                window.location.href = 'https://tate-server.ddns.net/accounts/login/';
                 return;
             }
 
@@ -91,9 +91,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             starIcon.classList.toggle('favorited');
 
             let firstFetchSuccessful = false;
-            
+
             try {
-                const response = await fetch(`https://localhost/tv-manager/ajax_update_fav_shows/${showId}/`, {
+                const response = await fetch(`https://tate-server.ddns.net/tv-manager/ajax_update_fav_shows/${showId}/`, {
                     method: 'POST',
                     headers: {
                         'X-CSRFToken': getCSRFToken(),
@@ -122,9 +122,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 }
 
                 window.location.reload();
-                
 
-                
+
+
             } catch (error) {
                 console.error('Error:', error);
                 // Handle errors (e.g., display error message to the user)
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             if(!firstFetchSuccessful) {
                 try {
-                    const secondResponse = await fetch(`https://localhost/tv-manager/ajax_update_fav_top/${showId}/`, {
+                    const secondResponse = await fetch(`https://tate-server.ddns.net/tv-manager/ajax_update_fav_top/${showId}/`, {
                         method: 'POST',
                         headers: {
                             'X-CSRFToken': getCSRFToken(),
@@ -143,18 +143,18 @@ document.addEventListener('DOMContentLoaded', async function() {
                         },
                         body: JSON.stringify({ showId: showId }),
                     });
-    
+
                     if (!secondResponse.ok) {
                         throw new Error('Failed to favorite the show');
                     }
-    
+
                     const second_data = await secondResponse.json();
                     const action_fav_top = second_data.action_fav_top;
                     const fav_top_ids = second_data.fav_top_ids;
-    
+
                     console.log('fav_top_ids:', fav_top_ids);
                    // firstFetchSuccessful = true;
-    
+
                     if (action_fav_top === 'added') {
                         alert(`${title} has been added to favorites!`);
                         starIcon.classList.add('favorited');
@@ -167,14 +167,14 @@ document.addEventListener('DOMContentLoaded', async function() {
                     // Reload the page
                     window.location.reload();
                     // Restore the scroll position after the page reloads
-                   // window.scrollTo(0, scrollPosition); 
-    
-                    
+                   // window.scrollTo(0, scrollPosition);
+
+
                 } catch (error) {
                     console.error('Error:', error);
                     // Handle errors (e.g., display error message to the user)
-                } 
-            }  
+                }
+            }
 
 
 
@@ -191,9 +191,9 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             const isAuthenticatedValue = document.getElementById('isAuthenticated').value;
             const isAuthenticated = isAuthenticatedValue === 'true';
-            
+
             if (!isAuthenticated) {
-                window.location.href = 'https://localhost/accounts/login/';
+                window.location.href = 'https://tate-server.ddns.net/accounts/login/';
                 return;
             }
 
@@ -203,9 +203,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             checkIcon.classList.toggle('completed');
 
             let firstFetchSuccessful = false;
-            
+
             try {
-                const response = await fetch(`https://localhost/tv-manager/ajax_update_comp_shows/${showId}/`, {
+                const response = await fetch(`https://tate-server.ddns.net/tv-manager/ajax_update_comp_shows/${showId}/`, {
                     method: 'POST',
                     headers: {
                         'X-CSRFToken': getCSRFToken(),
@@ -234,9 +234,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 }
 
                 window.location.reload();
-                
 
-                
+
+
             } catch (error) {
                 console.error('Error:', error);
                 // Handle errors (e.g., display error message to the user)
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             if(!firstFetchSuccessful) {
                 try {
-                    const secondResponse = await fetch(`https://localhost/tv-manager/ajax_update_comp_top/${showId}/`, {
+                    const secondResponse = await fetch(`https://tate-server.ddns.net/tv-manager/ajax_update_comp_top/${showId}/`, {
                         method: 'POST',
                         headers: {
                             'X-CSRFToken': getCSRFToken(),
@@ -255,18 +255,18 @@ document.addEventListener('DOMContentLoaded', async function() {
                         },
                         body: JSON.stringify({ showId: showId }),
                     });
-    
+
                     if (!secondResponse.ok) {
                         throw new Error('Failed to mark show as completed');
                     }
-    
+
                     const second_data = await secondResponse.json();
                     const action_comp_top = second_data.action_comp_top;
                     const comp_top_ids = second_data.comp_top_ids;
-    
+
                     console.log('comp_top_ids:', comp_top_ids);
                    // firstFetchSuccessful = true;
-    
+
                     if (action_comp_top === 'added') {
                         alert(`${title} has been added to completed!`);
                         checkIcon.classList.add('completed');
@@ -279,14 +279,14 @@ document.addEventListener('DOMContentLoaded', async function() {
                     // Reload the page
                     window.location.reload();
                     // Restore the scroll position after the page reloads
-                   // window.scrollTo(0, scrollPosition); 
-    
-                    
+                   // window.scrollTo(0, scrollPosition);
+
+
                 } catch (error) {
                     console.error('Error:', error);
                     // Handle errors (e.g., display error message to the user)
-                } 
-            }  
+                }
+            }
 
 
 
@@ -305,7 +305,7 @@ function getCSRFToken() {
         console.error('CSRF token not found');
         return null;
     }
-} 
+}
 
 
 
