@@ -1,0 +1,337 @@
+spec:
+  type: Spec
+  connection_specification:
+    type: object
+    $schema: http://json-schema.org/draft-07/schema#
+    required:
+      - api_key
+    properties:
+      api_key:
+        type: string
+        order: 0
+        title: API Key
+        airbyte_secret: true
+    additionalProperties: true
+type: DeclarativeSource
+check:
+  type: CheckStream
+  stream_names:
+    - Top Rated Movies
+streams:
+  - name: Top Rated Movies
+    type: DeclarativeStream
+    retriever:
+      type: SimpleRetriever
+      paginator:
+        type: DefaultPaginator
+        page_token_option:
+          type: RequestOption
+          field_name: page
+          inject_into: request_parameter
+        pagination_strategy:
+          type: PageIncrement
+          start_from_page: 1
+          inject_on_first_request: true
+      requester:
+        path: /3/movie/top_rated?language=en-US
+        type: HttpRequester
+        url_base: https://api.themoviedb.org
+        http_method: GET
+        authenticator:
+          type: BearerAuthenticator
+          api_token: '{{ config[''api_key''] }}'
+        request_headers: {}
+        request_body_json: {}
+        request_parameters: {}
+      record_selector:
+        type: RecordSelector
+        extractor:
+          type: DpathExtractor
+          field_path:
+            - results
+      partition_router: []
+    primary_key: []
+    schema_loader:
+      type: InlineSchemaLoader
+      schema:
+        type: object
+        $schema: http://json-schema.org/schema#
+        properties:
+          id:
+            type: number
+          adult:
+            type: boolean
+          title:
+            type: string
+          video:
+            type: boolean
+          overview:
+            type: string
+          genre_ids:
+            type: array
+            items:
+              type: number
+          popularity:
+            type: number
+          vote_count:
+            type: number
+          poster_path:
+            type: string
+          release_date:
+            type: string
+          vote_average:
+            type: number
+          backdrop_path:
+            type: string
+          original_title:
+            type: string
+          original_language:
+            type: string
+  - name: Movies Trending This Week
+    type: DeclarativeStream
+    retriever:
+      type: SimpleRetriever
+      paginator:
+        type: DefaultPaginator
+        page_token_option:
+          type: RequestOption
+          field_name: page
+          inject_into: request_parameter
+        pagination_strategy:
+          type: PageIncrement
+          start_from_page: 1
+          inject_on_first_request: true
+      requester:
+        path: /3/trending/movie/week?language=en-US
+        type: HttpRequester
+        url_base: https://api.themoviedb.org
+        http_method: GET
+        authenticator:
+          type: BearerAuthenticator
+          api_token: '{{ config[''api_key''] }}'
+        error_handler:
+          type: CompositeErrorHandler
+          error_handlers:
+            - type: DefaultErrorHandler
+              response_filters:
+                - type: HttpResponseFilter
+                  action: IGNORE
+                  http_codes:
+                    - 400
+        request_headers: {}
+        request_body_json: {}
+        request_parameters: {}
+      record_selector:
+        type: RecordSelector
+        extractor:
+          type: DpathExtractor
+          field_path:
+            - results
+      partition_router: []
+    primary_key: []
+    schema_loader:
+      type: InlineSchemaLoader
+      schema:
+        type: object
+        $schema: http://json-schema.org/schema#
+        properties:
+          id:
+            type: number
+          adult:
+            type: boolean
+          title:
+            type: string
+          video:
+            type: boolean
+          overview:
+            type: string
+          genre_ids:
+            type: array
+            items:
+              type: number
+          media_type:
+            type: string
+          popularity:
+            type: number
+          vote_count:
+            type: number
+          poster_path:
+            type: string
+          release_date:
+            type: string
+          vote_average:
+            type: number
+          backdrop_path:
+            type: string
+          original_title:
+            type: string
+          original_language:
+            type: string
+  - name: Shows Trending This Week
+    type: DeclarativeStream
+    retriever:
+      type: SimpleRetriever
+      paginator:
+        type: DefaultPaginator
+        page_token_option:
+          type: RequestOption
+          field_name: page
+          inject_into: request_parameter
+        pagination_strategy:
+          type: PageIncrement
+          start_from_page: 1
+          inject_on_first_request: true
+      requester:
+        path: /3/trending/tv/week?language=en-US
+        type: HttpRequester
+        url_base: https://api.themoviedb.org
+        http_method: GET
+        authenticator:
+          type: BearerAuthenticator
+          api_token: '{{ config[''api_key''] }}'
+        error_handler:
+          type: CompositeErrorHandler
+          error_handlers:
+            - type: DefaultErrorHandler
+              response_filters:
+                - type: HttpResponseFilter
+                  action: IGNORE
+                  http_codes:
+                    - 400
+        request_headers: {}
+        request_body_json: {}
+        request_parameters: {}
+      record_selector:
+        type: RecordSelector
+        extractor:
+          type: DpathExtractor
+          field_path:
+            - results
+      partition_router: []
+    primary_key: []
+    schema_loader:
+      type: InlineSchemaLoader
+      schema:
+        type: object
+        $schema: http://json-schema.org/schema#
+        properties:
+          id:
+            type: number
+          name:
+            type: string
+          adult:
+            type: boolean
+          overview:
+            type: string
+          genre_ids:
+            type: array
+            items:
+              type: number
+          media_type:
+            type: string
+          popularity:
+            type: number
+          vote_count:
+            type: number
+          poster_path:
+            type: string
+          vote_average:
+            type: number
+          backdrop_path:
+            type: string
+          original_name:
+            type: string
+          first_air_date:
+            type: string
+          origin_country:
+            type: array
+            items:
+              type: string
+          original_language:
+            type: string
+  - name: Top Rated Shows
+    type: DeclarativeStream
+    retriever:
+      type: SimpleRetriever
+      paginator:
+        type: DefaultPaginator
+        page_token_option:
+          type: RequestOption
+          field_name: page
+          inject_into: request_parameter
+        pagination_strategy:
+          type: PageIncrement
+          start_from_page: 1
+          inject_on_first_request: true
+      requester:
+        path: /3/tv/top_rated?language=en-US
+        type: HttpRequester
+        url_base: https://api.themoviedb.org
+        http_method: GET
+        authenticator:
+          type: BearerAuthenticator
+          api_token: '{{ config[''api_key''] }}'
+        error_handler:
+          type: CompositeErrorHandler
+          error_handlers:
+            - type: DefaultErrorHandler
+        request_headers: {}
+        request_body_json: {}
+        request_parameters: {}
+      record_selector:
+        type: RecordSelector
+        extractor:
+          type: DpathExtractor
+          field_path:
+            - results
+      partition_router: []
+    primary_key: []
+    schema_loader:
+      type: InlineSchemaLoader
+      schema:
+        type: object
+        $schema: http://json-schema.org/schema#
+        properties:
+          id:
+            type: number
+          name:
+            type: string
+          adult:
+            type: boolean
+          overview:
+            type: string
+          genre_ids:
+            type: array
+            items:
+              type: number
+          popularity:
+            type: number
+          vote_count:
+            type: number
+          poster_path:
+            type:
+              - 'null'
+              - string
+          vote_average:
+            type: number
+          backdrop_path:
+            type:
+              - 'null'
+              - string
+          original_name:
+            type: string
+          first_air_date:
+            type: string
+          origin_country:
+            type: array
+            items:
+              type: string
+          original_language:
+            type: string
+version: 0.61.2
+metadata:
+  autoImportSchema:
+    Top Rated Shows: true
+    Top Rated Movies: true
+    Shows Trending This Week: true
+    Movies Trending This Week: true

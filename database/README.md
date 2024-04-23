@@ -14,8 +14,18 @@ Function: Storage for Django backend, Airbyte TMDB data
 ```
 
 
-This directory is for anything related to our postgres database. In development, we use the (now zipped) init-2.sql file to fill realistic but static data. No ports need to be exposed in development, but it helps if you want to check out the database. In production, some host port needs to be bound to 5432 (or whatever port you want the database to run on inside the container) for Airbyte to drop TMDB data to.
+This directory is for anything related to our postgres database. In development, we use the init-2.sql file to fill realistic but static data. No ports need to be exposed in development, but it helps if you want to check out the database. In production, some host port needs to be bound to 5432 (or whatever port you want the database to run on inside the container) for Airbyte to drop TMDB data to.
 
 If you want to use the init-2.sql sample data, use "tate" as both the POSTGRES_USER and POSTGRES_DB env variables. There's no built in way to use env variables in a .sql file, so when I pulled down the sample data with pg dump, it hardcoded those values. Obviously we won't be mounting a startup .sql script in production, but if you get any kind of database errors in development, make sure that you have those variables set correctly and you aren't using the pg-data volume to persist a depreciated database structure/authentication.
 
 This container runs on the "backend" network and has two potential volumes. The init-2.sql file can be mounted to initialize the database, and the pg-data volume is mounted to handle the persistent storage of data. Do not attach it to the frontend network- separate networks ensure that the web container stands between incoming web requests and the actual data.
+
+The tmdb.yaml file defines the Airbyte connector used to pull data from the TMDB API. You'll need an API key, and a local airbyte deployment. If you have docker compose installed, the steps are:
+
+```
+git clone https://github.com/airbytehq/airbyte.git
+cd airbyte
+./run-ab-platform.sh
+````
+
+Then, import the tmdb.yaml into their low-code builder, give it your API key, hook it up to a local postgres database, and watch it go.

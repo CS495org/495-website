@@ -12,6 +12,8 @@ services:
         DJANGO_SECURE_KEY: ${DJANGO_SECURE_KEY}
         DJANGO_USER: ${DJANGO_USER}
         DJANGO_PG_SCHEMA: ${DJANGO_PG_SCHEMA}
+        GMAIL: ${GMAIL}
+        GMAILPSWD: ${GMAILPSWD}
         # i know it's not DRY but I want to make/migrate on the fly in development
         # could do some work on env management, low priority for now
     environment:
@@ -22,9 +24,9 @@ services:
       PORT: ${PORT}
       RHOST: ${RHOST}
       RPORT: ${RPORT}
+      TMDB_API_KEY: ${TMDB_API_KEY}
       GMAIL: ${GMAIL}
       GMAILPSWD: ${GMAILPSWD}
-      TMDB_API_KEY: ${TMDB_API_KEY}
     volumes:
       - img-var:/imgVar/
     networks:
@@ -35,6 +37,7 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
+    restart: always
 
   nginx:
     container_name: tv-proxy
@@ -49,6 +52,7 @@ services:
       - frontend
     depends_on:
       - web
+    restart: always
 
   db:
     container_name: tv-db
@@ -67,12 +71,14 @@ services:
       interval: 3s
       timeout: 3s
       retries: 10
+    restart: always
 
   redis:
     container_name: tv-redis
     image: cgr.dev/chainguard/redis:latest
     networks:
       - backend
+    restart: always
 
 networks:
   frontend:

@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 PARAMS = ["USER", "PASSWORD", "HOST", "PORT", "DATABASE",
           "DJANGO_SECURE_KEY", "DJANGO_PG_SCHEMA",
-          "RHOST", "RPORT", "DEBUG"]
+          "RHOST", "RPORT", "GMAIL", "GMAILPSWD", "DEBUG"]
 CONFIG = env.get(PARAMS, dont_assert=["DEBUG"])
 
 # Quick-start development settings - unsuitable for production
@@ -32,7 +32,7 @@ CONFIG = env.get(PARAMS, dont_assert=["DEBUG"])
 SECRET_KEY = CONFIG.get("DJANGO_SECURE_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(CONFIG.get("DEBUG", False))
+DEBUG = True#bool(CONFIG.get("DEBUG", False))
 
 ALLOWED_HOSTS = ['tate-server.ddns.net']
 
@@ -48,15 +48,15 @@ INSTALLED_APPS = [
     # "debug_toolbar",
     'our_app',
     'accounts',
-    "verify_email.apps.VerifyEmailConfig",
+    # "verify_email.apps.VerifyEmailConfig",
 ]
 
 ROOT_URLCONF = 'project.urls'
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-# LOGIN_REDIRECT_URL = "home"
-# LOGOUT_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
 
 UI_TEMPLATES = os.path.join(BASE_DIR, 'templates')
 
@@ -165,6 +165,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = CONFIG.get("GMAIL")
 EMAIL_HOST_PASSWORD = CONFIG.get("GMAILPSWD")
+
 
 CSRF_TRUSTED_ORIGINS = [
     'https://localhost',
