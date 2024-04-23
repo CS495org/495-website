@@ -14,6 +14,8 @@ from django.shortcuts import get_object_or_404
 
 from datetime import datetime
 from django.http import JsonResponse
+from django.db.models import Q
+
 
 from interfaces.objs import pg_interface
 
@@ -281,6 +283,38 @@ def discover_view(request):
 
     most_recent_shows = Show.objects.order_by('-air_date')[:10]
 
+    #Because you favorited...
+    if fav_shows.exists() and fav_shows.first().genres:
+        first_show = fav_shows.first()
+        first_genres = first_show.genres
+
+        query = Q(genres__contains=first_genres[0])  
+        for genre_id in first_genres[1:]:
+            query |= Q(genres__contains=genre_id)  
+
+        matching_shows = Show.objects.filter(query)[:20]
+    else:
+        first_show = None
+        first_genres = None
+        matching_shows = []
+
+
+    #Because you completed...
+    if comp_shows.exists() and comp_shows.first().genres:
+        first_comp = comp_shows.first()
+        first_genres_comp = first_comp.genres
+
+        query = Q(genres__contains=first_genres[0])  
+        for genre_id in first_genres_comp[1:]:
+            query |= Q(genres__contains=genre_id)  
+
+        matching_comp = Show.objects.filter(query).order_by('-id')[:20]
+    else:
+        first_comp = None
+        first_genres_comp = None
+        matching_comp = []
+    
+
     context.update({
         'fav_shows': fav_shows,
         'fav_show_ids': fav_show_ids,
@@ -288,7 +322,11 @@ def discover_view(request):
         'comp_show_ids': comp_show_ids,
         'watch_shows': watch_shows,
         'watch_show_ids': watch_show_ids,
-        'most_recent_shows': most_recent_shows
+        'most_recent_shows': most_recent_shows,
+        'matching_shows' : matching_shows,
+        'first_show' : first_show,
+        'matching_comp' : matching_comp,
+        'first_comp' : first_comp,
     })
 
     return render(request, "accounts/discover.html", context)

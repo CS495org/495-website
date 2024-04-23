@@ -35,39 +35,44 @@
 </div>
 
 <div class="content">
-    <!-- First header -->
-    <h2>Because you watched...</h2>
-  
-    <!-- Row 1 -->
-    <div class="scrollable-row">
-        
+    {% if fav_shows %}
+        <!-- First header -->
+        <h2>Because you favorited {{ first_show.title }}...</h2>
+    
+        <!-- Row 1 -->
+        <div class="scrollable-row">
+            {% for show in matching_shows %}
+                {% include 'components/show-card.html' %}
+            {% endfor %}
 
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <!-- Add more placeholders as needed -->
-    </div>
+        </div>
+    {% else %}
+        <h2>Because you favorited {{ first_show.title }}...</h2>
+
+        <div class="scrollable-row">
+            <div class="show-placeholder">Favorite a show!</div>
+        </div>
+    {% endif %}
 
      <!-- Second header -->
-     <h2>TV For You</h2>
+     {% if comp_shows %}
+        <!-- First header -->
+        <h2>Because you completed {{ first_comp.title }}...</h2>
+    
+        <!-- Row 1 -->
+        <div class="scrollable-row">
+            {% for show in matching_comp %}
+                {% include 'components/show-card.html' %}
+            {% endfor %}
 
-    <!-- Row 2 -->
-    <div class="scrollable-row">
-        
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <!-- Add more placeholders as needed -->
-    </div>
+        </div>
+    {% else %}
+        <h2>Because you completed {{ first_comp.title }}...</h2>
+
+        <div class="scrollable-row">
+            <div class="show-placeholder">Add shows to completed!</div>
+        </div>
+    {% endif %}
 
      <!-- Third header -->
      <h2>What's New</h2>
