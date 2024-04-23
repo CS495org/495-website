@@ -13,20 +13,66 @@
   
     <div class="content">
         <!-- Genre-specific header -->
-        <h2>Genre</h2>
+        <h2>{{ genre_name }}</h2>
         
         <!-- Grid layout for genre -->
         <div class="thumbnail-grid">
             
-        
-            {% for show in all_shows %}
-                <a href="{% url 'showprofile' show_id=show.id %}">
-                    <div class="genre-placeholder">
-                        <h3> {{show.title}} </h3>
-                        <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
-                    </div>
-                </a>
-            {% endfor %}
+            {% if genre_name == 'Drama' %}
+                {% for show in drama_shows %}
+                    <a href="{% url 'showprofile' show_id=show.id %}">
+                        <div class="genre-placeholder">
+                            <h3>{{ show.title }}</h3>
+                            <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
+                        </div>
+                    </a>
+                {% endfor %}
+            {% elif genre_name == 'Sci-Fi' %}
+                {% for show in scifi_shows %}
+                    <a href="{% url 'showprofile' show_id=show.id %}">
+                        <div class="genre-placeholder">
+                            <h3>{{ show.title }}</h3>
+                            <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
+                        </div>
+                    </a>
+                {% endfor %}
+            {% elif genre_name == 'Comedy' %}
+                {% for show in comedy_shows %}
+                    <a href="{% url 'showprofile' show_id=show.id %}">
+                        <div class="genre-placeholder">
+                            <h3>{{ show.title }}</h3>
+                            <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
+                        </div>
+                    </a>
+                {% endfor %}
+            {% elif genre_name == 'Crime' %}
+                {% for show in crime_shows %}
+                    <a href="{% url 'showprofile' show_id=show.id %}">
+                        <div class="genre-placeholder">
+                            <h3>{{ show.title }}</h3>
+                            <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
+                        </div>
+                    </a>
+                {% endfor %}
+            {% elif genre_name == 'Action' %}
+                {% for show in action_shows %}
+                    <a href="{% url 'showprofile' show_id=show.id %}">
+                        <div class="genre-placeholder">
+                            <h3>{{ show.title }}</h3>
+                            <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                {% for show in all_shows %}
+                    <a href="{% url 'showprofile' show_id=show.id %}">
+                        <div class="genre-placeholder">
+                            <h3>{{ show.title }}</h3>
+                            <img src="{% static 'img/imgVar/' %}{{ show.poster_path }}">
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endif %}
             
 
         </div>
