@@ -15,6 +15,7 @@ from django.shortcuts import get_object_or_404
 from datetime import datetime
 from django.http import JsonResponse
 from django.db.models import Q
+import random
 
 
 from interfaces.objs import pg_interface
@@ -285,17 +286,28 @@ def discover_view(request):
 
     #Because you favorited...
     if fav_shows.exists() and fav_shows.first().genres:
-        first_show = fav_shows.first()
-        first_genres = first_show.genres
+        first_show = fav_shows.last()
+        first_genres_fav = first_show.genres
 
-        query = Q(genres__contains=first_genres[0])  
-        for genre_id in first_genres[1:]:
+        query = Q(genres__contains=first_genres_fav[0])  
+        for genre_id in first_genres_fav[1:]:
             query |= Q(genres__contains=genre_id)  
 
-        matching_shows = Show.objects.filter(query)[:20]
+        # Fetch matching shows' IDs
+        matching_show_ids = (
+            Show.objects.filter(query)
+            .values_list('id', flat=True)
+        )
+
+        # Convert QuerySet to list and shuffle the IDs
+        matching_show_ids = list(matching_show_ids)
+        random.shuffle(matching_show_ids)
+
+        # Retrieve 20 shows based on the shuffled IDs
+        matching_shows = Show.objects.filter(id__in=matching_show_ids[:20])
     else:
         first_show = None
-        first_genres = None
+        first_genres_fav = None
         matching_shows = []
 
 
@@ -304,11 +316,22 @@ def discover_view(request):
         first_comp = comp_shows.first()
         first_genres_comp = first_comp.genres
 
-        query = Q(genres__contains=first_genres[0])  
+        query = Q(genres__contains=first_genres_comp[0])  
         for genre_id in first_genres_comp[1:]:
             query |= Q(genres__contains=genre_id)  
 
-        matching_comp = Show.objects.filter(query).order_by('-id')[:20]
+        # Fetch matching watched shows' IDs
+        matching_comp_ids = (
+            Show.objects.filter(query)
+            .values_list('id', flat=True)
+        )
+
+        # Convert QuerySet to list and shuffle the IDs
+        matching_comp_ids = list(matching_comp_ids)
+        random.shuffle(matching_comp_ids)
+
+        # Retrieve 20 watched shows based on the shuffled IDs
+        matching_comp = Show.objects.filter(id__in=matching_comp_ids[:20])
     else:
         first_comp = None
         first_genres_comp = None
