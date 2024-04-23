@@ -37,6 +37,7 @@ once it has done the initial sync. You will need a TMDB API key to interact with
 
 ## How to use each feature (should link to sprint features in the project)
 ### List of features and how to use them (Should link to sprint features in the project)
+TODO (need to finish)
 1. Create an account
 2. Browse top shows
 3. Add and remove shows from watchlist/favorites
