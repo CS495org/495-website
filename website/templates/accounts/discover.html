@@ -12,7 +12,7 @@
 </head>
 <body>
 
-{% if not request.user.is_authenticated %}  
+{% if not request.user.is_authenticated %}
     <!-- Button to go to login page -->
     <a href="{% url 'login' %}">
         <button class="login-button">Login</button>
@@ -24,57 +24,62 @@
     <!-- Include the sidebar -->
     {% include 'components/sidebar.html' %}
 </div>
- 
+
 
 <div class="search-bar">
         <input type="text" placeholder="Search" name="q">
      <!-- Just a test to see if search button is interative -->
     <a href="https://giphy.com/gifs/spongebob-cartoon-nickelodeon-thumbs-3o7abKhOpu0NwenH3O">
-        <button type="submit"><img src="{% static 'img/search.png' %}"></button>   
+        <button type="submit"><img src="{% static 'img/search.png' %}"></button>
     </a>
 </div>
 
 <div class="content">
-    <!-- First header -->
-    <h2>Because you watched...</h2>
-  
-    <!-- Row 1 -->
-    <div class="scrollable-row">
-        
+    {% if fav_shows %}
+        <!-- First header -->
+        <h2>Because you favorited {{ first_show.title }}...</h2>
 
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <!-- Add more placeholders as needed -->
-    </div>
+        <!-- Row 1 -->
+        <div class="scrollable-row">
+            {% for show in matching_shows %}
+                {% include 'components/show-card.html' %}
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <h2>Because you favorited {{ first_show.title }}...</h2>
+
+        <div class="scrollable-row">
+            <div class="show-placeholder">Favorite a show!</div>
+        </div>
+    {% endif %}
 
      <!-- Second header -->
-     <h2>TV For You</h2>
+     {% if comp_shows %}
+        <!-- First header -->
+        <h2>Because you completed {{ first_comp.title }}...</h2>
 
-    <!-- Row 2 -->
-    <div class="scrollable-row">
-        
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <div class="show-placeholder">Placeholder</div>
-        <!-- Add more placeholders as needed -->
-    </div>
+        <!-- Row 1 -->
+        <div class="scrollable-row">
+            {% for show in matching_comp %}
+                {% include 'components/show-card.html' %}
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <h2>Because you completed {{ first_comp.title }}...</h2>
+
+        <div class="scrollable-row">
+            <div class="show-placeholder">Add shows to completed!</div>
+        </div>
+    {% endif %}
 
      <!-- Third header -->
      <h2>What's New</h2>
 
     <!-- Row 3 -->
     <div class="scrollable-row">
-        
+
         {% for show in most_recent_shows %}
             {% include 'components/show-card.html' %}
         {% endfor %}
@@ -158,7 +163,7 @@
         </div>
     </a>
     </div>
-    
+
 </div>
 
 </body>

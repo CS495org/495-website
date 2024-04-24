@@ -11,6 +11,8 @@ from typing import Any
 from django.db.utils import IntegrityError
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+import random
+from django.db.models import Q
 
 from datetime import datetime
 from django.http import JsonResponse
@@ -257,6 +259,60 @@ def discover_view(request):
 
     most_recent_shows = Show.objects.order_by('-air_date')[:10]
 
+    #Because you favorited...
+    if fav_shows.exists() and fav_shows.first().genres:
+        first_show = fav_shows.last()
+        first_genres_fav = first_show.genres
+
+        query = Q(genres__contains=first_genres_fav[0])
+        for genre_id in first_genres_fav[1:]:
+            query |= Q(genres__contains=genre_id)
+
+        # Fetch matching shows' IDs
+        matching_show_ids = (
+            Show.objects.filter(query)
+            .values_list('id', flat=True)
+        )
+
+        # Convert QuerySet to list and shuffle the IDs
+        matching_show_ids = list(matching_show_ids)
+        random.shuffle(matching_show_ids)
+
+        # Retrieve 20 shows based on the shuffled IDs
+        matching_shows = Show.objects.filter(id__in=matching_show_ids[:20])
+    else:
+        first_show = None
+        first_genres_fav = None
+        matching_shows = []
+
+
+    #Because you completed...
+    if comp_shows.exists() and comp_shows.first().genres:
+        first_comp = comp_shows.first()
+        first_genres_comp = first_comp.genres
+
+        query = Q(genres__contains=first_genres_comp[0])
+        for genre_id in first_genres_comp[1:]:
+            query |= Q(genres__contains=genre_id)
+
+        # Fetch matching watched shows' IDs
+        matching_comp_ids = (
+            Show.objects.filter(query)
+            .values_list('id', flat=True)
+        )
+
+        # Convert QuerySet to list and shuffle the IDs
+        matching_comp_ids = list(matching_comp_ids)
+        random.shuffle(matching_comp_ids)
+
+        # Retrieve 20 watched shows based on the shuffled IDs
+        matching_comp = Show.objects.filter(id__in=matching_comp_ids[:20])
+    else:
+        first_comp = None
+        first_genres_comp = None
+        matching_comp = []
+
+
     context.update({
         'fav_shows': fav_shows,
         'fav_show_ids': fav_show_ids,
@@ -264,10 +320,15 @@ def discover_view(request):
         'comp_show_ids': comp_show_ids,
         'watch_shows': watch_shows,
         'watch_show_ids': watch_show_ids,
-        'most_recent_shows': most_recent_shows
+        'most_recent_shows': most_recent_shows,
+        'matching_shows' : matching_shows,
+        'first_show' : first_show,
+        'matching_comp' : matching_comp,
+        'first_comp' : first_comp,
     })
 
     return render(request, "accounts/discover.html", context)
+
 
 @login_required
 def settings_view(request):

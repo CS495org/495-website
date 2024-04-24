@@ -32,7 +32,7 @@ CONFIG = env.get(PARAMS, dont_assert=["DEBUG"])
 SECRET_KEY = CONFIG.get("DJANGO_SECURE_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True#bool(CONFIG.get("DEBUG", False))
+DEBUG = False
 
 ALLOWED_HOSTS = ['tate-server.ddns.net']
 
