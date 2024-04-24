@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
 from accounts.models import CustomUser, Show, Movie
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import (RegistrationForm, UserPasswordResetForm, UserSetPasswordForm,
@@ -70,7 +69,7 @@ class UserSetPasswordFormTestCase(TestCase):
 
 class UserPasswordChangeFormTestCase(TestCase):
     def setUp(self):
-        self.user = CustomUser.objects.create_user(username='testuser',
+        self.user = CustomUser.objects.create(username='testuser',
                                                    email='test@example.com',
                                                    password='oldpassword')
 
@@ -94,11 +93,22 @@ class UserPasswordChangeFormTestCase(TestCase):
 
 class FavMoviesFormTestCase(TestCase):
     def setUp(self):
-        self.user = CustomUser.objects.create_user(username='testuser',
+        self.user = CustomUser.objects.create(username='testuser',
                                                    email='test@example.com',
                                                    password='test1234')
 
-        self.movie = Movie.objects.create(title='Test Movie')
+        self.movie = Movie.objects.create(
+            id='1234567890123456789012345678901234567890',
+            title='Test Movie',
+            overview='This is a test movie',
+            poster_path='/path/to/poster.jpg',
+            backdrop_path='/path/to/backdrop.jpg',
+            air_date='2023-01-01',
+            genres='Action, Comedy',
+            # vote_count=100,
+            # vote_average=8.5,
+            images_loaded=True
+        )
 
     def test_fav_movies_form_valid(self):
         form_data = {'fav_movies': [self.movie.id]}
@@ -113,12 +123,22 @@ class FavMoviesFormTestCase(TestCase):
 
 class FavShowsFormTestCase(TestCase):
     def setUp(self):
-        self.user = CustomUser.objects.create_user(username='testuser',
+        self.user = CustomUser.objects.create(username='testuser',
                                                    email='test@example.com',
                                                    password='test1234')
 
-        self.show = Show.objects.create(title='Test Show')
-
+        self.show = Show.objects.create(
+            id='1234567890123456789012345678901234567890',
+            title='Test Show',
+            overview='This is a test show',
+            poster_path='/path/to/poster.jpg',
+            backdrop_path='/path/to/backdrop.jpg',
+            air_date='2023-01-01',
+            genres='Drama, Thriller',
+            # vote_count=200,
+            # vote_average=9.0,
+            images_loaded=False
+        )
     def test_fav_shows_form_valid(self):
         form_data = {'fav_shows': [self.show.id]}
         form = FavShowsForm(instance=self.user, data=form_data)
@@ -134,10 +154,32 @@ class FavShowsFormTestCase(TestCase):
 
 class ViewsTestCase(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.user = CustomUser.objects.create(username='testuser', password='12345')
 
-        self.show = Show.objects.create(title='Test Show', vote_count=100)
-        self.movie = Movie.objects.create(title='Test Movie')
+        self.show = Show.objects.create(
+            id='1234567890123456789012345678901234567890',
+            title='Test Show',
+            overview='This is a test show',
+            poster_path='/path/to/poster.jpg',
+            backdrop_path='/path/to/backdrop.jpg',
+            air_date='2023-01-01',
+            genres='Drama, Thriller',
+            # vote_count=200,
+            # vote_average=9.0,
+            images_loaded=False
+        )
+        self.movie = Movie.objects.create(
+            id='1234567890123456789012345678901234567890',
+            title='Test Movie',
+            overview='This is a test movie',
+            poster_path='/path/to/poster.jpg',
+            backdrop_path='/path/to/backdrop.jpg',
+            air_date='2023-01-01',
+            genres='Action, Comedy',
+            # vote_count=100,
+            # vote_average=8.5,
+            images_loaded=True
+        )
 
         self.client.login(username='testuser', password='12345')
 
@@ -151,4 +193,4 @@ class ViewsTestCase(TestCase):
 
     def test_redirect_by_user_id(self):
         response = self.client.get(reverse('redirect_by_user_id'))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)

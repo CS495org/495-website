@@ -33,7 +33,7 @@ urlpatterns = [
     path("settings/", views.settings_view, name='settings'),
     path("group/", views.group_view, name='group'),
     #path("genre/", views.genre_view, name='genre'),
-    path('genre/<int:genre_id>/<str:genre_name>/', (60*2)(views.genre_view), name='genre'),
+    path('genre/<int:genre_id>/<str:genre_name>/', cache_page(60*2)(views.genre_view), name='genre'),
     path('showprofile/<int:show_id>/', views.showprofile_view, name='showprofile'),
     path("will/", views.will_view, name='will'),
 ]
