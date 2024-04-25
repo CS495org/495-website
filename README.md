@@ -147,6 +147,21 @@ TODO
 -	Created show cards as components so they could easily be imported into our different webpages (this helped reduce repeated code)
 -	Linked the show cards with the show profile template so a user can learn more about the show that was clicked.
 
+### Will
+1. Created and styled webpages
+-  Cooperated with Reggie on the creation of and styling of all web pages.
+-  Built upon Reggie's CSS and implemented his JavaScript into additional pages including the show profile template, settings page, and the user profile template
+-  Assisted with the conversion of redundant code into components
+-  Worked with Reggie on converting our template pages into utilizing loops that reference the back-end database
+-  Added to Reggie's JavaScript to set conditions for fresh/rotten based on a show's Rotten Tomatoes score
+2. Created the interactive calendar
+-  Used an embedded calendar and tweaked it to work with our existing JavaScript for site functionality
+-  Cooperated with Reggie on the CSS styling of the embedded calendar to match our consistent color scheme
+3. Implemented the back end API for text message alerts
+-  Created a Twilio account/phone number and inserted the credentials into our .env file
+-  Added Twilio to the Docker file to enable it to use our credentials on startup
+-  Wrote a simple Python script to test and affirm our ability to send SMS
+
 
 ## Functions and their inputs/outputs
 All of the custom code that serves the python logic for this app are contained in /website. I'll start at the top of the subdirectories (as I'm viewing them in vscode) and work down. As our project is primarily object oriented, I'll also include details about relevant classes.
