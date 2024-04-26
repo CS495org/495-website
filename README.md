@@ -2,25 +2,25 @@
 
 ## How to use each feature 
 1. Create an account
-- Use the 'Login' button on the navbar. Click 'Sign Up Here', and create a new account with secure credentials.
-2. Log In 
-- Click the 'Login' button on the navbar, or attempt to favorite/mark as watched any show on the homepage. You will be brought to the login page where you can enter your account credentials.
+   - Use the 'Login' button on the navbar. Click 'Sign Up Here', and create a new account with secure credentials.
+2. Log In
+   - Click the 'Login' button on the navbar, or attempt to favorite/mark as watched any show on the homepage. You will be brought to the login page where you can enter your account credentials.
 3. Browse top shows
-- From the home page, the 'Trending', 'Top 10', and 'Fan Favorites' tab can be used to browse popular shows right now. This page is not tailored to a particular user, and therefore you do not need to be signed in to view.
+   - From the home page, the 'Trending', 'Top 10', and 'Fan Favorites' tab can be used to browse popular shows right now. This page is not tailored to a particular user, and therefore you do not need to be signed in to view.
 4. Discover new shows
-- Click the hamburger menu in the top left, then click 'Discover'. This will bring you to the Discover page, where you can view new and recommended shows based on what you have watched or favorited. You can also browse by genre by choosing a genre at the bottom of this page
+   - Click the hamburger menu in the top left, then click 'Discover'. This will bring you to the Discover page, where you can view new and recommended shows based on what you have watched or favorited. You can also browse by genre by choosing a genre at the bottom of this page
 5. Add and remove shows from watchlist/favorites
-- From the discover page or the home page, you can mark any show as watched or add it to your favorites simply by hovering over the card and clicking the checkmark or the star, respectively. To add to your watchlist, you will need to go to the show's page by clicking on the show's card, and then click the button with the bookmark icon.
-6. Get more information about a show 
-- To view a show's page and get more information, simply hover over the show's card, then click on it.
+   - From the discover page or the home page, you can mark any show as watched or add it to your favorites simply by hovering over the card and clicking the checkmark or the star, respectively. To add to your watchlist, you will need to go to the show's page by clicking on the show's card, and then click the button with the bookmark icon.
+6. Get more information about a show
+   - To view a show's page and get more information, simply hover over the show's card, then click on it.
 7. Watch a show you find in the app
-- You can see which streaming services a particular show is available on by looking under 'Streaming On' on a show's page. Clicking the icon will take you to the associated streaming service's website
+   - You can see which streaming services a particular show is available on by looking under 'Streaming On' on a show's page. Clicking the icon will take you to the associated streaming service's website
 8. View the calendar
-- To view the calendar, open the hamburger menu in the top left and click 'Calendar'. 
+    - To view the calendar, open the hamburger menu in the top left and click 'Calendar'. 
 9. View your profile
-- To view your profile, open the hamburger menu in the top left and click 'Profile' 
+    - To view your profile, open the hamburger menu in the top left and click 'Profile' 
 10. Edit your profile
-- To view your profile, open the hamburger menu in the top left and click 'Settings'. From there, you can use the 'Change Username' or 'Change Password' buttons. 
+    - To view your profile, open the hamburger menu in the top left and click 'Settings'. From there, you can use the 'Change Username' or 'Change Password' buttons. 
 
 # Project/Dev Documentation
 
@@ -45,7 +45,7 @@ Go through the Dockerfiles (it's probably the one in /website), and comment the 
 
 ### Other installation questions
 1. What is Airbyte and how does that work?
-- Airbyte is an ELT application. You simply clone their repo and run the initialization script. More details are included in /database, but included in this repo is a custom connector that pulls movie and TV show data from their API. You can import /database/tmdb.yaml into an Airbyte instance, provide your API key, hook it up to a destination (like a postgres database, for example), and watch it go. It'll pull and normalize the data for you, and provide metadata.
+   - Airbyte is an ELT application. You simply clone their repo and run the initialization script. More details are included in /database, but included in this repo is a custom connector that pulls movie and TV show data from their API. You can import /database/tmdb.yaml into an Airbyte instance, provide your API key, hook it up to a destination (like a postgres database, for example), and watch it go. It'll pull and normalize the data for you, and provide metadata.
 
 ### How are external resources incorporated?
 - Twilio is used to verify a user's phone number and send SMS reminders for air dates
@@ -89,12 +89,12 @@ Testing info is listed in [```test.md```](test.md) (only in the tate-ci branch).
 
 # FAQs
 1. How can I run the software locally?
-- In the root directory of the project, use the run script [```./all.sh```](all.sh) or the docker command ```docker compose up --build``` and connect to ```https://localhost/``` in your chosen web browser.
+   - In the root directory of the project, use the run script [```./all.sh```](all.sh) or the docker command ```docker compose up --build``` and connect to ```https://localhost/``` in your chosen web browser.
 2. How can I create an account?
-- Click the "login" button, and follow the prompts to create an account with a username and a password, and a valid phone number.
+   - Click the "login" button, and follow the prompts to create an account with a username and a password, and a valid phone number.
 3. How can I add a show to my watchlist/favorites?
-- Simply hover over a show you like and click the "star" icon to add to "favorites", or the "checkmark" icon to add to your watchlist.
-- Shows can also be directly added to watchlist/favorites from their individual pages in the same manner using the "checkmark" and "star" icons.
+   - Simply hover over a show you like and click the "star" icon to add to "favorites", or the "checkmark" icon to add to your watchlist.
+   - Shows can also be directly added to watchlist/favorites from their individual pages in the same manner using the "checkmark" and "star" icons.
 4.
 
 # Gotchas/Notes for Devs
@@ -108,89 +108,89 @@ Testing info is listed in [```test.md```](test.md) (only in the tate-ci branch).
 # Individual Contributions
 ## Tate
 1. Set up every container
-- web: wrote dockerfile, compose entry, docker networking/volume/environment configuration, set up Django project, accounts application, our_app application, set up Gunicorn web server and celery task queue, managed settings/connections to postgres, redis, nginx
-- db: wrote compose entry, set up schemas
-- proxy: wrote Dockerfile, compose entry, handled routing, SSL/TLS/DH params, autogenerated certs for local HTTPS in development, set up volumes to handle serving static assets efficiently
-- redis: didn't take much to set this up, basically just wrote the compose entry and we were good to go
-- defined isolated networking (frontend/backend separation) and port bindings, volumes for storing persistent data and mount points for database initialization/SSL certs, healthcheck and dependency chain for correct startup procedure
-- used alpine (or chainguard) base images for a lighter, more secure starting point for containers
+  - web: wrote dockerfile, compose entry, docker networking/volume/environment configuration, set up Django project, accounts application, our_app application, set up Gunicorn web server and celery task queue, managed settings/connections to postgres, redis, nginx
+  - db: wrote compose entry, set up schemas
+  - proxy: wrote Dockerfile, compose entry, handled routing, SSL/TLS/DH params, autogenerated certs for local HTTPS in development, set up volumes to handle serving static assets efficiently
+  - redis: didn't take much to set this up, basically just wrote the compose entry and we were good to go
+  - defined isolated networking (frontend/backend separation) and port bindings, volumes for storing persistent data and mount points for database initialization/SSL certs, healthcheck and dependency chain for correct startup procedure
+  - used alpine (or chainguard) base images for a lighter, more secure starting point for containers
 2. Django application
-- Wrote CustomUser, Show, Movie objects (/website/accounts/models.py)
-- Wrote the forms, views, urls (views.py and urls.py in /website/accounts and /website/our_app) (reggie also contributed to the views and urls in our_app)
-- Wrote interfaces directory for managing non Django-managed connections to external applications
-- Wrote all queries in /website/our_app/SQL for filling models with data from postgres
-- Managed settings for connecting to postgres as backend, redis as cache for quicker client-side rendering of select pages
+  - Wrote CustomUser, Show, Movie objects (/website/accounts/models.py)
+  - Wrote the forms, views, urls (views.py and urls.py in /website/accounts and /website/our_app) (reggie also contributed to the views and urls in our_app)
+  - Wrote interfaces directory for managing non Django-managed connections to external applications
+  - Wrote all queries in /website/our_app/SQL for filling models with data from postgres
+  - Managed settings for connecting to postgres as backend, redis as cache for quicker client-side rendering of select pages
 3. Task queue
-- Planned and implemented the celery task queue, integrated with web container (container that hosts the task queue) and redis (message broker), wrote all tasks to create objects from data from postgres backend, pull posters/backdrops from API (because Airbyte doesn't have a way to do it dynamically)
+  - Planned and implemented the celery task queue, integrated with web container (container that hosts the task queue) and redis (message broker), wrote all tasks to create objects from data from postgres backend, pull posters/backdrops from API (because Airbyte doesn't have a way to do it dynamically)
 4. Data
-- Gathered all of the data used in this project- chose Airbyte for ELT, deployed to production server
-- Created Airbyte custom connector for TMDB to guarantee reliable, scheduled pipeline for normalized TV/movie data from TMDB (TMDB connector included in /database/tmdb.yaml, API key provided by Reiland)
-- Designed and implemented all database input/output functionality that wasn't automatically handled by Django
-- Added a pg_dump'ed init.sql file (containing the TV show/movie data) to the repo to allow local development without adding the overhead of a production ELT application running alongside it
+  - Gathered all of the data used in this project- chose Airbyte for ELT, deployed to production server
+  - Created Airbyte custom connector for TMDB to guarantee reliable, scheduled pipeline for normalized TV/movie data from TMDB (TMDB connector included in /database/tmdb.yaml, API key provided by Reiland)
+  - Designed and implemented all database input/output functionality that wasn't automatically handled by Django
+  - Added a pg_dump'ed init.sql file (containing the TV show/movie data) to the repo to allow local development without adding the overhead of a production ELT application running alongside it
 5. Deployment
-- Set up and hosted Jenkins server and production server, used personal domain for DDNS (tate-server.ddns.net)
-- Wrote CI/CD pipelines to handle automated backups/deployments
-- Merged all code from team members' branches to production branch for deployment
-- Generated and maintained SSL/TLS certs, endorsed by CA, to provide secure web connections to the app
+  - Set up and hosted Jenkins server and production server, used personal domain for DDNS (tate-server.ddns.net)
+  - Wrote CI/CD pipelines to handle automated backups/deployments
+  - Merged all code from team members' branches to production branch for deployment
+  - Generated and maintained SSL/TLS certs, endorsed by CA, to provide secure web connections to the app
 6. Odds and ends
-- Set up django-dev repo to allow quick frontend development in a realistic environment without the need for the database/cache overhead
-- Wrote external python package (etb-pg) for a standardized mode of database access
-- Wrote all of the tests
-- Wrote readmes for each top level directory, contributed to main readme
-- Helped team with debugging container environments, making design choices
-- Wrote a couple of non-production-worthy Django templates to demo use of templating system (loading static assets, using pythonic Django HTML features like conditionals/loops over python objects passed from backend)
-- Ended up pushing 11k lines of backend/infrastructure to main (Github stats say it was 73k, but 62k of that was just the init.sql file generated by pg_dump)- this doesn't count code committed to my branch or the extra code on this (production) branch, or to other repos used in this project
-- Created Github organization, repos, branch protection rules, team, and registered tvapp group email address
+  - Set up django-dev repo to allow quick frontend development in a realistic environment without the need for the database/cache overhead
+  - Wrote external python package (etb-pg) for a standardized mode of database access
+  - Wrote all of the tests
+  - Wrote readmes for each top level directory, contributed to main readme
+  - Helped team with debugging container environments, making design choices
+  - Wrote a couple of non-production-worthy Django templates to demo use of templating system (loading static assets, using pythonic Django HTML features like conditionals/loops over python objects passed from backend)
+  - Ended up pushing 11k lines of backend/infrastructure to main (Github stats say it was 73k, but 62k of that was just the init.sql file generated by pg_dump)- this doesn't count code committed to my branch or the extra code on this (production) branch, or to other repos used in this project
+  - Created Github organization, repos, branch protection rules, team, and registered tvapp group email address
 
 ## Reggie
 1.	Created and styled webpages
--	Created all webpages. (Will and I contributed on this together)
--	Styled webpages and made them interactive using CSS and Javascript. 
+  -	Created all webpages. (Will and I contributed on this together)
+  -	Styled webpages and made them interactive using CSS and Javascript. 
 2.	Handled storing and fetching of user shows
--	Created a couple views and urls within Django to handle a user’s favorited shows, completed shows, and watchlist shows. 
--	Made icons functional allowing users to save shows to their profile.
--	Implemented ajax functions to handle the updating of a user’s show data upon the click of an icon, and used alert messages within the browser to inform a user the icon click was successful. 
--	Also changed the color of icons once an icon was successfully interacted with.
+  -	Created a couple views and urls within Django to handle a user’s favorited shows, completed shows, and watchlist shows. 
+  -	Made icons functional allowing users to save shows to their profile.
+  -	Implemented ajax functions to handle the updating of a user’s show data upon the click of an icon, and used alert messages within the browser to inform a user the icon click was successful. 
+  -	Also changed the color of icons once an icon was successfully interacted with.
 3.	Handled show recommendations
--	Used simple queries to give show recommendations if a user had shows added to their profile 
--	Added functionality to prompt a user to add shows to their profile if none had been added.
+  -	Used simple queries to give show recommendations if a user had shows added to their profile 
+  -	Added functionality to prompt a user to add shows to their profile if none had been added.
 4.	Linked show cards with show profile page
--	Created show cards as components so they could easily be imported into our different webpages (this helped reduce repeated code)
--	Linked the show cards with the show profile template so a user can learn more about the show that was clicked.
+  -	Created show cards as components so they could easily be imported into our different webpages (this helped reduce repeated code)
+  -	Linked the show cards with the show profile template so a user can learn more about the show that was clicked.
 
 ## Will
 1. Created and styled webpages
--  Cooperated with Reggie on the creation of and styling of all web pages.
--  Built upon Reggie's CSS and implemented his JavaScript into additional pages including the show profile template, settings page, and the user profile template
--  Assisted with the conversion of redundant code into components
--  Worked with Reggie on converting our template pages into utilizing loops that reference the back-end database
--  Added to Reggie's JavaScript to set conditions for fresh/rotten based on a show's Rotten Tomatoes score
+  -  Cooperated with Reggie on the creation of and styling of all web pages.
+  -  Built upon Reggie's CSS and implemented his JavaScript into additional pages including the show profile template, settings page, and the user profile template
+  -  Assisted with the conversion of redundant code into components
+  -  Worked with Reggie on converting our template pages into utilizing loops that reference the back-end database
+  -  Added to Reggie's JavaScript to set conditions for fresh/rotten based on a show's Rotten Tomatoes score
 2. Created the interactive calendar
--  Used an embedded calendar and tweaked it to work with our existing JavaScript for site functionality
--  Cooperated with Reggie on the CSS styling of the embedded calendar to match our consistent color scheme
+  -  Used an embedded calendar and tweaked it to work with our existing JavaScript for site functionality
+  -  Cooperated with Reggie on the CSS styling of the embedded calendar to match our consistent color scheme
 3. Implemented the back end API for text message alerts
--  Created a Twilio account/phone number and inserted the credentials into our .env file
--  Added Twilio to the Docker file to enable it to use our credentials on startup
--  Wrote a simple Python script to test and affirm our ability to send SMS
+  -  Created a Twilio account/phone number and inserted the credentials into our .env file
+  -  Added Twilio to the Docker file to enable it to use our credentials on startup
+  -  Wrote a simple Python script to test and affirm our ability to send SMS
 
 ## Reiland
 1. Email verification
-- Decipher and implement the email verification system, where a user will be sent an email with a link to verify their email upon signup
-- Set up group Gmail to be used with Google SMTP to send these emails
+  - Decipher and implement the email verification system, where a user will be sent an email with a link to verify their email upon signup
+  - Set up group Gmail to be used with Google SMTP to send these emails
 2. Data Gathering
-- Researched TV database providers (TMDB, TVDB, IMDB) to determine viability for use in the app
-- Used Airbyte to create and edit connectors, all while determining the best course of action to be TMDB
-- Initial research into task queue for gathering TV show images and backdrops
+  - Researched TV database providers (TMDB, TVDB, IMDB) to determine viability for use in the app
+  - Used Airbyte to create and edit connectors, all while determining the best course of action to be TMDB
+  - Initial research into task queue for gathering TV show images and backdrops
 3. Front end advising
-- Researched how to serve HTML with Django
-- Migrated and adapted all static html/js/css templates to be used in Django
-- During Sprint 1 and 2, oversaw Will and Reggie, advising them on best practices, using Docker, and how to best build the app
-- Advised to built the site with components in mind, rather than copying and pasting elements all over the site as we initially had done
+  - Researched how to serve HTML with Django
+  - Migrated and adapted all static html/js/css templates to be used in Django
+  - During Sprint 1 and 2, oversaw Will and Reggie, advising them on best practices, using Docker, and how to best build the app
+  - Advised to built the site with components in mind, rather than copying and pasting elements all over the site as we initially had done
 4. Administrative
-- Facilitated standup and sponsor meetings
-- Ensure the completion and quality of all sprint deliverables
-- Served as a mediator between the more frontend minded and backend minded group members to ensure ideas were communicated as intended
-- Built and deployed Github Pages informational site
+  - Facilitated standup and sponsor meetings
+  - Ensure the completion and quality of all sprint deliverables
+  - Served as a mediator between the more frontend minded and backend minded group members to ensure ideas were communicated as intended
+  - Built and deployed Github Pages informational site
 
 # Functions and their inputs/outputs
 All of the custom code that serves the python logic for this app are contained in ```/website```. I'll start at the top of the subdirectories (as I'm viewing them in vscode) and work down. As our project is primarily object oriented, I'll also include details about relevant classes.
