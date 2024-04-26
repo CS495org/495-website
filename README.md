@@ -54,11 +54,11 @@ Go through the Dockerfiles (it's probably the one in /website), and comment the 
 
 ## How to modify/extend software
 ### How to make changes to the softare
-- Website pages are dynamically linked to the back-end database, but can be modified with simple HTML/CSS under ```/website/templates/```. Therefore, any UI changes or additions can be directly edited in those HTML files.
-- To create any changes in the middleware logic, you'll need to write Django code. This will all be done inside the ```/website/``` directory, in different subdirectories based on function.
-- A required python package can be added to the web container by first updating ```/website/requirements.txt``` with the desired requirement (e.g. django==5.0.2)
-- Evironment variables can be added to the .env file (e.g. TWILIO_AUTH_TOKEN='1234'), and then passed through to a container using ```docker-compose.yml``` under environment (e.g. USER: ${POSTGRES_USER}). This allows any container to reference variables from the project's .env file, so secrets can be safely obscured from the repository
-- For a more in-depth description of the functionality or layout of any service, look at the README in the services top level directory. Each top level directory in this repo corresponds to a specific service in the compose. The redis container is the only one that does not have its own top level directory, as no custom code or configuration was required beyond the YAML specification.
+- Website pages are dynamically linked to the back-end database, but can be modified with simple HTML/CSS under [```website/templates```](website/templates). Therefore, any UI changes or additions can be directly edited in those HTML files.
+- To create any changes in the middleware logic, you'll need to write Django code. This will all be done inside the [```website/```](ewbsite/) directory, in different subdirectories based on function.
+- A required python package can be added to the web container by first updating [```website/requirements.txt```](website/requirements.txt) with the desired requirement (e.g. django==5.0.2)
+- Evironment variables can be added to the .env file (e.g. TWILIO_AUTH_TOKEN='1234'), and then passed through to a container using [```docker-compose.yml```](docker-compose.yml) under environment (e.g. USER: ${POSTGRES_USER}). This allows any container to reference variables from the project's .env file, so secrets can be safely obscured from the repository
+- For a more in-depth description of the functionality or layout of any service, look at the README in the services top level directory. In the directory for their respective service, you will find the [database README](database/README.md), [nginx proxy README](proxy/README.md), and the [website README](website/README.md). The redis container is the only one that does not have its own top level directory, as no custom code or configuration was required beyond the YAML specification.
 
 
 ### Compiler, Languages, Build Management, Dependencies, and Automated Builds
@@ -77,18 +77,19 @@ Go through the Dockerfiles (it's probably the one in /website), and comment the 
 - Search functionality
 - Implement username and password change functionality
 - Implement user profile pictures along with a group of avatars to choose from (rather than allowing user uploads)
+- More info found in [TODO](TODO)
 ### Bug List 
 - Fix email verification backlinks
 - Ensure correct streaming service info for shows
 - Fix the genres, currently they are not connected to any show information, but the database does contain genre information already
 
 ## Testing 
-Testing info is listed in ```test.md```. This provides more information about testing along with instructions on how to run the tests.
+Testing info is listed in [```test.md```](test.md) (only in the tate-ci branch). This provides more information about testing along with instructions on how to run the tests.
 
 
 # FAQs
 1. How can I run the software locally?
-- In the root directory of the project, use the run script ```./all.sh``` or the docker command ```docker compose up --build``` and connect to ```https://localhost/``` in your chosen web browser.
+- In the root directory of the project, use the run script [```./all.sh```](all.sh) or the docker command ```docker compose up --build``` and connect to ```https://localhost/``` in your chosen web browser.
 2. How can I create an account?
 - Click the "login" button, and follow the prompts to create an account with a username and a password, and a valid phone number.
 3. How can I add a show to my watchlist/favorites?
@@ -191,18 +192,18 @@ Testing info is listed in ```test.md```. This provides more information about te
 
 # Functions and their inputs/outputs
 All of the custom code that serves the python logic for this app are contained in ```/website```. I'll start at the top of the subdirectories (as I'm viewing them in vscode) and work down. As our project is primarily object oriented, I'll also include details about relevant classes.
-### Accounts
+### [Accounts](website/accounts)
 - admin.py: No functions here, but this is where we register the user admin model with Django. Django makes this very simple, you just subclass the default admin class and specify the attributes you want to override
 - forms.py: Following the Django framework, here it's again just subclassing their builtin user creation, modification, and login forms. The contained metaclass specified which model (and which attributes of these models) these forms apply to, and the regular attributes define what will be rendered by the template and how they will be processed
 - models.py: This is where the Django magic really happens. Here we define the user, show, and movie models. By subclassing the django.db.models.Model class and dictating the specific attributes we'd like to track, along with their types and relationships, Django handles serializing this data to our backend and allows us to access database information as Python objects elsewhere in the project
 - tests.py: This is where we write tests. The tests were a little tricky- I don't have a lot of web dev experience, and working within a web framework is very different than unit testing a pure, made-from-scratch backend application. Some of these work, some error, and some fail. More pass than fail. Here we are able to test our models, forms, and views, raising assertion errors when expected values don't match returned values after creating and processing inputs.
 - urls.py: Here we define the url routing. It's pretty simple, the specified urls map to the specified views.
 - views.py: This is where we define the logic that occurs behind the frontend when a user signs up or logs in. For crucial pieces like user registration/authentication, these deviated very little from the Django builtins. Django obscures things like input cleaning, password hashing, and uniqueness validations away from us, and allows us to just subclass their models.
-### Interfaces
+### [Interfaces](website/Interfaces)
 This is a super simple directory. Used to centralize access to interfaces that access external (external to this container) resources.
 - init.py: Init the module so you can "from interfaces import < object >"
 - objs.py: This is where objects are instantiated. We have an interface for grabbing env variables, for interacting with the redis cache, and two database interfaces: one that is read-only, one that is read-write enabled
-### our_app
+### [our_app](website/our_app)
 This is where the bulk of the logic that the user interacts with through the frontend resides.
 - SQL/: This directory contains the queries for pulling data from postgres for creating objects. The pg_reader interface can execute raw string queries, but I figured it was better practice to make anything even remotely complex more observable and easier to version control.
 - forms.py: Some legacy code exists here relating to user registration/authentication. I was trying to figure it out, ended up doing it in the accounts app. The fav movies and fav shows forms were used to demonstrate using Django templating with class based views/forms to avoid unnecessarily recreating processes that have been well established.
@@ -210,13 +211,11 @@ This is where the bulk of the logic that the user interacts with through the fro
 - tests.py: Again, this is for our tests. Included are tests for the depreciated registration/authentication processes, but it doesn't hurt to include them anyways.
 - urls.py: Again, this is for routing incoming requests to the appropriate views by the specified url. The cache_page decorator enables caching of static assets (through redis) to quickly render heavier pages.
 - views.py: This is where the Python logic for rendering/manipulating data for templates is stored. The context passed to the template allows access to python objects from within the template. A mix of class based views (CBVs) and functional views are used, along with mixins/decorators for specifying pages that require authentication.
-### project
+### [project](website/projects)
 This directory is for the overarching Django project into which applications (accounts, our_app) are installed.
 - celery.py: This is where the celery task queue is instantiated, and where the cron schedule for tasks is set.
 - settings.py: This holds all of the project level settings, and varies in production vs development environments. It also holds connection settings for external services, like the cache and database, as well as user session level settings. Important production security settings, such as trusted domains and and debug status are contained here.
 urls.py: This contains the top level urls, as well as the prefix routing schema for redirecting requests to their corresponding views.
 - wsgi.py: This is autogenerated by Django and holds the WSGI (web server gateway interface) object that manages requests directed to the application (asgi.py is also autogenerated, but we didn't use an async gateway).
-### templates
-This directory is for frontend Django templates. I didn't do any production frontend work, so I'll let someone else take this.
-### gunicorn_config.py
+### [```gunicorn_config.py```](website/gunicorn_config.py)
 This file contains the gunicorn web server configuration. Django's inbuilt development server is handy for exactly what it was designed for- development. It's not suitable for a production deployment. Ingress and incoming request load balancing is handled by the reverse proxy, which sends them upstream to the gunicorn web server, which handles efficiently serving the python logic defined (basically load balancing and multithreading [virtually, not physically] the backend).
