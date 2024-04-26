@@ -182,6 +182,8 @@ Testing info is listed in [```test.md```](test.md) (only in the tate-ci branch).
 - Used Airbyte to create and edit connectors, all while determining the best course of action to be TMDB
 - Initial research into task queue for gathering TV show images and backdrops
 3. Front end advising
+- Researched how to serve HTML with Django
+- Migrated and adapted all static html/js/css templates to be used in Django
 - During Sprint 1 and 2, oversaw Will and Reggie, advising them on best practices, using Docker, and how to best build the app
 - Advised to built the site with components in mind, rather than copying and pasting elements all over the site as we initially had done
 4. Administrative
