@@ -1,6 +1,6 @@
 # User Documentation
 
-## How to use each feature (should link to sprint features in the project)
+## How to use each feature 
 1. Create an account
 - Use the 'Login' button on the navbar. Click 'Sign Up Here', and create a new account with secure credentials.
 2. Log In 
