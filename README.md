@@ -25,7 +25,7 @@
 # Project/Dev Documentation
 
 ## Installation of Software
-### If someone wanted to deploy your application on their own environment, what should they do?
+### How to build and deploy the software
 1. Follow the instructions in .env.example to create your .env file.
 2. From this directory, run "./all.sh"
 3. If you get an error about permission denied for "localhost:5000", that means
@@ -33,11 +33,11 @@ I forgot to uncomment a line in a Dockerfile about using my local docker registr
 Go through the Dockerfiles (it's probably the one in /website), and comment the line
 "FROM localhost:5000/< image name >" and uncomment the line "FROM < image name >" above it.
 
-### What software is needed?  (docker really shines here)
+### Software needed to run
 1. Docker + Compose Plugin
 2. That's it! Docker takes care of installs for you
 
-### What external resources are used (put any free/paid tier information here)
+### What external resources are used?
 - Twilio (free tier, for simple sending of SMS)
 - Open calendar (open source embedded calendar)
 - Gmail SMTP (Free, but you must set up a gmail account and an app password to use SMTP)
@@ -53,7 +53,7 @@ Go through the Dockerfiles (it's probably the one in /website), and comment the 
 - TMDB provides the movie and TV show data, as well as the poster and backdrop images for them. The data is pulled through Airbyte with the TMDB API. The images, however, are not. I'm not a huge fan of using Postgres for storing jpg files, and Airbyte doesn't have an easy way to iterate over rows in a database and making API calls based on the values. Images are pulled into a docker volume by a celery task. The code for this process is found in get_images() in /website/our_app/tasks.py. This repo currently serves static data (pulled from TMDB via Airbyte). This data is stored in the /database/init-2.sql file and mounted into the Postgres container at startup. In a production deployment, you'd want to expose a port of the database container and register it as a destination for your Airbyte instance.
 
 ## How to modify/extend software
-### Assuming someone has followed the instruction for installing the application, how can they make changes?
+### How to make changes to the softare
 - Website pages are dynamically linked to the back-end database, but can be modified with simple HTML/CSS under ```/website/templates/```. Therefore, any UI changes or additions can be directly edited in those HTML files.
 - To create any changes in the middleware logic, you'll need to write Django code. This will all be done inside the ```/website/``` directory, in different subdirectories based on function.
 - A required python package can be added to the web container by first updating ```/website/requirements.txt``` with the desired requirement (e.g. django==5.0.2)
@@ -61,7 +61,7 @@ Go through the Dockerfiles (it's probably the one in /website), and comment the 
 - For a more in-depth description of the functionality or layout of any service, look at the README in the services top level directory. Each top level directory in this repo corresponds to a specific service in the compose. The redis container is the only one that does not have its own top level directory, as no custom code or configuration was required beyond the YAML specification.
 
 
-### What compiler, languages?  What build management? Where are the dependencies listed?  Any automated builds?
+### Compiler, Languages, Build Management, Dependencies, and Automated Builds
 - The vast majority of the actionable code in this repo is Python. It runs python 3.12 in an alpine environment. Python dependencies are listed in /website/requirements.txt.
 - Builds are handled by docker. The production branch, tate-ci, has automated deployments handled by a Jenkins CI/CD server. This is not absolutely necessary for deployment, but is a nice bonus feature for hands-off deployments. Jenkins is free and open source, and if you have a couple servers laying around and want to try it out, you can check it out here: https://www.jenkins.io/.
 - Each container runs from an alpine base, with the exception of the redis container. This keeps our images slimmer and more secure. The redis container runs from a chainguard base image, providing further security. We did attempt to migrate to chainguard images as a base, but the lack of a shell in their production images made such a migration more costly than beneficial.
